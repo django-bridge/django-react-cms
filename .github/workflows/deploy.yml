@@ -1,0 +1,39 @@
+name: Build and deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+    # Checkout the code
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    # Set up Google Cloud CLI
+    - name: Setup Google Cloud CLI
+      uses: google-github-actions/setup-gcloud@v0.2.0
+      with:
+        project_id: ${{ secrets.GCP_PROJECT_ID }}
+        service_account_key: ${{ secrets.GCP_SA_KEY }}
+        export_default_credentials: true
+
+    # Configure Docker to use the gcloud command-line tool as a credential helper
+    - name: Configure Docker
+      run: |
+        gcloud auth configure-docker europe-west2-docker.pkg.dev
+
+    # Build and push Docker image to Google Artifact Registry
+    # Note: The client bundle will be built and inserted into the server image then served by WhiteNoise
+    - name: Build and Push
+      run: |
+        docker build -t europe-west2-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/djreamdemo/server:latest -f server/Dockerfile --target prod .
+        docker push europe-west2-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/djreamdemo/server:latest
+
+    # Deploy to Google Cloud Run
+    - name: Deploy to Cloud Run
+      run: |
+        gcloud run deploy djreamdemo --image=europe-west2-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/djreamdemo/server:latest --region=europe-west2 --platform=managed --allow-unauthenticated
