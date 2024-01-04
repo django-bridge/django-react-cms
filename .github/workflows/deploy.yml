@@ -24,16 +24,16 @@ jobs:
     # Configure Docker to use the gcloud command-line tool as a credential helper
     - name: Configure Docker
       run: |
-        gcloud auth configure-docker europe-west2-docker.pkg.dev
+        gcloud auth configure-docker europe-west1-docker.pkg.dev
 
     # Build and push Docker image to Google Artifact Registry
     # Note: The client bundle will be built and inserted into the server image then served by WhiteNoise
     - name: Build and Push
       run: |
-        docker build -t europe-west2-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/djreamdemo/server:latest -f server/Dockerfile --target prod .
-        docker push europe-west2-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/djreamdemo/server:latest
+        docker build -t europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/djreamdemo/server:latest -f server/Dockerfile --target prod .
+        docker push europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/djreamdemo/server:latest
 
     # Deploy to Google Cloud Run
     - name: Deploy to Cloud Run
       run: |
-        gcloud run deploy djreamdemo --image=europe-west2-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/djreamdemo/server:latest --region=europe-west2 --platform=managed --allow-unauthenticated
+        gcloud run deploy djreamdemo --image=europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/djreamdemo/server:latest --region=europe-west1 --platform=managed --allow-unauthenticated
