@@ -6,6 +6,7 @@ ports:
   - port: 5173 # Vite server (serves compiled JS/CSS files in development)
     visibility: public
   - port: 8000
+    onOpen: open-preview
 
 vscode:
   extensions:
