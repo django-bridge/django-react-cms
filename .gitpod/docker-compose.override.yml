@@ -1,0 +1,14 @@
+# On GitPod, the Docker containers need to run with UID 33333 to avoid permissions errors
+
+services:
+  server:
+    user: "33333"
+    build:
+      args:
+        - UID=33333
+
+  client:
+    user: "33333"
+    build:
+      args:
+        - UID=33333

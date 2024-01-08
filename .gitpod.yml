@@ -1,5 +1,5 @@
 tasks:
-  - init: make setup
+  - init: cp .gitpod/docker-compose.override.yml . && make setup
     command: make start
 
 ports:

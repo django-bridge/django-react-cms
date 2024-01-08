@@ -1,2 +1,3 @@
 __pycache__
 /server/db.sqlite3
+/docker-compose.override.yml
