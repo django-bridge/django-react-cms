@@ -62,13 +62,13 @@ bcrypt = ["bcrypt"]
 
 [[package]]
 name = "djream"
-version = "0.1a6"
+version = "0.1a8"
 description = "A framework for building React frontends for Django projects"
 optional = false
 python-versions = "*"
 files = [
-    {file = "djream-0.1a6-py3-none-any.whl", hash = "sha256:640057de6b377d869af337b462296cd328140f41af91f2cd4f07c32da20f3f0e"},
-    {file = "djream-0.1a6.tar.gz", hash = "sha256:1d396233f20f86874d881f86998b3d38ec6edb26550fd376264c8a99afe89244"},
+    {file = "djream-0.1a8-py3-none-any.whl", hash = "sha256:5c802888a6a3c8a52a4483c75769a21401d0897655ea409197c1b39b5b8d2c4e"},
+    {file = "djream-0.1a8.tar.gz", hash = "sha256:fb4afe0652982ca3e37621161f7d006c134de59ffe816db6d8aa4e44b4a15cd7"},
 ]
 
 [package.dependencies]
@@ -246,4 +246,4 @@ zstd = ["zstandard (>=0.18.0)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "c69d4ffde66ac55caaf5675e47f396fc9bca6207304bcec751dc48603782f29e"
+content-hash = "5ae9c325d27d4e6d1a2cce3156ba42fc07241efa38f64d04a4cfbf099dc0896c"
