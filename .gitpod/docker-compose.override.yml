@@ -6,6 +6,8 @@ services:
     build:
       args:
         - UID=33333
+    environment:
+      - DJREAM_VITE_DEVSERVER_URL=https://5173-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}/static
 
   client:
     user: "33333"
