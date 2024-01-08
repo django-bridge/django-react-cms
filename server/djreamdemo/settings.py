@@ -123,6 +123,23 @@ if os.environ.get("DJREAM_VITE_BUNDLE_DIR"):
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+# Logging
+# Log all warnings to console
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+        },
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": "WARNING",
+    },
+}
+
 # Sentry
 
 if "SENTRY_DSN" in os.environ:
