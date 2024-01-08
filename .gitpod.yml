@@ -1,0 +1,14 @@
+tasks:
+  - init: make setup
+    command: make start
+
+ports:
+  - port: 5173 # Vite server (serves compiled JS/CSS files in development)
+    visibility: public
+  - port: 8000
+
+vscode:
+  extensions:
+    - ms-python.python
+    - esbenp.prettier-vscode
+    - dbaeumer.vscode-eslint
