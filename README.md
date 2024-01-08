@@ -4,6 +4,8 @@ This is an example project to demonstrate Djream.
 
 ## Running it
 
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/kaedroho/djreampress)
+
 ### With Docker compose
 
 The easiest way to get this up and running is to use `docker compose`, a subcommand of Docker. Make sure you have Docker installed then run:
