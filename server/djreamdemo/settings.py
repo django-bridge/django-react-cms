@@ -28,6 +28,7 @@ ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "").split(",")
 # Application definition
 
 INSTALLED_APPS = [
+    "djreamdemo.posts",
     "djream",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -71,11 +72,7 @@ WSGI_APPLICATION = "djreamdemo.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    "default": dj_database_url.config(
-        default="sqlite:///db.sqlite3"
-    )
-}
+DATABASES = {"default": dj_database_url.config(default="sqlite:///db.sqlite3")}
 
 
 # Password validation

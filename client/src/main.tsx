@@ -4,10 +4,12 @@ import * as Djream from "@djream/core";
 import "./index.css";
 
 import HomeView from "./views/Home";
+import PostIndexView from "./views/PostIndex";
 
 // Add your views here
 const djreamConfig = new Djream.Config();
 djreamConfig.addView("Home", HomeView);
+djreamConfig.addView("PostIndex", PostIndexView);
 
 const rootElement = document.getElementById("root")!;
 const initialResponse = rootElement.dataset.initialResponse!;
@@ -17,5 +19,5 @@ ReactDOM.createRoot(rootElement).render(
       config={djreamConfig}
       initialResponse={JSON.parse(initialResponse)}
     />
-  </React.StrictMode>
+  </React.StrictMode>,
 );
