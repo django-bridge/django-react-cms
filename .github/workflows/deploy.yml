@@ -9,47 +9,47 @@ jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     steps:
-    # Checkout the code
-    - name: Checkout code
-      uses: actions/checkout@v2
+      # Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    # Set up Google Cloud CLI
-    - name: Setup Google Cloud CLI
-      uses: google-github-actions/setup-gcloud@v0.2.0
-      with:
-        project_id: ${{ secrets.GCP_PROJECT_ID }}
-        service_account_key: ${{ secrets.GCP_SA_KEY }}
-        export_default_credentials: true
+      # Set up Google Cloud CLI
+      - name: Setup Google Cloud CLI
+        uses: google-github-actions/setup-gcloud@v0.2.0
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
 
-    # Configure Docker to use the gcloud command-line tool as a credential helper
-    - name: Configure Docker
-      run: |
-        gcloud auth configure-docker europe-west1-docker.pkg.dev
+      # Configure Docker to use the gcloud command-line tool as a credential helper
+      - name: Configure Docker
+        run: |
+          gcloud auth configure-docker europe-west1-docker.pkg.dev
 
-    # Build and push Docker image to Google Artifact Registry
-    # Note: The client bundle will be built and inserted into the server image then served by WhiteNoise
-    - name: Build and Push
-      run: |
-        docker build -t europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/djreamdemo/server:latest -f server/Dockerfile --target prod .
-        docker push europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/djreamdemo/server:latest
+      # Build and push Docker image to Google Artifact Registry
+      # Note: The client bundle will be built and inserted into the server image then served by WhiteNoise
+      - name: Build and Push
+        run: |
+          docker build -t europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/djreamdemo/server:latest -f server/Dockerfile --target prod .
+          docker push europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/djreamdemo/server:latest
 
-    # Upload static files to R2 Bucket
-    - name: Extracting static files
-      run: |
-        id=$(docker create europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/djreamdemo/server:latest)
-        docker cp $id:/client/assets assets
-        docker rm -v $id
-    - name: Upload static files to R2 Bucket
-      uses: ryand56/r2-upload-action@latest
-      with:
-        r2-account-id: ${{ secrets.R2_ACCOUNT_ID }}
-        r2-access-key-id: ${{ secrets.R2_ACCESS_KEY_ID }}
-        r2-secret-access-key: ${{ secrets.R2_SECRET_ACCESS_KEY }}
-        r2-bucket: ${{ secrets.R2_BUCKET }}
-        source-dir: assets
-        destination-dir: assets
+      # Upload static files to R2 Bucket
+      - name: Extracting static files
+        run: |
+          id=$(docker create europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/djreamdemo/server:latest)
+          docker cp $id:/client/assets assets
+          docker rm -v $id
+      - name: Upload static files to R2 Bucket
+        uses: ryand56/r2-upload-action@latest
+        with:
+          r2-account-id: ${{ secrets.R2_ACCOUNT_ID }}
+          r2-access-key-id: ${{ secrets.R2_ACCESS_KEY_ID }}
+          r2-secret-access-key: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          r2-bucket: ${{ secrets.R2_BUCKET }}
+          source-dir: assets
+          destination-dir: assets
 
-    # Deploy container to Google Cloud Run
-    - name: Deplo container to Cloud Run
-      run: |
-        gcloud run deploy djreamdemo --image=europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/djreamdemo/server:latest --region=europe-west1 --platform=managed --allow-unauthenticated
+      # Deploy container to Google Cloud Run
+      - name: Deplo container to Cloud Run
+        run: |
+          gcloud run deploy djreamdemo --image=europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/djreamdemo/server:latest --region=europe-west1 --platform=managed --allow-unauthenticated
