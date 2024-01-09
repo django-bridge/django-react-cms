@@ -1,6 +1,12 @@
 # Djream Demo
 
-This is an example project to demonstrate Djream.
+This is a very basic example of an application built with Djream.
+It's tiny blogging app that is built with Django and React using Djream as the glue.
+
+All of this application is backed by Django views which provide the data and perform operations.
+The frontend is rendered entirely with React using components from MUI.
+
+[![See the demo live here](https://demo.djream.io)
 
 ## Running it
 
