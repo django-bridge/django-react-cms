@@ -30,6 +30,7 @@ ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "").split(",")
 INSTALLED_APPS = [
     "djreamdemo.posts",
     "djreamdemo.media",
+    "djreamdemo.auth",
     "djream",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -120,6 +121,12 @@ if os.environ.get("DJREAM_VITE_BUNDLE_DIR"):
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Auth
+
+AUTH_USER_MODEL = "djreampress_auth.User"
+LOGIN_URL = "login"
+LOGIN_REDIRECT_URL = "/"
 
 # Logging
 # Log all warnings to console
