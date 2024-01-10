@@ -24,9 +24,8 @@ const HomeWrapper = styled.div`
 
 export default function HomeView() {
   return (
-    <Layout>
+    <Layout title="Welcome to Djreampress!">
       <HomeWrapper>
-        <h1>Welcome to Djreampress!</h1>
         <p>
           <b>
             Update 9th Jan 2024: Work on this demo has just started so there is
@@ -45,7 +44,7 @@ export default function HomeView() {
         <p>
           This application is backed by Django views which provide the data and
           perform operations. The frontend is rendered with React using
-          components from
+          components from{" "}
           <a href="https://mui.com/" target="_blank">
             MUI
           </a>

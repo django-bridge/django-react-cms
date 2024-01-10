@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import Button from "@mui/material/Button";
-import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
+//import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
+import PostAddIcon from "@mui/icons-material/PostAdd";
+import Button from "@mui/joy/Button";
 
 import Layout from "../../components/Layout";
 
@@ -19,43 +20,46 @@ const HeaderButtons = styled.div`
   margin-left: auto;
 `;
 
-const columns: GridColDef[] = [
-  {
-    field: "title",
-    headerName: "Title",
-  },
-  {
-    field: "status",
-    headerName: "Status",
-    valueGetter: (params: GridValueGetterParams) => params.row.status.display,
-  },
-];
+// const columns: GridColDef[] = [
+//   {
+//     field: "title",
+//     headerName: "Title",
+//   },
+//   {
+//     field: "status",
+//     headerName: "Status",
+//     valueGetter: (params: GridValueGetterParams) => params.row.status.display,
+//   },
+// ];
 
-interface PostIndexViewProps {
-  posts: {
-    id: string;
-    title: string;
-    status: {
-      code: "draft" | "published";
-      display: string;
-    };
-    edit_url: string;
-  }[];
-}
+// interface PostIndexViewProps {
+//   posts: {
+//     id: string;
+//     title: string;
+//     status: {
+//       code: "draft" | "published";
+//       display: string;
+//     };
+//     edit_url: string;
+//   }[];
+// }
 
-export default function PostIndexView({ posts }: PostIndexViewProps) {
+export default function PostIndexView(/* { posts }: PostIndexViewProps */) {
   return (
-    <Layout>
+    <Layout
+      title="Posts"
+      breadcrumb={[{ label: "Posts" }]}
+      renderHeaderButtons={() => (
+        <Button color="primary" startDecorator={<PostAddIcon />} size="sm">
+          Add Post
+        </Button>
+      )}
+    >
       <Header>
-        <h1>Posts</h1>
-        <HeaderButtons>
-          <Button variant="contained" href="/posts/add/">
-            Add Post
-          </Button>
-        </HeaderButtons>
+        <HeaderButtons></HeaderButtons>
       </Header>
 
-      <DataGrid rows={posts} columns={columns} />
+      {/* <DataGrid rows={posts} columns={columns} /> */}
     </Layout>
   );
 }

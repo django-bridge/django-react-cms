@@ -1,124 +1,114 @@
-import { Link } from "@djream/core";
-import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
-import {
-  Box,
-  Drawer as MuiDrawer,
-  AppBar,
-  Toolbar,
-  CssBaseline,
-  IconButton,
-  Typography,
-  List,
-  Container,
-} from "@mui/material";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import ArticleIcon from "@mui/icons-material/Article";
+import * as React from "react";
+import { CssVarsProvider } from "@mui/joy/styles";
+import CssBaseline from "@mui/joy/CssBaseline";
+import Box from "@mui/joy/Box";
+import Breadcrumbs from "@mui/joy/Breadcrumbs";
+import { Link as DjreamLink } from "@djream/core";
+import Link from "@mui/joy/Link";
+import Typography from "@mui/joy/Typography";
 
-import React from "react";
+import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
+import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
 
-const drawerWidth: number = 240;
+import Sidebar from "./Sidebar";
+import Header from "./Header";
 
-const Drawer = styled(MuiDrawer)(({ theme, open }) => ({
-  "& .MuiDrawer-paper": {
-    position: "relative",
-    whiteSpace: "nowrap",
-    width: drawerWidth,
-    transition: theme.transitions.create("width", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    boxSizing: "border-box",
-    ...(!open && {
-      overflowX: "hidden",
-      transition: theme.transitions.create("width", {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-      width: theme.spacing(7),
-    }),
-  },
-}));
+interface LayoutProps {
+  title: string;
+  breadcrumb?: {
+    label: string;
+    href?: string;
+  }[];
+  renderHeaderButtons?: () => React.ReactNode;
+}
 
-const ListItemLink = styled(Link)`
-  text-decoration: none;
-  color: inherit;
-`;
-
-const defaultTheme = createTheme();
-
-export default function Layout({ children }: React.PropsWithChildren) {
-  const [open, setOpen] = React.useState(true);
-  const toggleDrawer = () => {
-    setOpen(!open);
-  };
-
+export default function Layout({
+  title,
+  breadcrumb = [],
+  renderHeaderButtons,
+  children,
+}: React.PropsWithChildren<LayoutProps>) {
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <Box sx={{ display: "flex", flexFlow: "column", height: "100vh" }}>
-        <CssBaseline />
-        <AppBar position="relative">
-          <Toolbar>
-            <Typography
-              component="h1"
-              variant="h6"
-              color="inherit"
-              noWrap
-              sx={{ flexGrow: 1 }}
+    <CssVarsProvider disableTransitionOnChange>
+      <CssBaseline />
+      <Box sx={{ display: "flex", minHeight: "100dvh" }}>
+        <Header />
+        <Sidebar />
+        <Box
+          component="main"
+          className="MainContent"
+          sx={{
+            px: { xs: 2, md: 6 },
+            pt: {
+              xs: "calc(12px + var(--Header-height))",
+              sm: "calc(12px + var(--Header-height))",
+              md: 3,
+            },
+            pb: { xs: 2, sm: 2, md: 3 },
+            flex: 1,
+            display: "flex",
+            flexDirection: "column",
+            minWidth: 0,
+            height: "100dvh",
+            gap: 1,
+          }}
+        >
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Breadcrumbs
+              size="sm"
+              aria-label="breadcrumbs"
+              separator={<ChevronRightRoundedIcon />}
+              sx={{ pl: 0 }}
             >
-              Djreampress
-            </Typography>
-          </Toolbar>
-        </AppBar>
-        <Box sx={{ display: "flex", flexFlow: "row", height: "100%" }}>
-          <Drawer variant="permanent" open={open}>
-            <List component="nav" sx={{ flexGrow: 1 }}>
-              <ListItemLink href="/">
-                <ListItemButton>
-                  <ListItemIcon>
-                    <DashboardIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Home" />
-                </ListItemButton>
-              </ListItemLink>
-              <ListItemLink href="/posts/">
-                <ListItemButton>
-                  <ListItemIcon>
-                    <ArticleIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Posts" />
-                </ListItemButton>
-              </ListItemLink>
-            </List>
-            <Box sx={{ marginLeft: "auto", marginRight: "auto" }}>
-              <IconButton onClick={toggleDrawer}>
-                <ChevronLeftIcon sx={{ ...(!open && { display: "none" }) }} />
-                <ChevronRightIcon sx={{ ...(open && { display: "none" }) }} />
-              </IconButton>
-            </Box>
-          </Drawer>
+              <Link
+                component={DjreamLink}
+                underline="none"
+                color="neutral"
+                href={"/"}
+                aria-label="Home"
+              >
+                <HomeRoundedIcon />
+              </Link>
+              {breadcrumb.map(({ label, href }) =>
+                href ? (
+                  <Link
+                    component={DjreamLink}
+                    underline="hover"
+                    color="neutral"
+                    href={href}
+                    fontSize={12}
+                    fontWeight={500}
+                    key={href}
+                  >
+                    {label}
+                  </Link>
+                ) : (
+                  <Typography color="primary" fontWeight={500} fontSize={12}>
+                    {label}
+                  </Typography>
+                ),
+              )}
+            </Breadcrumbs>
+          </Box>
           <Box
-            component="main"
             sx={{
-              backgroundColor: (theme) =>
-                theme.palette.mode === "light"
-                  ? theme.palette.grey[100]
-                  : theme.palette.grey[900],
-              flexGrow: 1,
-              height: "100%",
-              overflow: "auto",
+              display: "flex",
+              mb: 1,
+              gap: 1,
+              flexDirection: { xs: "column", sm: "row" },
+              alignItems: { xs: "start", sm: "center" },
+              flexWrap: "wrap",
+              justifyContent: "space-between",
             }}
           >
-            <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-              {children}
-            </Container>
+            <Typography level="h2" component="h1">
+              {title}
+            </Typography>
+            {renderHeaderButtons && renderHeaderButtons()}
           </Box>
+          {children}
         </Box>
       </Box>
-    </ThemeProvider>
+    </CssVarsProvider>
   );
 }
