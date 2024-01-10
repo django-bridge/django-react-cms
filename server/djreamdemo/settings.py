@@ -29,6 +29,7 @@ ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "").split(",")
 
 INSTALLED_APPS = [
     "djreamdemo.posts",
+    "djreamdemo.media",
     "djream",
     "django.contrib.admin",
     "django.contrib.auth",

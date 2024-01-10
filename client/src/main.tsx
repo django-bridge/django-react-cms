@@ -5,11 +5,13 @@ import "./index.css";
 
 import HomeView from "./views/Home";
 import PostIndexView from "./views/PostIndex";
+import MediaIndexView from "./views/MediaIndex";
 
 // Add your views here
 const djreamConfig = new Djream.Config();
 djreamConfig.addView("Home", HomeView);
 djreamConfig.addView("PostIndex", PostIndexView);
+djreamConfig.addView("MediaIndex", MediaIndexView);
 
 const rootElement = document.getElementById("root")!;
 const initialResponse = rootElement.dataset.initialResponse!;

@@ -12,6 +12,7 @@ import Sheet from "@mui/joy/Sheet";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";
+import ImageRoundedIcon from "@mui/icons-material/ImageRounded";
 
 import ColorSchemeToggle from "./ColorSchemeToggle";
 import { closeSidebar } from "../utils";
@@ -118,6 +119,15 @@ export default function Sidebar() {
               <DashboardRoundedIcon />
               <ListItemContent>
                 <Typography level="title-sm">Posts</Typography>
+              </ListItemContent>
+            </ListItemButton>
+          </ListItem>
+
+          <ListItem>
+            <ListItemButton onClick={() => navigate("/media/")}>
+              <ImageRoundedIcon />
+              <ListItemContent>
+                <Typography level="title-sm">Media</Typography>
               </ListItemContent>
             </ListItemButton>
           </ListItem>
