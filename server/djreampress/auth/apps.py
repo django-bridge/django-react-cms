@@ -2,5 +2,5 @@ from django.apps import AppConfig
 
 
 class AuthConfig(AppConfig):
-    name = "djreamdemo.auth"
+    name = "djreampress.auth"
     label = "djreampress_auth"

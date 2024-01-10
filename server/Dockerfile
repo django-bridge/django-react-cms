@@ -23,18 +23,18 @@ ENV VIRTUAL_ENV=/venv
 ENV PATH=$VIRTUAL_ENV/bin:$PATH \
     PYTHONPATH=/app \
     PYTHONUNBUFFERED=1 \
-    DJANGO_SETTINGS_MODULE=djreamdemo.settings \
+    DJANGO_SETTINGS_MODULE=djreampress.settings \
     PORT=8000
 
 # Add user that will be used in the container
 ARG UID=1000
-RUN useradd djreamdemo --uid ${UID} --create-home && mkdir /app $VIRTUAL_ENV && chown -R djreamdemo /app $VIRTUAL_ENV
+RUN useradd djreampress --uid ${UID} --create-home && mkdir /app $VIRTUAL_ENV && chown -R djreampress /app $VIRTUAL_ENV
 
 # Install poetry
 RUN pip install poetry==1.5.1
 
-# Use user "djreamdemo" to run the build commands below and the server itself.
-USER djreamdemo
+# Use user "djreampress" to run the build commands below and the server itself.
+USER djreampress
 
 # Use /app folder as a directory where the source code is stored.
 WORKDIR /app
@@ -43,11 +43,11 @@ WORKDIR /app
 RUN python -m venv $VIRTUAL_ENV
 
 # Install Python dependencies
-COPY --chown=djreamdemo server/pyproject.toml server/poetry.lock ./
+COPY --chown=djreampress server/pyproject.toml server/poetry.lock ./
 RUN poetry install --no-root --only main
 
 # Copy the source code of the project into the container.
-COPY --chown=djreamdemo server .
+COPY --chown=djreampress server .
 
 # Run poetry install again to install our project
 RUN poetry install --only main
@@ -55,13 +55,13 @@ RUN poetry install --only main
 FROM base as prod
 
 # Copy the client bundle from the client target
-COPY --chown=djreamdemo --from=client /client/dist /client
+COPY --chown=djreampress --from=client /client/dist /client
 
 # Collect static files
 ENV DJREAM_VITE_BUNDLE_DIR=/client
 RUN DJANGO_SECRET_KEY=secret python manage.py collectstatic --noinput --clear
 
-CMD django-admin migrate && gunicorn -w 4 --threads 2 djreamdemo.wsgi:application
+CMD django-admin migrate && gunicorn -w 4 --threads 2 djreampress.wsgi:application
 
 FROM base AS dev
 
