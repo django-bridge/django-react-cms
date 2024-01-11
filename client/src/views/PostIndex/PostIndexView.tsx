@@ -47,14 +47,19 @@ const HeaderButtons = styled.div`
 // }
 
 export default function PostIndexView(/* { posts }: PostIndexViewProps */) {
-  // const { openModal } = React.useContext(NavigationContext);
+  const { openModal } = React.useContext(NavigationContext);
 
   return (
     <Layout
       title="Posts"
       breadcrumb={[{ label: "Posts" }]}
       renderHeaderButtons={() => (
-        <Button color="primary" startDecorator={<PostAddIcon />} size="sm">
+        <Button
+          color="primary"
+          startDecorator={<PostAddIcon />}
+          size="sm"
+          onClick={() => openModal("/posts/add/")}
+        >
           Add Post
         </Button>
       )}

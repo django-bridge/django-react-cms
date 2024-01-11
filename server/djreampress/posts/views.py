@@ -1,5 +1,7 @@
+from django.middleware.csrf import get_token
+from django.urls import reverse
 from djream.decorators import djream_view
-from djream.response import DjreamResponse
+from djream.response import DjreamCloseModalResponse, DjreamResponse
 
 from .forms import PostForm
 from .models import Post
@@ -24,17 +26,28 @@ def index(request):
 
 @djream_view
 def add(request):
-    form = PostForm()
+    form = PostForm(request.POST or None)
 
     if form.is_valid():
-        form.save()
+        post = form.save()
+
+        messages.success(
+            request,
+            f"Successfully added post '{post.title}'.",
+        )
+
+        return DjreamCloseModalResponse(request)
 
     return DjreamResponse(
         request,
         "PostForm",
         {
+            "csrf_token": get_token(request),
+            "action_url": reverse("posts_add"),
             "form": form,
         },
+        supported_modes=["modal"],
+        title="Add Post | Djreampress",
     )
 
 
