@@ -1,9 +1,11 @@
+import * as React from "react";
 import styled from "styled-components";
 //import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
 import PostAddIcon from "@mui/icons-material/PostAdd";
 import Button from "@mui/joy/Button";
 
 import Layout from "../../components/Layout";
+import { NavigationContext } from "@djream/core";
 
 const Header = styled.header`
   padding: 20px;
@@ -45,6 +47,8 @@ const HeaderButtons = styled.div`
 // }
 
 export default function PostIndexView(/* { posts }: PostIndexViewProps */) {
+  // const { openModal } = React.useContext(NavigationContext);
+
   return (
     <Layout
       title="Posts"
