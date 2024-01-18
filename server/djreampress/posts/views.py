@@ -1,7 +1,9 @@
+from django.contrib import messages
 from django.middleware.csrf import get_token
 from django.urls import reverse
+from django.shortcuts import get_object_or_404
 from djream.decorators import djream_view
-from djream.response import DjreamCloseModalResponse, DjreamResponse
+from djream.response import DjreamCloseOverlayResponse, DjreamResponse
 
 from .forms import PostForm
 from .models import Post
@@ -36,7 +38,7 @@ def add(request):
             f"Successfully added post '{post.title}'.",
         )
 
-        return DjreamCloseModalResponse(request)
+        return DjreamCloseOverlayResponse(request)
 
     return DjreamResponse(
         request,
@@ -46,7 +48,7 @@ def add(request):
             "action_url": reverse("posts_add"),
             "form": form,
         },
-        supported_modes=["modal"],
+        overlay=True,
         title="Add Post | Djreampress",
     )
 
@@ -54,7 +56,7 @@ def add(request):
 @djream_view
 def edit(request, post_id):
     post = get_object_or_404(Post, id=post_id)
-    form = PostForm()
+    form = PostForm(request.POST or None, instance=post)
 
     if form.is_valid():
         form.save()

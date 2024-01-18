@@ -1,5 +1,5 @@
 import { Button, Typography } from "@mui/joy";
-import Form from "../../components/Form";
+import { Form } from "@djream/core";
 import FormDef from "../../deserializers/Form";
 
 interface PostFormViewProps {

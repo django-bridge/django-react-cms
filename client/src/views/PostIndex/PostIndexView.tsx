@@ -1,11 +1,11 @@
 import * as React from "react";
 import styled from "styled-components";
-//import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
 import PostAddIcon from "@mui/icons-material/PostAdd";
 import Button from "@mui/joy/Button";
 
 import Layout from "../../components/Layout";
 import { NavigationContext } from "@djream/core";
+import ModalWindow from "../../components/ModalWindow";
 
 const Header = styled.header`
   padding: 20px;
@@ -47,7 +47,7 @@ const HeaderButtons = styled.div`
 // }
 
 export default function PostIndexView(/* { posts }: PostIndexViewProps */) {
-  const { openModal } = React.useContext(NavigationContext);
+  const { openOverlay } = React.useContext(NavigationContext);
 
   return (
     <Layout
@@ -58,7 +58,9 @@ export default function PostIndexView(/* { posts }: PostIndexViewProps */) {
           color="primary"
           startDecorator={<PostAddIcon />}
           size="sm"
-          onClick={() => openModal("/posts/add/")}
+          onClick={() => openOverlay("/posts/add/", (content, onClose, requestClose) => (
+            <ModalWindow side="right" onClose={onClose} requestClose={requestClose}>{content}</ModalWindow>
+          ))}
         >
           Add Post
         </Button>
