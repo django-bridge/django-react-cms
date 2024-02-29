@@ -2,18 +2,18 @@ from django.contrib import messages
 from django.middleware.csrf import get_token
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
-from djream.decorators import djream_view
-from djream.response import DjreamCloseOverlayResponse, DjreamResponse
+from meze.decorators import meze_view
+from meze.response import MezeCloseOverlayResponse, MezeResponse
 
 from .forms import PostForm
 from .models import Post
 
 
-@djream_view
+@meze_view
 def index(request):
     posts = Post.objects.all()
 
-    return DjreamResponse(
+    return MezeResponse(
         request,
         "PostIndex",
         {
@@ -22,11 +22,11 @@ def index(request):
                 for post in posts
             ]
         },
-        title="Posts | Djreampress",
+        title="Posts | Mezepress",
     )
 
 
-@djream_view
+@meze_view
 def add(request):
     form = PostForm(request.POST or None)
 
@@ -38,9 +38,9 @@ def add(request):
             f"Successfully added post '{post.title}'.",
         )
 
-        return DjreamCloseOverlayResponse(request)
+        return MezeCloseOverlayResponse(request)
 
-    return DjreamResponse(
+    return MezeResponse(
         request,
         "PostForm",
         {
@@ -49,11 +49,11 @@ def add(request):
             "form": form,
         },
         overlay=True,
-        title="Add Post | Djreampress",
+        title="Add Post | Mezepress",
     )
 
 
-@djream_view
+@meze_view
 def edit(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     form = PostForm(request.POST or None, instance=post)
@@ -61,7 +61,7 @@ def edit(request, post_id):
     if form.is_valid():
         form.save()
 
-    return DjreamResponse(
+    return MezeResponse(
         request,
         "PostForm",
         {
@@ -70,11 +70,11 @@ def edit(request, post_id):
     )
 
 
-@djream_view
+@meze_view
 def delete(request, post_id):
     post = get_object_or_404(Post, id=post_id)
 
-    return DjreamResponse(
+    return MezeResponse(
         request,
         "CommonConfirmDelete",
         {},

@@ -3,7 +3,7 @@ import { CssVarsProvider } from "@mui/joy/styles";
 import CssBaseline from "@mui/joy/CssBaseline";
 import Box from "@mui/joy/Box";
 import Breadcrumbs from "@mui/joy/Breadcrumbs";
-import { Link as DjreamLink } from "@djream/core";
+import { Link as MezeLink } from "@meze/core";
 import Link from "@mui/joy/Link";
 import Typography from "@mui/joy/Typography";
 
@@ -61,7 +61,7 @@ export default function Layout({
               sx={{ pl: 0 }}
             >
               <Link
-                component={DjreamLink}
+                component={MezeLink}
                 underline="none"
                 color="neutral"
                 href={"/"}
@@ -72,7 +72,7 @@ export default function Layout({
               {breadcrumb.map(({ label, href }) =>
                 href ? (
                   <Link
-                    component={DjreamLink}
+                    component={MezeLink}
                     underline="hover"
                     color="neutral"
                     href={href}

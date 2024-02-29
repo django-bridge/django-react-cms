@@ -1,26 +1,26 @@
 [tool.poetry]
-name = "djreampress"
+name = "mezepress"
 version = "0.0.0"
 description = ""
 authors = ["Your Name <you@example.com>"]
-packages = [{ include = "djreampress" }]
+packages = [{ include = "mezepress" }]
 
 [tool.poetry.dependencies]
 python = "^3.11"
 django = "^5.0"
-djream = "0.1a11"
 psycopg = "^3.1.16"
 dj-database-url = "^2.1.0"
 gunicorn = "^21.2.0"
 sentry-sdk = {extras = ["django"], version = "^1.39.1"}
 isort = "^5.13.2"
+meze = "^0.1a11"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.12.1"
 
 [tool.isort]
 profile = "black"
-known_first_party = ["djreampress"]
+known_first_party = ["mezepress"]
 
 [build-system]
 requires = ["poetry-core"]

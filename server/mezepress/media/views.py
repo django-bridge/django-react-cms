@@ -1,16 +1,16 @@
 from django.contrib.contenttypes.models import ContentType
-from djream.decorators import djream_view
-from djream.response import DjreamResponse
+from meze.decorators import meze_view
+from meze.response import MezeResponse
 
 from .forms import ImageForm
 from .models import MediaAsset
 
 
-@djream_view
+@meze_view
 def index(request):
     assets = MediaAsset.objects.all()
 
-    return DjreamResponse(
+    return MezeResponse(
         request,
         "MediaIndex",
         {
@@ -22,11 +22,11 @@ def index(request):
                 for asset in assets
             ]
         },
-        title="Media | Djreampress",
+        title="Media | Mezepress",
     )
 
 
-@djream_view
+@meze_view
 def add(request):
     form = ImageForm()
 
@@ -35,7 +35,7 @@ def add(request):
         image.media_type = ContentType.objects.get_for_model(Image)
         image.save()
 
-    return DjreamResponse(
+    return MezeResponse(
         request,
         "ImageForm",
         {
@@ -44,7 +44,7 @@ def add(request):
     )
 
 
-@djream_view
+@meze_view
 def edit(request, mediaasset_id):
     # TODO: Check media type
     image = get_object_or_404(Image, id=mediaasset_id)
@@ -53,7 +53,7 @@ def edit(request, mediaasset_id):
     if form.is_valid():
         form.save()
 
-    return DjreamResponse(
+    return MezeResponse(
         request,
         "ImageForm",
         {
@@ -62,11 +62,11 @@ def edit(request, mediaasset_id):
     )
 
 
-@djream_view
+@meze_view
 def delete(request, mediaasset_id):
     asset = get_object_or_404(MediaAsset, id=mediaasset_id)
 
-    return DjreamResponse(
+    return MezeResponse(
         request,
         "CommonConfirmDelete",
         {},

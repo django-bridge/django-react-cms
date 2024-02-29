@@ -14,7 +14,7 @@ services:
     ports:
       - 8000:8000
     volumes:
-      - ./server:/app/
+      - ./server:/server/
       - ./client:/client/
     depends_on:
       postgres:
@@ -28,7 +28,7 @@ services:
     init: true
     command: npm run dev -- --host
     volumes:
-      - ./client:/app/
+      - ./client:/client/
     ports:
       - 5173:5173
 

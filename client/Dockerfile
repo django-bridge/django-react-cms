@@ -1,7 +1,7 @@
 FROM node:18.18.2-bullseye-slim as dev
 
 ARG UID=1000
-RUN userdel node && useradd djreampress --uid ${UID} -l --create-home && mkdir /app && chown djreampress /app
+RUN userdel node && useradd mezepress --uid ${UID} -l --create-home && mkdir /client && chown mezepress /client
 
-WORKDIR /app
-USER djreampress
+WORKDIR /client
+USER mezepress

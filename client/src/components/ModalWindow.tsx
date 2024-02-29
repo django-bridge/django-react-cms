@@ -1,7 +1,7 @@
 import React, { useRef, ReactElement } from "react";
 import styled, { keyframes } from "styled-components";
 import FocusTrap from "focus-trap-react";
-import { DirtyFormContext } from "@djream/core";
+import { DirtyFormContext } from "@meze/core";
 import WarningRounded from "@mui/icons-material/WarningRounded";
 
 export interface ModalWindowControls {

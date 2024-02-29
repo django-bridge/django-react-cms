@@ -52,10 +52,10 @@ class Migration(migrations.Migration):
                         parent_link=True,
                         primary_key=True,
                         serialize=False,
-                        to="djreampress_media.mediaasset",
+                        to="mezepress_media.mediaasset",
                     ),
                 ),
             ],
-            bases=("djreampress_media.mediaasset",),
+            bases=("mezepress_media.mediaasset",),
         ),
     ]

@@ -30,13 +30,13 @@ jobs:
       # Note: The client bundle will be built and inserted into the server image then served by WhiteNoise
       - name: Build and Push
         run: |
-          docker build -t europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/djreamdemo/server:latest -f server/Dockerfile --target prod .
-          docker push europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/djreamdemo/server:latest
+          docker build -t europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/mezepress/server:latest -f server/Dockerfile --target prod .
+          docker push europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/mezepress/server:latest
 
       # Upload static files to R2 Bucket
       - name: Extracting static files
         run: |
-          id=$(docker create europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/djreamdemo/server:latest)
+          id=$(docker create europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/mezepress/server:latest)
           docker cp $id:/client/assets assets
           docker rm -v $id
       - name: Upload static files to R2 Bucket
@@ -52,4 +52,4 @@ jobs:
       # Deploy container to Google Cloud Run
       - name: Deplo container to Cloud Run
         run: |
-          gcloud run deploy djreamdemo --image=europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/djreamdemo/server:latest --region=europe-west1 --platform=managed --allow-unauthenticated
+          gcloud run deploy mezepress --image=europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/mezepress/server:latest --region=europe-west1 --platform=managed --allow-unauthenticated

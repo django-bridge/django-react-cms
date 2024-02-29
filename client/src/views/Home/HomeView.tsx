@@ -24,7 +24,7 @@ const HomeWrapper = styled.div`
 
 export default function HomeView() {
   return (
-    <Layout title="Welcome to Djreampress!">
+    <Layout title="Welcome to Mezepress!">
       <HomeWrapper>
         <p>
           <b>
@@ -37,7 +37,7 @@ export default function HomeView() {
           This is a very basic example of an application built with Django and
           React using{" "}
           <a href="https://djream.io" target="_blank">
-            Djream
+            Meze
           </a>{" "}
           to connect them. It will eventually be a simple blogging app.
         </p>
@@ -52,12 +52,12 @@ export default function HomeView() {
         </p>
         <p>
           Please browse around and have a look at the requests being made in
-          your network tab to get an idea of how Djream is fetching the data
+          your network tab to get an idea of how Meze is fetching the data
           from Django.
         </p>
         <p style={{ marginTop: "2em" }}>
           <b>
-            <a href="https://github.com/kaedroho/djreampress" target="_blank">
+            <a href="https://github.com/kaedroho/mezepress" target="_blank">
               See the source code
             </a>
           </b>

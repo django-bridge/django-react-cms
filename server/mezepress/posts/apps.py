@@ -2,5 +2,5 @@ from django.apps import AppConfig
 
 
 class PostsConfig(AppConfig):
-    name = "djreampress.posts"
-    label = "djreampress_posts"
+    name = "mezepress.posts"
+    label = "mezepress_posts"

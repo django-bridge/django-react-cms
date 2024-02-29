@@ -4,7 +4,7 @@ import PostAddIcon from "@mui/icons-material/PostAdd";
 import Button from "@mui/joy/Button";
 
 import Layout from "../../components/Layout";
-import { NavigationContext } from "@djream/core";
+import { NavigationContext } from "@meze/core";
 import ModalWindow from "../../components/ModalWindow";
 
 const Header = styled.header`
