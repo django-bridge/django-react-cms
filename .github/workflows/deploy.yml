@@ -50,6 +50,6 @@ jobs:
           destination-dir: assets
 
       # Deploy container to Google Cloud Run
-      - name: Deplo container to Cloud Run
+      - name: Deploy container to Cloud Run
         run: |
           gcloud run deploy mezepress --image=europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/mezepress/server:latest --region=europe-west1 --platform=managed --allow-unauthenticated
