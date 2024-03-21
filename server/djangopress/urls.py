@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 
 from . import views
 from .media import views as media_views
@@ -7,7 +7,6 @@ from .posts import views as posts_views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('accounts/', include('allauth.urls')),
     path("", views.home, name="home"),
     # Posts
     path("posts/", posts_views.index, name="posts_index"),
