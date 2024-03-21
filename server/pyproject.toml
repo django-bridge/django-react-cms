@@ -15,6 +15,7 @@ sentry-sdk = {extras = ["django"], version = "^1.39.1"}
 isort = "^5.13.2"
 djrender = "^0.1a11"
 whitenoise = "^6.6.0"
+django-allauth = "^0.61.1"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.12.1"
