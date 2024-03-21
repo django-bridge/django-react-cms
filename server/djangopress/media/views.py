@@ -1,12 +1,12 @@
 from django.contrib.contenttypes.models import ContentType
-from meze.decorators import meze_view
-from meze.response import MezeResponse
+from djangorender.decorators import djangorender_view
+from djangorender.response import MezeResponse
 
 from .forms import ImageForm
 from .models import MediaAsset
 
 
-@meze_view
+@djangorender_view
 def index(request):
     assets = MediaAsset.objects.all()
 
@@ -22,11 +22,11 @@ def index(request):
                 for asset in assets
             ]
         },
-        title="Media | Mezepress",
+        title="Media | Djangopress",
     )
 
 
-@meze_view
+@djangorender_view
 def add(request):
     form = ImageForm()
 
@@ -44,7 +44,7 @@ def add(request):
     )
 
 
-@meze_view
+@djangorender_view
 def edit(request, mediaasset_id):
     # TODO: Check media type
     image = get_object_or_404(Image, id=mediaasset_id)
@@ -62,7 +62,7 @@ def edit(request, mediaasset_id):
     )
 
 
-@meze_view
+@djangorender_view
 def delete(request, mediaasset_id):
     asset = get_object_or_404(MediaAsset, id=mediaasset_id)
 

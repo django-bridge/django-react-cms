@@ -1,5 +1,5 @@
 import { Button, Typography } from "@mui/joy";
-import { Form } from "@meze/core";
+import { Form } from "@djangorender/core";
 import FormDef from "../../deserializers/Form";
 
 interface PostFormViewProps {

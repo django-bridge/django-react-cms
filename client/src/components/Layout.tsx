@@ -3,7 +3,7 @@ import { CssVarsProvider } from "@mui/joy/styles";
 import CssBaseline from "@mui/joy/CssBaseline";
 import Box from "@mui/joy/Box";
 import Breadcrumbs from "@mui/joy/Breadcrumbs";
-import { Link as MezeLink } from "@meze/core";
+import { Link as MezeLink } from "@djangorender/core";
 import Link from "@mui/joy/Link";
 import Typography from "@mui/joy/Typography";
 

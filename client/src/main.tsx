@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import * as Meze from "@meze/core";
+import * as Meze from "@djangorender/core";
 import "./index.css";
 
 import HomeView from "./views/Home";
@@ -14,29 +14,29 @@ import TextInputDef from "./deserializers/widgets/TextInput";
 import SelectDef from "./deserializers/widgets/Select";
 
 // Add your views here
-const mezeConfig = new Meze.Config();
-mezeConfig.addView("Home", HomeView);
-mezeConfig.addView("PostIndex", PostIndexView);
-mezeConfig.addView("PostForm", PostFormView);
-mezeConfig.addView("MediaIndex", MediaIndexView);
+const djangorenderConfig = new Meze.Config();
+djangorenderConfig.addView("Home", HomeView);
+djangorenderConfig.addView("PostIndex", PostIndexView);
+djangorenderConfig.addView("PostForm", PostFormView);
+djangorenderConfig.addView("MediaIndex", MediaIndexView);
 
 // Add your deserializers here
-mezeConfig.addDeserializer("forms.Form", FormDef);
-mezeConfig.addDeserializer("forms.Field", FieldDef);
-mezeConfig.addDeserializer(
+djangorenderConfig.addDeserializer("forms.Form", FormDef);
+djangorenderConfig.addDeserializer("forms.Field", FieldDef);
+djangorenderConfig.addDeserializer(
   "forms.ServerRenderedInput",
   ServerRenderedInputtDef,
 );
-mezeConfig.addDeserializer("forms.TextInput", TextInputDef);
-mezeConfig.addDeserializer("forms.Select", SelectDef);
-mezeConfig.addDeserializer("Date", Date);
+djangorenderConfig.addDeserializer("forms.TextInput", TextInputDef);
+djangorenderConfig.addDeserializer("forms.Select", SelectDef);
+djangorenderConfig.addDeserializer("Date", Date);
 
 const rootElement = document.getElementById("root")!;
 const initialResponse = rootElement.dataset.initialResponse!;
 ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
     <Meze.App
-      config={mezeConfig}
+      config={djangorenderConfig}
       initialResponse={JSON.parse(initialResponse)}
     />
   </React.StrictMode>,

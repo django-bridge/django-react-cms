@@ -2,5 +2,5 @@ from django.apps import AppConfig
 
 
 class AuthConfig(AppConfig):
-    name = "mezepress.auth"
-    label = "mezepress_auth"
+    name = "djangopress.auth"
+    label = "djangopress_auth"

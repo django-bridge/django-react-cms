@@ -24,7 +24,7 @@ const HomeWrapper = styled.div`
 
 export default function HomeView() {
   return (
-    <Layout title="Welcome to Mezepress!">
+    <Layout title="Welcome to Djangopress!">
       <HomeWrapper>
         <p>
           <b>
@@ -57,7 +57,7 @@ export default function HomeView() {
         </p>
         <p style={{ marginTop: "2em" }}>
           <b>
-            <a href="https://github.com/kaedroho/mezepress" target="_blank">
+            <a href="https://github.com/kaedroho/djangopress" target="_blank">
               See the source code
             </a>
           </b>

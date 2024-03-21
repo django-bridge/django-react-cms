@@ -2,14 +2,14 @@ from django.contrib import messages
 from django.middleware.csrf import get_token
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
-from meze.decorators import meze_view
-from meze.response import MezeCloseOverlayResponse, MezeResponse
+from djangorender.decorators import djangorender_view
+from djangorender.response import MezeCloseOverlayResponse, MezeResponse
 
 from .forms import PostForm
 from .models import Post
 
 
-@meze_view
+@djangorender_view
 def index(request):
     posts = Post.objects.all()
 
@@ -22,11 +22,11 @@ def index(request):
                 for post in posts
             ]
         },
-        title="Posts | Mezepress",
+        title="Posts | Djangopress",
     )
 
 
-@meze_view
+@djangorender_view
 def add(request):
     form = PostForm(request.POST or None)
 
@@ -49,11 +49,11 @@ def add(request):
             "form": form,
         },
         overlay=True,
-        title="Add Post | Mezepress",
+        title="Add Post | Djangopress",
     )
 
 
-@meze_view
+@djangorender_view
 def edit(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     form = PostForm(request.POST or None, instance=post)
@@ -70,7 +70,7 @@ def edit(request, post_id):
     )
 
 
-@meze_view
+@djangorender_view
 def delete(request, post_id):
     post = get_object_or_404(Post, id=post_id)
 

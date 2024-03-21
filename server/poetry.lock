@@ -164,14 +164,14 @@ files = [
 colors = ["colorama (>=0.4.6)"]
 
 [[package]]
-name = "meze"
+name = "djangorender"
 version = "0.1a11"
 description = "A framework for building React frontends for Django projects"
 optional = false
 python-versions = "*"
 files = [
-    {file = "meze-0.1a11-py3-none-any.whl", hash = "sha256:366e87e7718f7baccfad1a6ed23c7947296df8865242187b77f3c3e64d45abfc"},
-    {file = "meze-0.1a11.tar.gz", hash = "sha256:a8041a462d08b9115eb17df2d049e1ced91e130b263e461a52cfebe457841cd1"},
+    {file = "djangorender-0.1a11-py3-none-any.whl", hash = "sha256:366e87e7718f7baccfad1a6ed23c7947296df8865242187b77f3c3e64d45abfc"},
+    {file = "djangorender-0.1a11.tar.gz", hash = "sha256:a8041a462d08b9115eb17df2d049e1ced91e130b263e461a52cfebe457841cd1"},
 ]
 
 [package.dependencies]

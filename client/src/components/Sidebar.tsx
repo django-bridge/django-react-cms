@@ -16,7 +16,7 @@ import ImageRoundedIcon from "@mui/icons-material/ImageRounded";
 
 import ColorSchemeToggle from "./ColorSchemeToggle";
 import { closeSidebar } from "../utils";
-import { NavigationContext } from "@meze/core";
+import { NavigationContext } from "@djangorender/core";
 
 export default function Sidebar() {
   const { navigate } = React.useContext(NavigationContext);
@@ -77,7 +77,7 @@ export default function Sidebar() {
         {/* <IconButton variant="soft" color="primary" size="sm">
           <BrightnessAutoRoundedIcon />
         </IconButton> */}
-        <Typography level="title-lg">Mezepress</Typography>
+        <Typography level="title-lg">Djangopress</Typography>
         <ColorSchemeToggle sx={{ ml: "auto" }} />
       </Box>
       <Input
