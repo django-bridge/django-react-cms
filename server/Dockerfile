@@ -24,6 +24,7 @@ ENV PATH=$VIRTUAL_ENV/bin:$PATH \
     PYTHONPATH=/server \
     PYTHONUNBUFFERED=1 \
     DJANGO_SETTINGS_MODULE=djangopress.settings \
+    BASE_URL=http://localhost:8000 \
     PORT=8000
 
 # Add user that will be used in the container

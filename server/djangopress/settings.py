@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 import os
 from pathlib import Path
+from urllib.parse import urlparse
 
 import dj_database_url
 import sentry_sdk
@@ -23,7 +24,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
 DEBUG = os.environ.get("DJANGO_DEBUG", "false") == "true"
-ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "").split(",")
+BASE_URL = os.environ["BASE_URL"]
+ALLOWED_HOSTS = os.environ.get(
+    "DJANGO_ALLOWED_HOSTS", urlparse(BASE_URL).hostname
+).split(",")
+CSRF_TRUSTED_ORIGINS_STR = os.environ.get("DJANGO_CSRF_TRUSTED_ORIGINS") or BASE_URL
+if CSRF_TRUSTED_ORIGINS_STR:
+    CSRF_TRUSTED_ORIGINS = CSRF_TRUSTED_ORIGINS_STR.split(",")
+else:
+    CSRF_TRUSTED_ORIGINS = []
+
 
 # Application definition
 

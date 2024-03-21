@@ -5,6 +5,10 @@ primary_region = 'lhr'
   dockerfile = "./server/Dockerfile"
   build-target = "prod"
 
+[env]
+  DJANGO_DEBUG = "false"
+  BASE_URL = "https://demo.django-render.org"
+
 [http_service]
   internal_port = 8000
   force_https = true
