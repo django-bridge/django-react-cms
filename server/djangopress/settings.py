@@ -159,9 +159,7 @@ AUTHENTICATION_BACKENDS = [
 
 SOCIALACCOUNT_PROVIDERS = {
     'github': {
-        'SCOPE': [
-            'read:user user:email',
-        ],
+        "VERIFIED_EMAIL": True,
     }
 }
 
