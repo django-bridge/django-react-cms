@@ -27,13 +27,6 @@ export default function HomeView() {
     <Layout title="Welcome to Djangopress!">
       <HomeWrapper>
         <p>
-          <b>
-            Update 9th Jan 2024: Work on this demo has just started so there is
-            not much working right now. Please check back in the coming days and
-            weeks to see this demo improve.
-          </b>
-        </p>
-        <p>
           This is a very basic example of an application built with Django and
           React using{" "}
           <a href="https://django-render.org" target="_blank">
