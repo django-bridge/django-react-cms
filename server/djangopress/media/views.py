@@ -1,6 +1,6 @@
 from django.contrib.contenttypes.models import ContentType
 from djangorender.decorators import djangorender_view
-from djangorender.response import MezeResponse
+from djangorender.response import Response
 
 from .forms import ImageForm
 from .models import MediaAsset
@@ -10,7 +10,7 @@ from .models import MediaAsset
 def index(request):
     assets = MediaAsset.objects.all()
 
-    return MezeResponse(
+    return Response(
         request,
         "MediaIndex",
         {
@@ -35,7 +35,7 @@ def add(request):
         image.media_type = ContentType.objects.get_for_model(Image)
         image.save()
 
-    return MezeResponse(
+    return Response(
         request,
         "ImageForm",
         {
@@ -53,7 +53,7 @@ def edit(request, mediaasset_id):
     if form.is_valid():
         form.save()
 
-    return MezeResponse(
+    return Response(
         request,
         "ImageForm",
         {
@@ -66,7 +66,7 @@ def edit(request, mediaasset_id):
 def delete(request, mediaasset_id):
     asset = get_object_or_404(MediaAsset, id=mediaasset_id)
 
-    return MezeResponse(
+    return Response(
         request,
         "CommonConfirmDelete",
         {},

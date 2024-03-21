@@ -3,7 +3,7 @@ from django.middleware.csrf import get_token
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
 from djangorender.decorators import djangorender_view
-from djangorender.response import MezeCloseOverlayResponse, MezeResponse
+from djangorender.response import CloseOverlayResponse, Response
 
 from .forms import PostForm
 from .models import Post
@@ -13,7 +13,7 @@ from .models import Post
 def index(request):
     posts = Post.objects.all()
 
-    return MezeResponse(
+    return Response(
         request,
         "PostIndex",
         {
@@ -38,9 +38,9 @@ def add(request):
             f"Successfully added post '{post.title}'.",
         )
 
-        return MezeCloseOverlayResponse(request)
+        return CloseOverlayResponse(request)
 
-    return MezeResponse(
+    return Response(
         request,
         "PostForm",
         {
@@ -61,7 +61,7 @@ def edit(request, post_id):
     if form.is_valid():
         form.save()
 
-    return MezeResponse(
+    return Response(
         request,
         "PostForm",
         {
@@ -74,7 +74,7 @@ def edit(request, post_id):
 def delete(request, post_id):
     post = get_object_or_404(Post, id=post_id)
 
-    return MezeResponse(
+    return Response(
         request,
         "CommonConfirmDelete",
         {},

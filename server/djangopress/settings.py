@@ -159,7 +159,7 @@ if "SENTRY_DSN" in os.environ:
         profiles_sample_rate=1.0,
     )
 
-# Meze settings
+# DjangoRender settings
 
 DJREAM_VITE_BUNDLE_DIR = os.environ.get("DJREAM_VITE_BUNDLE_DIR")
 DJREAM_VITE_DEVSERVER_URL = os.environ.get(

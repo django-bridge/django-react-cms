@@ -10,8 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@emotion/styled": "^11.11.0",
     "@djangorender/core": "^0.1.0-alpha.11",
+    "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.15.3",
     "@mui/joy": "^5.0.0-beta.22",
     "@mui/styled-engine-sc": "^6.0.0-alpha.11",

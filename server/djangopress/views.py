@@ -1,7 +1,7 @@
 from djangorender.decorators import djangorender_view
-from djangorender.response import MezeResponse
+from djangorender.response import Response
 
 
 @djangorender_view
 def home(request):
-    return MezeResponse(request, "Home", {})
+    return Response(request, "Home", {})

@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import * as Meze from "@djangorender/core";
+import * as DjangoRender from "@djangorender/core";
 import "./index.css";
 
 import HomeView from "./views/Home";
@@ -14,7 +14,7 @@ import TextInputDef from "./deserializers/widgets/TextInput";
 import SelectDef from "./deserializers/widgets/Select";
 
 // Add your views here
-const djangorenderConfig = new Meze.Config();
+const djangorenderConfig = new DjangoRender.Config();
 djangorenderConfig.addView("Home", HomeView);
 djangorenderConfig.addView("PostIndex", PostIndexView);
 djangorenderConfig.addView("PostForm", PostFormView);
@@ -35,7 +35,7 @@ const rootElement = document.getElementById("root")!;
 const initialResponse = rootElement.dataset.initialResponse!;
 ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
-    <Meze.App
+    <DjangoRender.App
       config={djangorenderConfig}
       initialResponse={JSON.parse(initialResponse)}
     />
