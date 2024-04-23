@@ -1,5 +1,5 @@
 import { Button, Typography } from "@mui/joy";
-import { Form } from "@djangorender/core";
+import { Form } from "@django-render/core";
 import FormDef from "../../deserializers/Form";
 
 interface PostFormViewProps {

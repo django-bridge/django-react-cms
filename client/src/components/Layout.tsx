@@ -3,7 +3,7 @@ import { CssVarsProvider } from "@mui/joy/styles";
 import CssBaseline from "@mui/joy/CssBaseline";
 import Box from "@mui/joy/Box";
 import Breadcrumbs from "@mui/joy/Breadcrumbs";
-import { Link as DjangoRenderLink } from "@djangorender/core";
+import { Link as DjangoRenderLink } from "@django-render/core";
 import Link from "@mui/joy/Link";
 import Typography from "@mui/joy/Typography";
 
@@ -86,7 +86,7 @@ export default function Layout({
                   <Typography color="primary" fontWeight={500} fontSize={12}>
                     {label}
                   </Typography>
-                ),
+                )
               )}
             </Breadcrumbs>
           </Box>

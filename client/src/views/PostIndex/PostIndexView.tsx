@@ -4,7 +4,7 @@ import PostAddIcon from "@mui/icons-material/PostAdd";
 import Button from "@mui/joy/Button";
 
 import Layout from "../../components/Layout";
-import { NavigationContext } from "@djangorender/core";
+import { NavigationContext } from "@django-render/core";
 import ModalWindow from "../../components/ModalWindow";
 
 const Header = styled.header`
@@ -58,9 +58,17 @@ export default function PostIndexView(/* { posts }: PostIndexViewProps */) {
           color="primary"
           startDecorator={<PostAddIcon />}
           size="sm"
-          onClick={() => openOverlay("/posts/add/", (content, onClose, requestClose) => (
-            <ModalWindow side="right" onClose={onClose} requestClose={requestClose}>{content}</ModalWindow>
-          ))}
+          onClick={() =>
+            openOverlay("/posts/add/", (content, onClose, requestClose) => (
+              <ModalWindow
+                side="right"
+                onClose={onClose}
+                requestClose={requestClose}
+              >
+                {content}
+              </ModalWindow>
+            ))
+          }
         >
           Add Post
         </Button>

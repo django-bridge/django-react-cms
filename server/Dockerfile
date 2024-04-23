@@ -59,7 +59,7 @@ FROM base as prod
 COPY --chown=djangopress --from=client /client/dist /client
 
 # Collect static files
-ENV DJREAM_VITE_BUNDLE_DIR=/client
+ENV VITE_BUNDLE_DIR=/client
 RUN DJANGO_SECRET_KEY=secret python manage.py collectstatic --noinput --clear
 
 CMD django-admin migrate && gunicorn -w 4 --threads 2 djangopress.wsgi:application

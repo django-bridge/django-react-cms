@@ -1,5 +1,5 @@
-from djangorender.decorators import djangorender_view
-from djangorender.response import Response
+from django_render.decorators import djangorender_view
+from django_render.response import Response
 
 
 @djangorender_view

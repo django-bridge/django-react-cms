@@ -1,7 +1,7 @@
 import React, { useRef, ReactElement } from "react";
 import styled, { keyframes } from "styled-components";
 import FocusTrap from "focus-trap-react";
-import { DirtyFormContext } from "@djangorender/core";
+import { DirtyFormContext } from "@django-render/core";
 import WarningRounded from "@mui/icons-material/WarningRounded";
 
 export interface ModalWindowControls {

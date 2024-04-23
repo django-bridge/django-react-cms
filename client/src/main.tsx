@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import * as DjangoRender from "@djangorender/core";
+import * as DjangoRender from "@django-render/core";
 import "./index.css";
 
 import HomeView from "./views/Home";
@@ -25,7 +25,7 @@ djangorenderConfig.addDeserializer("forms.Form", FormDef);
 djangorenderConfig.addDeserializer("forms.Field", FieldDef);
 djangorenderConfig.addDeserializer(
   "forms.ServerRenderedInput",
-  ServerRenderedInputtDef,
+  ServerRenderedInputtDef
 );
 djangorenderConfig.addDeserializer("forms.TextInput", TextInputDef);
 djangorenderConfig.addDeserializer("forms.Select", SelectDef);
@@ -39,5 +39,5 @@ ReactDOM.createRoot(rootElement).render(
       config={djangorenderConfig}
       initialResponse={JSON.parse(initialResponse)}
     />
-  </React.StrictMode>,
+  </React.StrictMode>
 );

@@ -16,7 +16,7 @@ import ImageRoundedIcon from "@mui/icons-material/ImageRounded";
 
 import ColorSchemeToggle from "./ColorSchemeToggle";
 import { closeSidebar } from "../utils";
-import { NavigationContext } from "@djangorender/core";
+import { NavigationContext } from "@django-render/core";
 
 export default function Sidebar() {
   const { navigate } = React.useContext(NavigationContext);
