@@ -1,30 +1,54 @@
+import * as React from "react";
 import { Button, Typography } from "@mui/joy";
-import { Form } from "@django-render/core";
+import { Form, OverlayContext } from "@django-render/core";
 import FormDef from "../../deserializers/Form";
+import { Post } from "../../types";
+import Layout from "../../components/Layout";
 
 interface PostFormViewProps {
+  post: Post | null;
   csrf_token: string;
   action_url: string;
   form: FormDef;
 }
 
 export default function PostFormView({
+  post,
   csrf_token,
   action_url,
   form,
 }: PostFormViewProps) {
-  return (
-    <>
-      <Typography level="h2" component="h1">
-        Add Post
-      </Typography>
+  const { overlay } = React.useContext(OverlayContext);
 
-      <Form action={action_url} method="post">
-        <input type="hidden" name="csrfmiddlewaretoken" value={csrf_token} />
+  const title = post ? `Editing ${post.title}` : "Add Post";
 
-        {form.render()}
-        <Button type="submit">Add post</Button>
-      </Form>
-    </>
+  const renderedForm = (
+    <Form action={action_url} method="post">
+      <input type="hidden" name="csrfmiddlewaretoken" value={csrf_token} />
+
+      {form.render()}
+      <Button type="submit">{post ? 'Save changes' : 'Add Post'}</Button>
+    </Form>
   );
+
+  if (overlay) {
+    return (
+      <>
+        <Typography level="h2" component="h1">
+          {title}
+        </Typography>
+
+        {renderedForm}
+      </>
+    );
+  }
+
+  return (
+    <Layout
+      title={title}
+      breadcrumb={[{ label: "Posts" }, { label: title }]}
+    >
+      {renderedForm}
+    </Layout>
+  )
 }

@@ -65,6 +65,9 @@ def edit(request, post_id):
         request,
         "PostForm",
         {
+            "post": {"title": post.title, "edit_url": reverse("posts_edit", args=[post.id])},
+            "csrf_token": get_token(request),
+            "action_url": reverse("posts_edit", args=[post_id]),
             "form": form,
         },
     )

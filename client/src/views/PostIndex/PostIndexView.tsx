@@ -4,7 +4,7 @@ import PostAddIcon from "@mui/icons-material/PostAdd";
 import Button from "@mui/joy/Button";
 
 import Layout from "../../components/Layout";
-import { NavigationContext } from "@django-render/core";
+import { Link, NavigationContext } from "@django-render/core";
 import ModalWindow from "../../components/ModalWindow";
 
 const Header = styled.header`
@@ -22,31 +22,16 @@ const HeaderButtons = styled.div`
   margin-left: auto;
 `;
 
-// const columns: GridColDef[] = [
-//   {
-//     field: "title",
-//     headerName: "Title",
-//   },
-//   {
-//     field: "status",
-//     headerName: "Status",
-//     valueGetter: (params: GridValueGetterParams) => params.row.status.display,
-//   },
-// ];
+interface Post {
+  title: string;
+  edit_url: string;
+}
 
-// interface PostIndexViewProps {
-//   posts: {
-//     id: string;
-//     title: string;
-//     status: {
-//       code: "draft" | "published";
-//       display: string;
-//     };
-//     edit_url: string;
-//   }[];
-// }
+interface PostIndexViewProps {
+  posts: Post[];
+}
 
-export default function PostIndexView(/* { posts }: PostIndexViewProps */) {
+export default function PostIndexView({ posts }: PostIndexViewProps) {
   const { openOverlay } = React.useContext(NavigationContext);
 
   return (
@@ -77,6 +62,20 @@ export default function PostIndexView(/* { posts }: PostIndexViewProps */) {
       <Header>
         <HeaderButtons></HeaderButtons>
       </Header>
+
+      <table>
+        <thead>
+          <th>
+            Title
+          </th>
+          <th>
+            Actions
+          </th>
+        </thead>
+        <tbody>
+          {posts.map(post => <tr><td>{post.title}</td><td><Link href={post.edit_url}>Edit</Link></td></tr>)}
+        </tbody>
+      </table>
 
       {/* <DataGrid rows={posts} columns={columns} /> */}
     </Layout>
