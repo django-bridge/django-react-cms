@@ -13,7 +13,7 @@ dj-database-url = "^2.1.0"
 gunicorn = "^21.2.0"
 sentry-sdk = {extras = ["django"], version = "^1.39.1"}
 isort = "^5.13.2"
-djrender = "^0.1b3"
+djrender = "^0.1b7"
 whitenoise = "^6.6.0"
 
 [tool.poetry.group.dev.dependencies]

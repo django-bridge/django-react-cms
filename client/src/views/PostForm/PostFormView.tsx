@@ -18,7 +18,7 @@ export default function PostFormView({
   action_url,
   form,
 }: PostFormViewProps) {
-  const { overlay } = React.useContext(OverlayContext);
+  const { overlay, requestClose } = React.useContext(OverlayContext);
 
   const title = post ? `Editing ${post.title}` : "Add Post";
 
@@ -28,6 +28,7 @@ export default function PostFormView({
 
       {form.render()}
       <Button type="submit">{post ? 'Save changes' : 'Add Post'}</Button>
+      {overlay && <Button type="button" onClick={() => requestClose({skipDirtyFormCheck: true})}>Cancel</Button>}
     </Form>
   );
 

@@ -44,12 +44,8 @@ export default function PostIndexView({ posts }: PostIndexViewProps) {
           startDecorator={<PostAddIcon />}
           size="sm"
           onClick={() =>
-            openOverlay("/posts/add/", (content, onClose, requestClose) => (
-              <ModalWindow
-                side="right"
-                onClose={onClose}
-                requestClose={requestClose}
-              >
+            openOverlay("/posts/add/", (content) => (
+              <ModalWindow side="right">
                 {content}
               </ModalWindow>
             ))

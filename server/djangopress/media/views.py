@@ -1,12 +1,10 @@
 from django.contrib.contenttypes.models import ContentType
-from django_render.decorators import djangorender_view
 from django_render.response import Response
 
 from .forms import ImageForm
 from .models import MediaAsset
 
 
-@djangorender_view
 def index(request):
     assets = MediaAsset.objects.all()
 
@@ -26,7 +24,6 @@ def index(request):
     )
 
 
-@djangorender_view
 def add(request):
     form = ImageForm()
 
@@ -44,7 +41,6 @@ def add(request):
     )
 
 
-@djangorender_view
 def edit(request, mediaasset_id):
     # TODO: Check media type
     image = get_object_or_404(Image, id=mediaasset_id)
@@ -62,7 +58,6 @@ def edit(request, mediaasset_id):
     )
 
 
-@djangorender_view
 def delete(request, mediaasset_id):
     asset = get_object_or_404(MediaAsset, id=mediaasset_id)
 

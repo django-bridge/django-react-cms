@@ -9,35 +9,35 @@ import MediaIndexView from "./views/MediaIndex";
 import PostFormView from "./views/PostForm";
 import FormDef from "./deserializers/Form";
 import FieldDef from "./deserializers/Field";
-import ServerRenderedInputtDef from "./deserializers/widgets/ServerRenderedInput";
+import ServerRenderedFieldDef from "./deserializers/ServerRenderedField";
 import TextInputDef from "./deserializers/widgets/TextInput";
 import SelectDef from "./deserializers/widgets/Select";
 
+const config = new DjangoRender.Config();
+
 // Add your views here
-const djangorenderConfig = new DjangoRender.Config();
-djangorenderConfig.addView("Home", HomeView);
-djangorenderConfig.addView("PostIndex", PostIndexView);
-djangorenderConfig.addView("PostForm", PostFormView);
-djangorenderConfig.addView("MediaIndex", MediaIndexView);
+config.addView("Home", HomeView);
+config.addView("PostIndex", PostIndexView);
+config.addView("PostForm", PostFormView);
+config.addView("MediaIndex", MediaIndexView);
 
 // Add your deserializers here
-djangorenderConfig.addDeserializer("forms.Form", FormDef);
-djangorenderConfig.addDeserializer("forms.Field", FieldDef);
-djangorenderConfig.addDeserializer(
-  "forms.ServerRenderedInput",
-  ServerRenderedInputtDef
+config.addDeserializer("forms.Form", FormDef);
+config.addDeserializer("forms.Field", FieldDef);
+config.addDeserializer(
+  "forms.ServerRenderedField",
+  ServerRenderedFieldDef
 );
-djangorenderConfig.addDeserializer("forms.TextInput", TextInputDef);
-djangorenderConfig.addDeserializer("forms.Select", SelectDef);
-djangorenderConfig.addDeserializer("Date", Date);
+config.addDeserializer("forms.TextInput", TextInputDef);
+config.addDeserializer("forms.Select", SelectDef);
 
 const rootElement = document.getElementById("root")!;
-const initialResponse = rootElement.dataset.initialResponse!;
+const initialResponse = JSON.parse(
+  document.getElementById("initial-response")!.textContent!
+);
+
 ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
-    <DjangoRender.App
-      config={djangorenderConfig}
-      initialResponse={JSON.parse(initialResponse)}
-    />
+    <DjangoRender.App config={config} initialResponse={initialResponse} />
   </React.StrictMode>
 );

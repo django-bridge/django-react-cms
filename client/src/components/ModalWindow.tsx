@@ -1,7 +1,7 @@
 import React, { useRef, ReactElement } from "react";
 import styled, { keyframes } from "styled-components";
 import FocusTrap from "focus-trap-react";
-import { DirtyFormContext } from "@django-render/core";
+import { DirtyFormContext, OverlayContext } from "@django-render/core";
 import WarningRounded from "@mui/icons-material/WarningRounded";
 
 export interface ModalWindowControls {
@@ -233,21 +233,19 @@ let nextModalId = 1;
 
 interface ModalWindowProps {
   side: "left" | "right";
-  onClose(): void;
-  requestClose?: boolean;
 }
 
 function ModalWindow({
   children,
   side,
-  onClose,
-  requestClose = false,
 }: React.PropsWithChildren<ModalWindowProps>): ReactElement {
   const id = useRef<string | null>(null);
   if (!id.current) {
     id.current = `overlay-${nextModalId}`;
     nextModalId += 1;
   }
+
+  const { requestClose, closeRequested, onCloseCompleted } = React.useContext(OverlayContext);
 
   // Custom warning message
   // TODO: implement this in a better way?
@@ -258,7 +256,7 @@ function ModalWindow({
   const [closing, setClosing] = React.useState(false);
   React.useEffect(() => {
     if (closing) {
-      const timeout = setTimeout(onClose, 200);
+      const timeout = setTimeout(onCloseCompleted, 200);
 
       return () => {
         clearTimeout(timeout);
@@ -270,21 +268,12 @@ function ModalWindow({
 
   const dirtyFormContext = React.useContext(DirtyFormContext);
 
-  const requestCloseCallback = React.useCallback(() => {
-    if (dirtyFormContext.isDirty) {
-      // eslint-disable-next-line no-void
-      void dirtyFormContext.requestUnload().then(() => setClosing(true));
-    } else {
-      setClosing(true);
-    }
-  }, [dirtyFormContext]);
-
   // If parent component requests close, then close.
   React.useEffect(() => {
-    if (requestClose) {
+    if (closeRequested) {
       setClosing(true);
     }
-  }, [requestClose, requestCloseCallback]);
+  }, [closeRequested]);
 
   const ModalWindowControls = React.useMemo(
     () => ({
@@ -293,12 +282,12 @@ function ModalWindow({
         if (skipDirtyFormCheck) {
           setClosing(true);
         } else {
-          requestCloseCallback();
+          requestClose();
         }
       },
       setWarning,
     }),
-    [requestCloseCallback]
+    [requestClose]
   );
 
   // Close modal on click outside
@@ -313,7 +302,7 @@ function ModalWindow({
         !bodyRef.current.contains(e.target)
       ) {
         e.preventDefault();
-        requestCloseCallback();
+        requestClose();
       }
     };
 
@@ -322,14 +311,14 @@ function ModalWindow({
     return () => {
       document.body.removeEventListener("mouseup", clickEventListener);
     };
-  }, [requestCloseCallback]);
+  }, [requestClose]);
 
   React.useEffect(() => {
     const keydownEventListener = (e: KeyboardEvent) => {
       // Close modal on click escape
       if (e.key === "Escape") {
         e.preventDefault();
-        requestCloseCallback();
+        requestClose();
       }
     };
 

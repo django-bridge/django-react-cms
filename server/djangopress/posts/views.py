@@ -2,14 +2,12 @@ from django.contrib import messages
 from django.middleware.csrf import get_token
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
-from django_render.decorators import djangorender_view
 from django_render.response import CloseOverlayResponse, Response
 
 from .forms import PostForm
 from .models import Post
 
 
-@djangorender_view
 def index(request):
     posts = Post.objects.all()
 
@@ -26,7 +24,6 @@ def index(request):
     )
 
 
-@djangorender_view
 def add(request):
     form = PostForm(request.POST or None)
 
@@ -53,7 +50,6 @@ def add(request):
     )
 
 
-@djangorender_view
 def edit(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     form = PostForm(request.POST or None, instance=post)
@@ -73,7 +69,6 @@ def edit(request, post_id):
     )
 
 
-@djangorender_view
 def delete(request, post_id):
     post = get_object_or_404(Post, id=post_id)
 
