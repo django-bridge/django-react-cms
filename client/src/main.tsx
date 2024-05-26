@@ -14,6 +14,8 @@ import TextInputDef from "./deserializers/widgets/TextInput";
 import SelectDef from "./deserializers/widgets/Select";
 import FileInputDef from "./deserializers/widgets/FileInput";
 
+import "./main.css";
+
 const config = new DjangoRender.Config();
 
 // Add your views here
