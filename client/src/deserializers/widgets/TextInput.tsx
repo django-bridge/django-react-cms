@@ -1,21 +1,17 @@
 import { ReactElement } from "react";
-import TextInput from "../../components/widgets/TextInput";
 import { WidgetDef } from "./base";
+import Input from '@mui/joy/Input';
 
 export default class TextInputDef implements WidgetDef {
   type: "text" | "email" | "url" | "password";
-
-  idForLabel: string;
 
   className: string;
 
   constructor(
     type: TextInputDef["type"],
-    idForLabel: string,
     className: string,
   ) {
     this.type = type;
-    this.idForLabel = idForLabel;
     this.className = className;
   }
 
@@ -26,7 +22,7 @@ export default class TextInputDef implements WidgetDef {
     value: string,
   ): ReactElement {
     return (
-      <TextInput
+      <Input
         id={id}
         type={this.type}
         name={name}
@@ -35,9 +31,5 @@ export default class TextInputDef implements WidgetDef {
         className={this.className}
       />
     );
-  }
-
-  getIdForLabel(id: string): string {
-    return this.idForLabel.replace("__ID__", id);
   }
 }

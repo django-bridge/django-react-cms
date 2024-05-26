@@ -3,8 +3,6 @@ import FileInput from "../../components/widgets/FileInput";
 import { WidgetDef } from "./base";
 
 export default class FileInputDef implements WidgetDef {
-  idForLabel: string;
-
   className: string;
 
   accept: string;
@@ -12,12 +10,10 @@ export default class FileInputDef implements WidgetDef {
   maxFileSizeDisplay: string;
 
   constructor(
-    idForLabel: string,
     className: string,
     accept: string,
     maxFileSizeDisplay: string,
   ) {
-    this.idForLabel = idForLabel;
     this.className = className;
     this.accept = accept;
     this.maxFileSizeDisplay = maxFileSizeDisplay;
@@ -40,9 +36,5 @@ export default class FileInputDef implements WidgetDef {
         maxFileSizeDisplay={this.maxFileSizeDisplay}
       />
     );
-  }
-
-  getIdForLabel(id: string): string {
-    return this.idForLabel.replace("__ID__", id);
   }
 }

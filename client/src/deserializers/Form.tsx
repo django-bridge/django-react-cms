@@ -1,6 +1,7 @@
 import { ReactElement } from "react";
 import FieldDef from "./Field";
-import Errors from "../components/Errors";
+import { Alert } from "@mui/joy";
+import WarningIcon from "@mui/icons-material/Warning";
 
 export interface Tab {
   label: string;
@@ -31,7 +32,17 @@ export default class FormDef {
 
     return (
       <>
-        {!!formErrors && <Errors errors={formErrors} />}
+        {!!formErrors && (
+          <Alert color="danger">
+            <ul>
+              {formErrors.map((error) => (
+                <li key={error}>
+                  <WarningIcon fontSize="small" /> {error}
+                </li>
+              ))}
+            </ul>
+          </Alert>
+        )}
         {this.fields.map((field, fieldIndex) => (
           <div key={field.name}>
             {field.render(this.errors[field.name] || [], {

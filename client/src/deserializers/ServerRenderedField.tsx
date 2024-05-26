@@ -36,7 +36,6 @@ export default class ServerRemderedFieldDef {
   ): ReactElement {
     return (
       <Field
-        idForLabel={this.name}
         label={this.label}
         required={this.required}
         widget={<div

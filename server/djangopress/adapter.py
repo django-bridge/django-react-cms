@@ -12,7 +12,6 @@ class TextInputAdapter(Adapter):
     def js_args(self, widget):
         return [
             "text",
-            widget.id_for_label("__ID__"),
             widget.attrs.get("class", ""),
         ]
 
@@ -26,7 +25,6 @@ class PasswordInputAdapter(Adapter):
     def js_args(self, widget):
         return [
             "password",
-            widget.id_for_label("__ID__"),
             widget.attrs.get("class", ""),
         ]
 
@@ -39,7 +37,6 @@ class FileInputAdapter(Adapter):
 
     def js_args(self, widget):
         return [
-            widget.id_for_label("__ID__"),
             widget.attrs.get("class", ""),
             widget.attrs.get("accept", ""),
             filesizeformat(settings.MAX_UPLOAD_SIZE),
@@ -54,7 +51,6 @@ class SelectAdapter(Adapter):
 
     def js_args(self, widget):
         return [
-            widget.id_for_label("__ID__"),
             widget.options("__NAME__", ""),
             widget.attrs.get("class", ""),
         ]

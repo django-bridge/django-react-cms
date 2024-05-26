@@ -39,17 +39,8 @@ export default class FieldDef {
     errors: string[],
     displayOptions: FieldProps["displayOptions"] = {},
   ): ReactElement {
-    if (this.widget.helpTextPosition === "before") {
-      displayOptions.helpTextAboveWidget = true;
-    }
-
-    if (this.widget.floatLeft) {
-      displayOptions.widgetFloatLeft = true;
-    }
-
     return (
       <Field
-        idForLabel={this.widget.getIdForLabel(this.name)}
         label={this.label}
         required={this.required}
         widget={this.widget.render(
