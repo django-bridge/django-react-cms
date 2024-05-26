@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
 import { WidgetDef } from "./base";
-import Select from "../../components/widgets/Select";
+import { Select, Option } from "@mui/joy";
 
 export default class SelectDef implements WidgetDef {
   choices: { label: string; value: string }[];
@@ -21,25 +21,22 @@ export default class SelectDef implements WidgetDef {
     disabled: boolean,
     value: string,
   ): ReactElement {
-    // Find the option that corresponds to the value
-    let option = null;
+    // Find the default value
+    let defaultValue = null;
     this.choices.forEach((choice) => {
-      // HACK: Cast null value to and empty string as that's that value Django uses for the empty value of a ModelChoiceField
+      // Cast null value to and empty string as that's that value Django uses for the empty value of a ModelChoiceField
       // Also cast ints to string as Django may use both interchangably for model primary keys
       if (`${choice.value}` === `${value || ""}`) {
-        option = choice;
+        defaultValue = choice.value;
       }
     });
 
     return (
-      <Select
-        id={id}
-        name={name}
-        defaultValue={option}
-        options={this.choices}
-        isDisabled={disabled}
-        className={this.className}
-      />
+      <>
+      <Select id={id} name={name} defaultValue={defaultValue} disabled={disabled} className={this.className}>
+        {this.choices.map((choice) => <Option value={choice.value}>{choice.label}</Option>)}
+      </Select>
+      </>
     );
   }
 }
