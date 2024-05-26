@@ -75,7 +75,7 @@ export default function Sidebar() {
         {/* <IconButton variant="soft" color="primary" size="sm">
           <BrightnessAutoRoundedIcon />
         </IconButton> */}
-        <Typography level="title-lg">Djangopress</Typography>
+        <Typography level="title-lg" fontWeight="xl">Djangopress</Typography>
         <ColorSchemeToggle sx={{ ml: "auto" }} />
       </Box>
       <Box

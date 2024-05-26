@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import * as DjangoRender from "@django-render/core";
-import "./index.css";
 
 import HomeView from "./views/Home";
 import PostIndexView from "./views/PostIndex";

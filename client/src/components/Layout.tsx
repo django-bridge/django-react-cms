@@ -101,7 +101,7 @@ export default function Layout({
               justifyContent: "space-between",
             }}
           >
-            <Typography level="h2" component="h1">
+            <Typography level="h2" component="h1" fontWeight="xl">
               {title}
             </Typography>
             {renderHeaderButtons && renderHeaderButtons()}
