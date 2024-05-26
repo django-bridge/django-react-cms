@@ -32,7 +32,7 @@ interface PostIndexViewProps {
 }
 
 export default function PostIndexView({ posts }: PostIndexViewProps) {
-  const { openOverlay } = React.useContext(NavigationContext);
+  const { openOverlay, refreshProps } = React.useContext(NavigationContext);
 
   return (
     <Layout
@@ -48,7 +48,12 @@ export default function PostIndexView({ posts }: PostIndexViewProps) {
               <ModalWindow side="right">
                 {content}
               </ModalWindow>
-            ))
+            ), {
+              onClose: () => {
+                // Refresh props so new post pops up in listing
+                refreshProps();
+              }
+            })
           }
         >
           Add Post

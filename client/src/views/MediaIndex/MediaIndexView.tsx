@@ -42,7 +42,7 @@ interface MediaIndexViewProps {
 }
 
 export default function MediaIndexView({ assets }: MediaIndexViewProps) {
-  const { openOverlay } = React.useContext(NavigationContext);
+  const { openOverlay, refreshProps } = React.useContext(NavigationContext);
 
   return (
     <Layout
@@ -58,7 +58,12 @@ export default function MediaIndexView({ assets }: MediaIndexViewProps) {
               <ModalWindow side="right">
                 {content}
               </ModalWindow>
-            ))
+            ), {
+              onClose: () => {
+                // Refresh props so new image pops up in listing
+                refreshProps();
+              }
+            })
           }
         >
           Add Image
