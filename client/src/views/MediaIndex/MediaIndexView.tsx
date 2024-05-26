@@ -1,50 +1,49 @@
+import React from "react";
 import styled from "styled-components";
-//import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import Button from "@mui/joy/Button";
 
 import Layout from "../../components/Layout";
+import { Link, NavigationContext } from "@django-render/core";
+import ModalWindow from "../../components/ModalWindow";
 
-const Header = styled.header`
-  padding: 20px;
-  display: flex;
-  flex-flow: right;
+const MediaAssetListing = styled.ul`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(125px, 1fr));
+  grid-gap: 20px;
+  list-style: none;
+  margin: 20px;
 
-  h1 {
-    font-weight: 700;
-    font-size: 1.5em;
+  li {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  figure {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+  }
+
+  figcaption {
+    margin-top: 10px;
   }
 `;
 
-const HeaderButtons = styled.div`
-  margin-left: auto;
-`;
+interface MediaIndexViewProps {
+  assets: {
+    id: number;
+    title: string;
+    edit_url: string;
+    thumbnail_url: string | null;
+  }[];
+}
 
-// const columns: GridColDef[] = [
-//   {
-//     field: "title",
-//     headerName: "Title",
-//   },
-//   {
-//     field: "status",
-//     headerName: "Status",
-//     valueGetter: (params: GridValueGetterParams) => params.row.status.display,
-//   },
-// ];
+export default function MediaIndexView({ assets }: MediaIndexViewProps) {
+  const { openOverlay } = React.useContext(NavigationContext);
 
-// interface MediaIndexViewProps {
-//   Medias: {
-//     id: string;
-//     title: string;
-//     status: {
-//       code: "draft" | "published";
-//       display: string;
-//     };
-//     edit_url: string;
-//   }[];
-// }
-
-export default function MediaIndexView(/* { Medias }: MediaIndexViewProps */) {
   return (
     <Layout
       title="Media"
@@ -54,16 +53,30 @@ export default function MediaIndexView(/* { Medias }: MediaIndexViewProps */) {
           color="primary"
           startDecorator={<AddPhotoAlternateIcon />}
           size="sm"
+          onClick={() =>
+            openOverlay("/media/add-image/", (content) => (
+              <ModalWindow side="right">
+                {content}
+              </ModalWindow>
+            ))
+          }
         >
           Add Image
         </Button>
       )}
     >
-      <Header>
-        <HeaderButtons></HeaderButtons>
-      </Header>
-
-      {/* <DataGrid rows={Medias} columns={columns} /> */}
+      <MediaAssetListing>
+        {assets.map((asset) => (
+          <li key={asset.id}>
+            <Link href={asset.edit_url}>
+                <figure>
+                  <img src={asset.thumbnail_url || "#"} alt={asset.title} />
+                  <figcaption>{asset.title}</figcaption>
+              </figure>
+            </Link>
+          </li>
+        ))}
+      </MediaAssetListing>
     </Layout>
   );
 }

@@ -1,8 +1,12 @@
+from django.middleware.csrf import get_token
 from django.contrib.contenttypes.models import ContentType
-from django_render.response import Response
+from django.contrib import messages
+from django_render.response import Response, CloseOverlayResponse
+from django.urls import reverse
+from django.shortcuts import get_object_or_404
 
 from .forms import ImageForm
-from .models import MediaAsset
+from .models import MediaAsset, Image
 
 
 def index(request):
@@ -14,8 +18,10 @@ def index(request):
         {
             "assets": [
                 {
+                    "id": asset.id,
                     "title": asset.title,
-                    "edit_url": reverse("media_edit", args=[post.id]),
+                    "edit_url": reverse("media_edit", args=[asset.id]),
+                    "thumbnail_url": asset.thumbnail.file.url if asset.thumbnail else None,
                 }
                 for asset in assets
             ]
@@ -24,37 +30,57 @@ def index(request):
     )
 
 
-def add(request):
-    form = ImageForm()
+def add_image(request):
+    form = ImageForm(request.POST or None, request.FILES or None)
 
     if form.is_valid():
         image = form.save(commit=False)
         image.media_type = ContentType.objects.get_for_model(Image)
+        image.generate_thumbnail()
         image.save()
+
+        messages.success(
+            request,
+            f"Successfully added image '{image.title}'.",
+        )
+
+        return CloseOverlayResponse(request)
 
     return Response(
         request,
-        "ImageForm",
+        "MediaForm",
         {
+            "title": "Add image",
+            "submit_button_label": "Add image",
+            "csrf_token": get_token(request),
+            "action_url": reverse("media_add_image"),
             "form": form,
         },
+        overlay=True,
+        title="Add Image | Djangopress",
     )
 
 
 def edit(request, mediaasset_id):
     # TODO: Check media type
     image = get_object_or_404(Image, id=mediaasset_id)
-    form = ImageForm()
+    form = ImageForm(request.POST or None, instance=image)
 
     if form.is_valid():
         form.save()
 
     return Response(
         request,
-        "ImageForm",
+        "MediaForm",
         {
+            "title": image.title,
+            "submit_button_label": "Save",
+            "csrf_token": get_token(request),
+            "action_url": reverse("media_edit", args=[mediaasset_id]),
             "form": form,
         },
+        overlay=True,
+        title=f"Editing {image.title} | Djangopress",
     )
 
 

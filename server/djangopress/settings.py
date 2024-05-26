@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "djangopress.posts",
     "djangopress.media",
     "djangopress.auth",
+    "djangopress",
     "django_render",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -131,10 +132,17 @@ if os.environ.get("VITE_BUNDLE_DIR"):
     STATICFILES_DIRS = [os.environ["VITE_BUNDLE_DIR"]]
 
 STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
+
+MEDIA_URL = "media/"
+MEDIA_ROOT = BASE_DIR / "media"
+MAX_UPLOAD_SIZE = 2 * 1024 * 1024
 
 
 # Default primary key field type

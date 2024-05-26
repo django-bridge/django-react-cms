@@ -7,11 +7,13 @@ import HomeView from "./views/Home";
 import PostIndexView from "./views/PostIndex";
 import MediaIndexView from "./views/MediaIndex";
 import PostFormView from "./views/PostForm";
+import MediaFormView from "./views/MediaForm";
 import FormDef from "./deserializers/Form";
 import FieldDef from "./deserializers/Field";
 import ServerRenderedFieldDef from "./deserializers/ServerRenderedField";
 import TextInputDef from "./deserializers/widgets/TextInput";
 import SelectDef from "./deserializers/widgets/Select";
+import FileInputDef from "./deserializers/widgets/FileInput";
 
 const config = new DjangoRender.Config();
 
@@ -20,6 +22,7 @@ config.addView("Home", HomeView);
 config.addView("PostIndex", PostIndexView);
 config.addView("PostForm", PostFormView);
 config.addView("MediaIndex", MediaIndexView);
+config.addView("MediaForm", MediaFormView);
 
 // Add your deserializers here
 config.addDeserializer("forms.Form", FormDef);
@@ -30,6 +33,7 @@ config.addDeserializer(
 );
 config.addDeserializer("forms.TextInput", TextInputDef);
 config.addDeserializer("forms.Select", SelectDef);
+config.addDeserializer("forms.FileInput", FileInputDef);
 
 const rootElement = document.getElementById("root")!;
 const initialResponse = JSON.parse(
