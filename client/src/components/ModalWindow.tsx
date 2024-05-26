@@ -1,201 +1,22 @@
 import React, { useRef, ReactElement } from "react";
 import styled, { keyframes } from "styled-components";
 import FocusTrap from "focus-trap-react";
-import { DirtyFormContext, OverlayContext } from "@django-render/core";
+import { OverlayContext } from "@django-render/core";
 import WarningRounded from "@mui/icons-material/WarningRounded";
-
-export interface ModalWindowControls {
-  isModal: boolean;
-  close: (options?: { skipDirtyFormCheck?: boolean }) => void;
-  setWarning: (warning: ModalWindowWarningMessage) => void;
-}
-
-export interface ModalWindowWarningMessage {
-  primary: string;
-  details: string;
-}
-
-export const ModalWindowControlsContext =
-  React.createContext<ModalWindowControls>({
-    isModal: false,
-    close: () => {
-      // eslint-disable-next-line no-console
-      console.error("ModalWindowControls.close() called from outside a Modal");
-    },
-    setWarning: () => {},
-  });
-
-const fadeInOverlay = keyframes`
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 0.5;
-    }
-`;
-
-const fadeOutOverlay = keyframes`
-    from {
-        opacity: 0.5;
-    }
-
-    to {
-        opacity: 0;
-    }
-`;
+import Drawer from '@mui/joy/Drawer';
 
 const ModalWrapper = styled.div`
-  width: 100vw;
   min-height: 100%;
-  max-width: 650px;
   padding-left: 60px;
   padding-right: 60px;
   padding-top: 40px;
-
-  @media only screen and (max-width: 600px) {
-    padding-left: 30px;
-    padding-right: 30px;
-  }
-`;
-
-const ModalOverlay = styled.div`
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 20000;
-  background-color: #000;
-  opacity: 0.5;
-  animation: ${fadeInOverlay} 0.2s ease;
-
-  &.closing {
-    animation: ${fadeOutOverlay} 0.2s ease;
-    opacity: 0;
-  }
-`;
-
-const slideInBodyFromLeft = keyframes`
-    from {
-        transform: translate(-100%, 0);
-    }
-
-    to {
-        transform: none;
-    }
-`;
-
-const slideOutBodyFromLeft = keyframes`
-    from {
-        transform: none;
-    }
-
-    to {
-        transform: translate(-100%, 0);
-    }
-`;
-
-const slideInBodyFromRight = keyframes`
-    from {
-        transform: translate(100%, 0);
-    }
-
-    to {
-        transform: none;
-    }
-`;
-
-const slideOutBodyFromRight = keyframes`
-    from {
-        transform: none;
-    }
-
-    to {
-        transform: translate(100%, 0);
-    }
-`;
-
-const ModalWindowWrapper = styled.div`
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 20001;
-  overflow: hidden;
-
-  &.left {
-    animation: ${slideInBodyFromLeft} 0.2s ease;
-  }
-
-  &.left&.closing {
-    animation: ${slideOutBodyFromLeft} 0.2s ease;
-    transform: translate(100%, 0);
-  }
-
-  &.right {
-    animation: ${slideInBodyFromRight} 0.2s ease;
-  }
-
-  &.right&.closing {
-    animation: ${slideOutBodyFromRight} 0.2s ease;
-    transform: translate(100%, 0);
-  }
-`;
-
-const ModalLayout = styled.div`
-  display: flex;
-
-  ${ModalWindowWrapper}.left & {
-    flex-flow: row-reverse nowrap;
-  }
-
-  ${ModalWindowWrapper}.right & {
-    flex-flow: row nowrap;
-  }
 `;
 
 const ModalBody = styled.div`
-  z-index: 20010;
   height: 100vh;
-  background-color: #fff;
   display: flex;
   flex-direction: column;
   overflow: auto;
-
-  ${ModalWindowWrapper}.left & {
-    margin-right: auto;
-  }
-
-  ${ModalWindowWrapper}.right & {
-    margin-left: auto;
-  }
-`;
-
-const BaseWarningWrapper = styled.div`
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-  gap: 20px;
-  padding: 15px 20px;
-  color: #2e1f5e;
-  font-size: 15px;
-  font-weight: 400;
-  margin-top: 0;
-
-  svg {
-    height: 18px;
-    flex-shrink: 0;
-  }
-
-  p {
-    line-height: 19.5px;
-  }
-
-  strong {
-    font-weight: 700;
-  }
 `;
 
 const slideInUnsavedChangesWarning = keyframes`
@@ -208,20 +29,31 @@ const slideInUnsavedChangesWarning = keyframes`
     }
 `;
 
-const UnsavedChangesWarningWrapper = styled(BaseWarningWrapper)`
+const UnsavedChangesWarningWrapper = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  gap: 20px;
+  padding: 15px 20px;
+  color: #2e1f5e;
+  font-size: 15px;
+  font-weight: 400;
+  margin-top: 0;
   background-color: #ffdadd;
   animation: ${slideInUnsavedChangesWarning} 0.5s ease;
 
   svg {
+    height: 18px;
+    flex-shrink: 0;
     color: #d9303e;
   }
-`;
 
-const CautionWarningWrapper = styled(BaseWarningWrapper)`
-  background-color: #faecd5;
+  p {
+    line-height: 19.5px;
+  }
 
-  svg {
-    color: #ffb800;
+  strong {
+    font-weight: 700;
   }
 `;
 
@@ -245,12 +77,13 @@ function ModalWindow({
     nextModalId += 1;
   }
 
-  const { requestClose, closeRequested, onCloseCompleted } = React.useContext(OverlayContext);
+  // Open state
+  // On first render this is false, then it immediate turns to true
+  // This triggers the opening animation
+  const [open, setOpen] = React.useState(false);
+  React.useEffect(() => setOpen(true), []);
 
-  // Custom warning message
-  // TODO: implement this in a better way?
-  const [warning, setWarning] =
-    React.useState<ModalWindowWarningMessage | null>(null);
+  const { requestClose, closeRequested, closeBlocked, onCloseCompleted } = React.useContext(OverlayContext);
 
   // Closing state
   const [closing, setClosing] = React.useState(false);
@@ -266,29 +99,12 @@ function ModalWindow({
     return () => {};
   });
 
-  const dirtyFormContext = React.useContext(DirtyFormContext);
-
   // If parent component requests close, then close.
   React.useEffect(() => {
     if (closeRequested) {
       setClosing(true);
     }
   }, [closeRequested]);
-
-  const ModalWindowControls = React.useMemo(
-    () => ({
-      isModal: true,
-      close: ({ skipDirtyFormCheck = false } = {}) => {
-        if (skipDirtyFormCheck) {
-          setClosing(true);
-        } else {
-          requestClose();
-        }
-      },
-      setWarning,
-    }),
-    [requestClose]
-  );
 
   // Close modal on click outside
   const bodyRef = React.useRef<HTMLDivElement | null>(null);
@@ -339,48 +155,32 @@ function ModalWindow({
   }, []);
 
   return (
-    <>
-      <ModalOverlay className={closing ? "closing" : ""} />
-      <ModalWindowWrapper
-        role="dialog"
-        aria-modal
-        aria-hidden={false}
-        aria-labelledby={`${id.current}-title`}
-        className={side + (closing ? " closing" : "")}
-      >
-        <ModalWindowControlsContext.Provider value={ModalWindowControls}>
-          <FocusTrap>
-            <ModalLayout>
-              <ModalBody ref={bodyRef}>
-                {dirtyFormContext.unloadRequested && (
-                  <UnsavedChangesWarningWrapper
-                    role="alert"
-                    aria-live="assertive"
-                  >
-                    <WarningRounded />
-                    <p>
-                      <strong>You have unsaved changes.</strong> Please save or
-                      cancel before closing
-                    </p>
-                  </UnsavedChangesWarningWrapper>
-                )}
-                {warning && (
-                  <CautionWarningWrapper>
-                    <WarningRounded />
-                    <p>
-                      <strong>{warning.primary}</strong> {warning.details}
-                    </p>
-                  </CautionWarningWrapper>
-                )}
-                <ModalContent>
-                  <ModalWrapper>{children}</ModalWrapper>
-                </ModalContent>
-              </ModalBody>
-            </ModalLayout>
-          </FocusTrap>
-        </ModalWindowControlsContext.Provider>
-      </ModalWindowWrapper>
-    </>
+    <Drawer anchor={side} open={open && !closing} size="lg" sx={{
+      '--Drawer-transitionDuration': (open && !closing) ? '0.4s' : '0.2s',
+      '--Drawer-transitionFunction': (open && !closing)
+        ? 'cubic-bezier(0.79,0.14,0.15,0.86)'
+        : 'cubic-bezier(0.77,0,0.18,1)',
+    }}>
+        <FocusTrap>
+          <ModalBody ref={bodyRef}>
+            {closeBlocked && (
+              <UnsavedChangesWarningWrapper
+                role="alert"
+                aria-live="assertive"
+              >
+                <WarningRounded />
+                <p>
+                  <strong>You have unsaved changes.</strong> Please save or
+                  cancel before closing
+                </p>
+              </UnsavedChangesWarningWrapper>
+            )}
+            <ModalContent>
+              <ModalWrapper>{children}</ModalWrapper>
+            </ModalContent>
+          </ModalBody>
+        </FocusTrap>
+    </Drawer>
   );
 }
 
