@@ -154,11 +154,12 @@ function ModalWindow({
   }, []);
 
   return (
-    <Drawer anchor={side} open={open && !closing} size="lg" sx={{
+    <Drawer anchor={side} open={open && !closing} size="md" sx={{
       '--Drawer-transitionDuration': (open && !closing) ? '0.4s' : '0.2s',
       '--Drawer-transitionFunction': (open && !closing)
         ? 'cubic-bezier(0.79,0.14,0.15,0.86)'
         : 'cubic-bezier(0.77,0,0.18,1)',
+      '--Drawer-horizontalSize': 'clamp(300px, 100%, 650px)',
     }}>
       <ModalBody ref={bodyRef}>
         {closeBlocked && (
