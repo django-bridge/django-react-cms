@@ -79,8 +79,9 @@ function ModalWindow({
   // Open state
   // On first render this is false, then it immediate turns to true
   // This triggers the opening animation
+  // Note: add a 5ms delay as sometimes it loads too fast for React to notice
   const [open, setOpen] = React.useState(false);
-  React.useEffect(() => setOpen(true), []);
+  React.useEffect(() => {setTimeout(() => setOpen(true), 5)}, []);
 
   const { requestClose, closeRequested, closeBlocked, onCloseCompleted } = React.useContext(OverlayContext);
 
