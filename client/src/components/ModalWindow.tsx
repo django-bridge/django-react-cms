@@ -65,7 +65,7 @@ const ModalOverlay = styled.div`
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 1000;
+  z-index: 20000;
   background-color: #000;
   opacity: 0.5;
   animation: ${fadeInOverlay} 0.2s ease;
@@ -122,7 +122,7 @@ const ModalWindowWrapper = styled.div`
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 1001;
+  z-index: 20001;
   overflow: hidden;
 
   &.left {
@@ -157,7 +157,7 @@ const ModalLayout = styled.div`
 `;
 
 const ModalBody = styled.div`
-  z-index: 1010;
+  z-index: 20010;
   height: 100vh;
   background-color: #fff;
   display: flex;
