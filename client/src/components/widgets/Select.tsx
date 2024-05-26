@@ -5,7 +5,7 @@ import ReactSelect, {
   GroupBase,
 } from "react-select";
 import styled from "styled-components";
-import { FormWidgetChangeNotificationContext } from "../../contexts";
+import { FormWidgetChangeNotificationContext } from "@django-render/core";
 
 const StyledSelect = styled(ReactSelect)`
   width: 100%;
