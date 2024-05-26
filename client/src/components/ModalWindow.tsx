@@ -1,6 +1,5 @@
 import React, { useRef, ReactElement } from "react";
 import styled, { keyframes } from "styled-components";
-import FocusTrap from "focus-trap-react";
 import { OverlayContext } from "@django-render/core";
 import WarningRounded from "@mui/icons-material/WarningRounded";
 import Drawer from '@mui/joy/Drawer';
@@ -161,25 +160,23 @@ function ModalWindow({
         ? 'cubic-bezier(0.79,0.14,0.15,0.86)'
         : 'cubic-bezier(0.77,0,0.18,1)',
     }}>
-        <FocusTrap>
-          <ModalBody ref={bodyRef}>
-            {closeBlocked && (
-              <UnsavedChangesWarningWrapper
-                role="alert"
-                aria-live="assertive"
-              >
-                <WarningRounded />
-                <p>
-                  <strong>You have unsaved changes.</strong> Please save or
-                  cancel before closing
-                </p>
-              </UnsavedChangesWarningWrapper>
-            )}
-            <ModalContent>
-              <ModalWrapper>{children}</ModalWrapper>
-            </ModalContent>
-          </ModalBody>
-        </FocusTrap>
+      <ModalBody ref={bodyRef}>
+        {closeBlocked && (
+          <UnsavedChangesWarningWrapper
+            role="alert"
+            aria-live="assertive"
+          >
+            <WarningRounded />
+            <p>
+              <strong>You have unsaved changes.</strong> Please save or
+              cancel before closing
+            </p>
+          </UnsavedChangesWarningWrapper>
+        )}
+        <ModalContent>
+          <ModalWrapper>{children}</ModalWrapper>
+        </ModalContent>
+      </ModalBody>
     </Drawer>
   );
 }
