@@ -3,9 +3,9 @@ import styled from "styled-components";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import Button from "@mui/joy/Button";
 
-import Layout from "../../components/Layout";
+import Layout from "../components/Layout";
 import { Link, NavigationContext } from "@django-render/core";
-import ModalWindow from "../../components/ModalWindow";
+import ModalWindow from "../components/ModalWindow";
 
 const MediaAssetListing = styled.ul`
   display: grid;

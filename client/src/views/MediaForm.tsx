@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Button, Typography } from "@mui/joy";
 import { Form, OverlayContext } from "@django-render/core";
-import FormDef from "../../deserializers/Form";
-import Layout from "../../components/Layout";
+import FormDef from "../deserializers/Form";
+import Layout from "../components/Layout";
 
 interface MediaFormViewProps {
   title: string;

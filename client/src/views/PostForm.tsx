@@ -1,9 +1,9 @@
 import * as React from "react";
 import { Button, Typography } from "@mui/joy";
 import { Form, OverlayContext } from "@django-render/core";
-import FormDef from "../../deserializers/Form";
-import { Post } from "../../types";
-import Layout from "../../components/Layout";
+import FormDef from "../deserializers/Form";
+import { Post } from "../types";
+import Layout from "../components/Layout";
 
 interface PostFormViewProps {
   post: Post | null;

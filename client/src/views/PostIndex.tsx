@@ -3,9 +3,9 @@ import styled from "styled-components";
 import PostAddIcon from "@mui/icons-material/PostAdd";
 import Button from "@mui/joy/Button";
 
-import Layout from "../../components/Layout";
+import Layout from "../components/Layout";
 import { Link, NavigationContext } from "@django-render/core";
-import ModalWindow from "../../components/ModalWindow";
+import ModalWindow from "../components/ModalWindow";
 
 const Header = styled.header`
   padding: 20px;
