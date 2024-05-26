@@ -2,14 +2,12 @@ import * as React from "react";
 import GlobalStyles from "@mui/joy/GlobalStyles";
 import Box from "@mui/joy/Box";
 import Divider from "@mui/joy/Divider";
-import Input from "@mui/joy/Input";
 import List from "@mui/joy/List";
 import ListItem from "@mui/joy/ListItem";
 import ListItemButton, { listItemButtonClasses } from "@mui/joy/ListItemButton";
 import ListItemContent from "@mui/joy/ListItemContent";
 import Typography from "@mui/joy/Typography";
 import Sheet from "@mui/joy/Sheet";
-import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";
 import ImageRoundedIcon from "@mui/icons-material/ImageRounded";
@@ -80,11 +78,6 @@ export default function Sidebar() {
         <Typography level="title-lg">Djangopress</Typography>
         <ColorSchemeToggle sx={{ ml: "auto" }} />
       </Box>
-      <Input
-        size="sm"
-        startDecorator={<SearchRoundedIcon />}
-        placeholder="Search"
-      />
       <Box
         sx={{
           minHeight: 0,
