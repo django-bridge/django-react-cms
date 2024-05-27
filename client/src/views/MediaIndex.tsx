@@ -55,7 +55,7 @@ export default function MediaIndexView({ assets }: MediaIndexViewProps) {
           size="sm"
           onClick={() =>
             openOverlay("/media/add-image/", (content) => (
-              <ModalWindow side="right">
+              <ModalWindow slideout="right">
                 {content}
               </ModalWindow>
             ), {

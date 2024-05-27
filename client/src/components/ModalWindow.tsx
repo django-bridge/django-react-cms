@@ -3,6 +3,7 @@ import styled, { keyframes } from "styled-components";
 import { OverlayContext } from "@django-render/core";
 import WarningRounded from "@mui/icons-material/WarningRounded";
 import Drawer from '@mui/joy/Drawer';
+import { Modal, ModalDialog } from "@mui/joy";
 
 const ModalWrapper = styled.div`
   min-height: 100%;
@@ -63,12 +64,12 @@ const ModalContent = styled.div`
 let nextModalId = 1;
 
 interface ModalWindowProps {
-  side: "left" | "right";
+  slideout?: "left" | "right";
 }
 
 function ModalWindow({
   children,
-  side,
+  slideout,
 }: React.PropsWithChildren<ModalWindowProps>): ReactElement {
   const id = useRef<string | null>(null);
   if (!id.current) {
@@ -154,33 +155,51 @@ function ModalWindow({
     };
   }, []);
 
-  return (
-    <Drawer anchor={side} open={open && !closing} size="md" sx={{
-      '--Drawer-transitionDuration': (open && !closing) ? '0.4s' : '0.2s',
-      '--Drawer-transitionFunction': (open && !closing)
-        ? 'cubic-bezier(0.79,0.14,0.15,0.86)'
-        : 'cubic-bezier(0.77,0,0.18,1)',
-      '--Drawer-horizontalSize': 'clamp(300px, 100%, 650px)',
-    }}>
-      <ModalBody ref={bodyRef}>
-        {closeBlocked && (
-          <UnsavedChangesWarningWrapper
-            role="alert"
-            aria-live="assertive"
-          >
-            <WarningRounded />
-            <p>
-              <strong>You have unsaved changes.</strong> Please save or
-              cancel before closing
-            </p>
-          </UnsavedChangesWarningWrapper>
-        )}
-        <ModalContent>
-          <ModalWrapper>{children}</ModalWrapper>
-        </ModalContent>
-      </ModalBody>
-    </Drawer>
+  const body = (
+    <ModalBody ref={bodyRef}>
+      {closeBlocked && (
+        <UnsavedChangesWarningWrapper
+          role="alert"
+          aria-live="assertive"
+        >
+          <WarningRounded />
+          <p>
+            <strong>You have unsaved changes.</strong> Please save or
+            cancel before closing
+          </p>
+        </UnsavedChangesWarningWrapper>
+      )}
+      <ModalContent>
+        <ModalWrapper>{children}</ModalWrapper>
+      </ModalContent>
+    </ModalBody>
   );
+
+  if (slideout) {
+    return (
+      <Drawer anchor={slideout} open={open && !closing} size="md" sx={{
+        '--Drawer-transitionDuration': (open && !closing) ? '0.4s' : '0.2s',
+        '--Drawer-transitionFunction': (open && !closing)
+          ? 'cubic-bezier(0.79,0.14,0.15,0.86)'
+          : 'cubic-bezier(0.77,0,0.18,1)',
+        '--Drawer-horizontalSize': 'clamp(300px, 100%, 650px)',
+      }}>
+        {body}
+      </Drawer>
+    );
+  } else {
+    return (
+      <Modal open={open && !closing}>
+        <ModalDialog size="lg" sx={{
+          '--ModalDialog-minWidth': '500px',
+          '--ModalDialog-maxWidth': '1000px',
+          'width': '100%',
+        }}>
+          {body}
+        </ModalDialog>
+      </Modal>
+    );
+  }
 }
 
 export default ModalWindow;

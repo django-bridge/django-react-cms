@@ -29,7 +29,7 @@ export default function PostIndexView({ posts }: PostIndexViewProps) {
           size="sm"
           onClick={() =>
             openOverlay("/posts/add/", (content) => (
-              <ModalWindow side="right">
+              <ModalWindow>
                 {content}
               </ModalWindow>
             ), {
