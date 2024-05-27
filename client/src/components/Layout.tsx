@@ -3,7 +3,7 @@ import { CssVarsProvider } from "@mui/joy/styles";
 import CssBaseline from "@mui/joy/CssBaseline";
 import Box from "@mui/joy/Box";
 import Breadcrumbs from "@mui/joy/Breadcrumbs";
-import { Link as DjangoRenderLink } from "@django-render/core";
+import { Link as DjangoRenderLink, OverlayContext } from "@django-render/core";
 import Link from "@mui/joy/Link";
 import Typography from "@mui/joy/Typography";
 
@@ -28,6 +28,21 @@ export default function Layout({
   renderHeaderButtons,
   children,
 }: React.PropsWithChildren<LayoutProps>) {
+  const { overlay } = React.useContext(OverlayContext);
+
+  if (overlay) {
+    // The view is being rendered in an overlay, no need to render the menus or base CSS
+    return (
+      <>
+      <Typography level="h2" component="h2">
+        {title}
+      </Typography>
+      {renderHeaderButtons && renderHeaderButtons()}
+      {children}
+    </>
+    );
+  }
+
   return (
     <CssVarsProvider disableTransitionOnChange>
       <CssBaseline />
