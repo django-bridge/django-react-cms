@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@blocknote/mantine": "^0.13.4",
+    "@blocknote/react": "^0.13.4",
     "@django-render/core": "^0.1.0-beta.7",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.15.3",

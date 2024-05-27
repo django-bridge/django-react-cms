@@ -8,4 +8,4 @@ class Post(models.Model):
 
     title = models.TextField()
     status = models.CharField(max_length=9, choices=Status.choices)
-    content = models.TextField()
+    content = models.JSONField()

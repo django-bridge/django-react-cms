@@ -1,6 +1,7 @@
 from django import forms
 
 from .models import Post
+from ..widgets import BlockNoteEditor
 
 
 class PostForm(forms.ModelForm):
@@ -9,4 +10,5 @@ class PostForm(forms.ModelForm):
         fields = ["title", "content"]
         widgets = {
             "title": forms.TextInput(),
+            "content": BlockNoteEditor(),
         }

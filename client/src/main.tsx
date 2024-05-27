@@ -13,6 +13,7 @@ import ServerRenderedFieldDef from "./deserializers/ServerRenderedField";
 import TextInputDef from "./deserializers/widgets/TextInput";
 import SelectDef from "./deserializers/widgets/Select";
 import FileInputDef from "./deserializers/widgets/FileInput";
+import BlockNoteEditorDef from "./deserializers/widgets/BlockNoteEditor";
 
 import "./main.css";
 
@@ -35,6 +36,7 @@ config.addDeserializer(
 config.addDeserializer("forms.TextInput", TextInputDef);
 config.addDeserializer("forms.Select", SelectDef);
 config.addDeserializer("forms.FileInput", FileInputDef);
+config.addDeserializer("forms.BlockNoteEditor", BlockNoteEditorDef);
 
 const rootElement = document.getElementById("root")!;
 const initialResponse = JSON.parse(

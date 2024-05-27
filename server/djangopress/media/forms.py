@@ -13,7 +13,7 @@ class ImageForm(forms.ModelForm):
 
     class Meta:
         model = Image
-        fields = ["title", "file"]
+        fields = ["title", "file", "status"]
         widgets = {
             "title": forms.TextInput(),
         }
