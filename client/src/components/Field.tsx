@@ -1,5 +1,7 @@
 import React, { ReactElement } from "react";
-import { FormControl, FormHelperText, FormLabel } from "@mui/joy";
+import FormControl from "@mui/joy/FormControl";
+import FormHelperText from "@mui/joy/FormHelperText";
+import FormLabel from "@mui/joy/FormLabel";
 import WarningIcon from "@mui/icons-material/Warning";
 
 export interface FieldProps {

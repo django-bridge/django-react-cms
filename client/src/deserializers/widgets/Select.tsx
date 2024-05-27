@@ -1,6 +1,7 @@
 import { ReactElement } from "react";
 import { WidgetDef } from "./base";
-import { Select, Option } from "@mui/joy";
+import Select from "@mui/joy/Select";
+import Option from "@mui/joy/Option";
 
 export default class SelectDef implements WidgetDef {
   choices: { label: string; value: string }[];

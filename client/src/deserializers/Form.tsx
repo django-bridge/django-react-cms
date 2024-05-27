@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
 import FieldDef from "./Field";
-import { Alert } from "@mui/joy";
+import Alert from "@mui/joy/Alert";
 import WarningIcon from "@mui/icons-material/Warning";
 
 export interface Tab {

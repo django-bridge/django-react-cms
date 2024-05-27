@@ -3,7 +3,8 @@ import styled, { keyframes } from "styled-components";
 import { OverlayContext } from "@django-render/core";
 import WarningRounded from "@mui/icons-material/WarningRounded";
 import Drawer from '@mui/joy/Drawer';
-import { Modal, ModalDialog } from "@mui/joy";
+import Modal from "@mui/joy/Modal";
+import ModalDialog from "@mui/joy/ModalDialog";
 
 const ModalWrapper = styled.div`
   min-height: 100%;

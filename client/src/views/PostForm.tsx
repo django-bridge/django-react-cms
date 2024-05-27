@@ -1,5 +1,6 @@
 import * as React from "react";
-import { Button, Typography } from "@mui/joy";
+import Button from "@mui/joy/Button";
+import Typography from "@mui/joy/Typography";
 import { Form, OverlayContext } from "@django-render/core";
 import FormDef from "../deserializers/Form";
 import { Post } from "../types";
