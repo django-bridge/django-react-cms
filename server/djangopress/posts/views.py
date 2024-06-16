@@ -15,7 +15,11 @@ def index(request):
         "PostIndex",
         {
             "posts": [
-                {"title": post.title, "edit_url": reverse("posts_edit", args=[post.id])}
+                {
+                    "title": post.title,
+                    "edit_url": reverse("posts_edit", args=[post.id]),
+                    "delete_url": reverse("posts_delete", args=[post.id]),
+                }
                 for post in posts
             ]
         },
@@ -61,7 +65,11 @@ def edit(request, post_id):
         request,
         "PostForm",
         {
-            "post": {"title": post.title, "edit_url": reverse("posts_edit", args=[post.id])},
+            "post": {
+                "title": post.title,
+                "edit_url": reverse("posts_edit", args=[post.id]),
+                "delete_url": reverse("posts_delete", args=[post.id]),
+            },
             "action_url": reverse("posts_edit", args=[post_id]),
             "form": form,
         },
@@ -71,8 +79,23 @@ def edit(request, post_id):
 def delete(request, post_id):
     post = get_object_or_404(Post, owner=request.user, id=post_id)
 
+    if request.method == "POST":
+        post.delete()
+
+        messages.success(
+            request,
+            f"Successfully deleted post '{post.title}'.",
+        )
+
+        return CloseOverlayResponse(request)
+
     return Response(
         request,
-        "CommonConfirmDelete",
-        {},
+        "ConfirmDelete",
+        {
+            "objectName": post.title,
+            "messageHtml": "Are you sure that you want to delete this post?",
+            "actionUrl": reverse("posts_delete", args=[post.id]),
+        },
+        overlay=True,
     )

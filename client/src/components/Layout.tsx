@@ -20,12 +20,14 @@ interface LayoutProps {
     href?: string;
   }[];
   renderHeaderButtons?: () => React.ReactNode;
+  fullWidth?: boolean;
 }
 
 export default function Layout({
   title,
   breadcrumb = [],
   renderHeaderButtons,
+  fullWidth,
   children,
 }: React.PropsWithChildren<LayoutProps>) {
   const { overlay } = React.useContext(OverlayContext);
@@ -53,7 +55,7 @@ export default function Layout({
           component="main"
           className="MainContent"
           sx={{
-            px: { xs: 2, md: 6 },
+            px: fullWidth ? 0 : { xs: 2, md: 6 },
             pt: {
               xs: "calc(12px + var(--Header-height))",
               sm: "calc(12px + var(--Header-height))",
@@ -68,58 +70,60 @@ export default function Layout({
             gap: 1,
           }}
         >
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <Breadcrumbs
-              size="sm"
-              aria-label="breadcrumbs"
-              separator={<ChevronRightRoundedIcon />}
-              sx={{ pl: 0 }}
-            >
-              <Link
-                component={DjangoRenderLink}
-                underline="none"
-                color="neutral"
-                href={"/"}
-                aria-label="Home"
+          <Box sx={{px: fullWidth ? { xs: 2, md: 6 } : 0}}>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <Breadcrumbs
+                size="sm"
+                aria-label="breadcrumbs"
+                separator={<ChevronRightRoundedIcon />}
+                sx={{ pl: 0 }}
               >
-                <HomeRoundedIcon />
-              </Link>
-              {breadcrumb.map(({ label, href }) =>
-                href ? (
-                  <Link
-                    component={DjangoRenderLink}
-                    underline="hover"
-                    color="neutral"
-                    href={href}
-                    fontSize={12}
-                    fontWeight={500}
-                    key={href}
-                  >
-                    {label}
-                  </Link>
-                ) : (
-                  <Typography color="primary" fontWeight={500} fontSize={12}>
-                    {label}
-                  </Typography>
-                )
-              )}
-            </Breadcrumbs>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              mb: 1,
-              gap: 1,
-              flexDirection: { xs: "column", sm: "row" },
-              alignItems: { xs: "start", sm: "center" },
-              flexWrap: "wrap",
-              justifyContent: "space-between",
-            }}
-          >
-            <Typography level="h2" component="h1" fontWeight="xl">
-              {title}
-            </Typography>
-            {renderHeaderButtons && renderHeaderButtons()}
+                <Link
+                  component={DjangoRenderLink}
+                  underline="none"
+                  color="neutral"
+                  href={"/"}
+                  aria-label="Home"
+                >
+                  <HomeRoundedIcon />
+                </Link>
+                {breadcrumb.map(({ label, href }) =>
+                  href ? (
+                    <Link
+                      component={DjangoRenderLink}
+                      underline="hover"
+                      color="neutral"
+                      href={href}
+                      fontSize={12}
+                      fontWeight={500}
+                      key={href}
+                    >
+                      {label}
+                    </Link>
+                  ) : (
+                    <Typography color="primary" fontWeight={500} fontSize={12}>
+                      {label}
+                    </Typography>
+                  )
+                )}
+              </Breadcrumbs>
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                mb: 1,
+                gap: 1,
+                flexDirection: { xs: "column", sm: "row" },
+                alignItems: { xs: "start", sm: "center" },
+                flexWrap: "wrap",
+                justifyContent: "space-between",
+              }}
+            >
+              <Typography level="h2" component="h1" fontWeight="xl">
+                {title}
+              </Typography>
+              {renderHeaderButtons && renderHeaderButtons()}
+            </Box>
           </Box>
           {children}
         </Box>

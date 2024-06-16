@@ -4,6 +4,7 @@ import * as DjangoRender from "@django-render/core";
 
 import LoginView from "./views/Login";
 import HomeView from "./views/Home";
+import ConfirmDeleteView from "./views/ConfirmDelete";
 import PostIndexView from "./views/PostIndex";
 import MediaIndexView from "./views/MediaIndex";
 import PostFormView from "./views/PostForm";
@@ -22,6 +23,7 @@ const config = new DjangoRender.Config();
 // Add your views here
 config.addView("Login", LoginView);
 config.addView("Home", HomeView);
+config.addView("ConfirmDelete", ConfirmDeleteView)
 config.addView("PostIndex", PostIndexView);
 config.addView("PostForm", PostFormView);
 config.addView("MediaIndex", MediaIndexView);

@@ -85,8 +85,23 @@ def edit(request, mediaasset_id):
 def delete(request, mediaasset_id):
     asset = get_object_or_404(MediaAsset, owner=request.user, id=mediaasset_id)
 
+    if request.method == "POST":
+        asset.delete()
+
+        messages.success(
+            request,
+            f"Successfully deleted asset '{post.title}'.",
+        )
+
+        return CloseOverlayResponse(request)
+
     return Response(
         request,
-        "CommonConfirmDelete",
-        {},
+        "ConfirmDelete",
+        {
+            "objectName": asset.title,
+            "messageHtml": "Are you sure that you want to delete this asset?",
+            "actionUrl": reverse("posts_delete", args=[post.id]),
+        },
+        overlay=True,
     )
