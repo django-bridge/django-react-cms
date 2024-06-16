@@ -70,8 +70,8 @@ export default function PostIndexView({ posts }: PostIndexViewProps) {
               <Typography component="p" level="h4">
                 <Link href={post.edit_url}>{post.title}</Link>
               </Typography>
-              <ButtonGroup size="sm" variant="soft" spacing="0.2rem" sx={{marginTop: "0.5rem"}}>
-                <Button component={Link} href={post.edit_url}>Edit</Button>
+              <ButtonGroup size="sm" variant="plain" spacing="0.5rem" sx={{marginTop: "0.5rem"}}>
+                <Link href={post.edit_url}>Edit</Link>
                 <IconButton onClick={() =>
                   openOverlay(post.delete_url, (content) => (
                     <ModalWindow slideout="right">
