@@ -194,5 +194,6 @@ DJANGO_RENDER = {
     "VITE_DEVSERVER_URL": os.environ.get("VITE_SERVER_ORIGIN"),
     "CONTEXT_PROVIDERS": {
         "csrf_token": "django.middleware.csrf.get_token",
+        "urls": "djangopress.context_providers.urls",
     },
 }

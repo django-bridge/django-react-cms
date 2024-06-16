@@ -1,4 +1,3 @@
-from django.middleware.csrf import get_token
 from django.contrib.contenttypes.models import ContentType
 from django.contrib import messages
 from django_render.response import Response, CloseOverlayResponse
@@ -52,7 +51,6 @@ def add_image(request):
         {
             "title": "Add image",
             "submit_button_label": "Add image",
-            "csrf_token": get_token(request),
             "action_url": reverse("media_add_image"),
             "form": form,
         },
@@ -75,7 +73,6 @@ def edit(request, mediaasset_id):
         {
             "title": image.title,
             "submit_button_label": "Save",
-            "csrf_token": get_token(request),
             "action_url": reverse("media_edit", args=[mediaasset_id]),
             "form": form,
         },

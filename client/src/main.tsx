@@ -16,6 +16,7 @@ import FileInputDef from "./deserializers/widgets/FileInput";
 import BlockNoteEditorDef from "./deserializers/widgets/BlockNoteEditor";
 
 import "./main.css";
+import { CSRFTokenContext, URLsContext } from "./contexts";
 
 const config = new DjangoRender.Config();
 
@@ -25,6 +26,10 @@ config.addView("PostIndex", PostIndexView);
 config.addView("PostForm", PostFormView);
 config.addView("MediaIndex", MediaIndexView);
 config.addView("MediaForm", MediaFormView);
+
+// Add your context providers here
+config.addContextProvider("csrf_token", CSRFTokenContext);
+config.addContextProvider("urls", URLsContext);
 
 // Add your deserializers here
 config.addDeserializer("forms.Form", FormDef);

@@ -1,5 +1,4 @@
 from django.contrib import messages
-from django.middleware.csrf import get_token
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
 from django_render.response import CloseOverlayResponse, Response
@@ -41,7 +40,6 @@ def add(request):
         request,
         "PostForm",
         {
-            "csrf_token": get_token(request),
             "action_url": reverse("posts_add"),
             "form": form,
         },
@@ -62,7 +60,6 @@ def edit(request, post_id):
         "PostForm",
         {
             "post": {"title": post.title, "edit_url": reverse("posts_edit", args=[post.id])},
-            "csrf_token": get_token(request),
             "action_url": reverse("posts_edit", args=[post_id]),
             "form": form,
         },

@@ -3,11 +3,11 @@ import Button from "@mui/joy/Button";
 import { Form, OverlayContext } from "@django-render/core";
 import FormDef from "../deserializers/Form";
 import Layout from "../components/Layout";
+import { CSRFTokenContext, URLsContext } from "../contexts";
 
 interface MediaFormViewProps {
   title: string;
   submit_button_label: string;
-  csrf_token: string;
   action_url: string;
   form: FormDef;
 }
@@ -15,16 +15,17 @@ interface MediaFormViewProps {
 export default function MediaFormView({
   title,
   submit_button_label,
-  csrf_token,
   action_url,
   form,
 }: MediaFormViewProps) {
   const { overlay, requestClose } = React.useContext(OverlayContext);
+  const csrf_token = React.useContext(CSRFTokenContext);
+  const urls = React.useContext(URLsContext);
 
   return (
     <Layout
       title={title}
-      breadcrumb={[{ label: "Media" }, { label: title }]}
+      breadcrumb={[{ label: "Media", href: urls.media_index }, { label: title }]}
     >
       <Form action={action_url} method="post">
         <input type="hidden" name="csrfmiddlewaretoken" value={csrf_token} />

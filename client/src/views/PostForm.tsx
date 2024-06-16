@@ -4,27 +4,29 @@ import { Form, OverlayContext } from "@django-render/core";
 import FormDef from "../deserializers/Form";
 import { Post } from "../types";
 import Layout from "../components/Layout";
+import { CSRFTokenContext, URLsContext } from "../contexts";
 
 interface PostFormViewProps {
   post: Post | null;
-  csrf_token: string;
   action_url: string;
   form: FormDef;
 }
 
 export default function PostFormView({
   post,
-  csrf_token,
   action_url,
   form,
 }: PostFormViewProps) {
   const { overlay, requestClose } = React.useContext(OverlayContext);
+  const csrf_token = React.useContext(CSRFTokenContext);
+  const urls = React.useContext(URLsContext);
+
   const title = post ? `Editing ${post.title}` : "Add Post";
 
   return (
     <Layout
       title={title}
-      breadcrumb={[{ label: "Posts" }, { label: title }]}
+      breadcrumb={[{ label: "Posts", href: urls.posts_index }, { label: title }]}
     >
       <Form action={action_url} method="post">
         <input type="hidden" name="csrfmiddlewaretoken" value={csrf_token} />
