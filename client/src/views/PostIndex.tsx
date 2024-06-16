@@ -1,6 +1,5 @@
 import * as React from "react";
 import PostAddIcon from "@mui/icons-material/PostAdd";
-import Typography from "@mui/joy/Typography";
 import Table from "@mui/joy/Table";
 import ButtonGroup from "@mui/joy/ButtonGroup";
 import Button from "@mui/joy/Button";
