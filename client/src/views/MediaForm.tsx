@@ -25,7 +25,7 @@ export default function MediaFormView({
   return (
     <Layout
       title={title}
-      breadcrumb={[{ label: "Media", href: urls.media_index }, { label: title }]}
+      breadcrumb={[{ label: "Media", href: urls.media_index }, { label: "" }]}
     >
       <Form action={action_url} method="post">
         <input type="hidden" name="csrfmiddlewaretoken" value={csrf_token} />

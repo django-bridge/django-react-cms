@@ -26,7 +26,7 @@ export default function PostFormView({
   return (
     <Layout
       title={title}
-      breadcrumb={[{ label: "Posts", href: urls.posts_index }, { label: title }]}
+      breadcrumb={[{ label: "Posts", href: urls.posts_index }, { label: "" }]}
     >
       <Form action={action_url} method="post">
         <input type="hidden" name="csrfmiddlewaretoken" value={csrf_token} />

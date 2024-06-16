@@ -23,7 +23,7 @@ const HomeWrapper = styled.div`
 
 export default function HomeView() {
   return (
-    <Layout title="Welcome to Djangopress!">
+    <Layout title="Welcome to Djangopress!" hideHomeBreadcrumb>
       <HomeWrapper>
         <p>
           This is a very basic example of an application built with Django and

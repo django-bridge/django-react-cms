@@ -47,7 +47,7 @@ export default function MediaIndexView({ assets }: MediaIndexViewProps) {
   return (
     <Layout
       title="Media"
-      breadcrumb={[{ label: "Media" }]}
+      breadcrumb={[{ label: "" }]}
       renderHeaderButtons={() => (
         <Button
           color="primary"

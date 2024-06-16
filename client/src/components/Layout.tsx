@@ -21,6 +21,7 @@ interface LayoutProps {
   }[];
   renderHeaderButtons?: () => React.ReactNode;
   fullWidth?: boolean;
+  hideHomeBreadcrumb?: boolean;
 }
 
 export default function Layout({
@@ -28,6 +29,7 @@ export default function Layout({
   breadcrumb = [],
   renderHeaderButtons,
   fullWidth,
+  hideHomeBreadcrumb,
   children,
 }: React.PropsWithChildren<LayoutProps>) {
   const { overlay } = React.useContext(OverlayContext);
@@ -57,9 +59,9 @@ export default function Layout({
           sx={{
             px: fullWidth ? 0 : { xs: 2, md: 6 },
             pt: {
-              xs: "calc(12px + var(--Header-height))",
-              sm: "calc(12px + var(--Header-height))",
-              md: 3,
+              xs: "calc(9px + var(--Header-height))",
+              sm: "calc(9px + var(--Header-height))",
+              md: 0,
             },
             pb: { xs: 2, sm: 2, md: 3 },
             flex: 1,
@@ -76,9 +78,9 @@ export default function Layout({
                 size="sm"
                 aria-label="breadcrumbs"
                 separator={<ChevronRightRoundedIcon />}
-                sx={{ pl: 0 }}
+                sx={{ pl: 0, minHeight: "34px" }}
               >
-                <Link
+                {!hideHomeBreadcrumb && <Link
                   component={DjangoRenderLink}
                   underline="none"
                   color="neutral"
@@ -86,7 +88,7 @@ export default function Layout({
                   aria-label="Home"
                 >
                   <HomeRoundedIcon />
-                </Link>
+                </Link>}
                 {breadcrumb.map(({ label, href }) =>
                   href ? (
                     <Link

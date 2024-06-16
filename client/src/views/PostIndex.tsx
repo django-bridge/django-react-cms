@@ -27,7 +27,7 @@ export default function PostIndexView({ posts }: PostIndexViewProps) {
   return (
     <Layout
       title="Posts"
-      breadcrumb={[{ label: "Posts" }]}
+      breadcrumb={[{ label: "" }]}
       renderHeaderButtons={() => (
         <Button
           color="primary"
