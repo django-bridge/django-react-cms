@@ -6,9 +6,10 @@ import ButtonGroup from "@mui/joy/ButtonGroup";
 import Button from "@mui/joy/Button";
 import IconButton from "@mui/joy/IconButton";
 import Delete from "@mui/icons-material/Delete";
+import Link from '@mui/joy/Link';
 
 import Layout from "../components/Layout";
-import { Link, NavigationContext } from "@django-render/core";
+import { Link as DjangoRenderLink, NavigationContext } from "@django-render/core";
 import ModalWindow from "../components/ModalWindow";
 
 interface Post {
@@ -67,11 +68,9 @@ export default function PostIndexView({ posts }: PostIndexViewProps) {
         <tbody>
           {posts.map(post => <tr>
             <td>
-              <Typography component="p" level="h4">
-                <Link href={post.edit_url}>{post.title}</Link>
-              </Typography>
+              <Link component={DjangoRenderLink} level="h4" href={post.edit_url}>{post.title}</Link>
               <ButtonGroup size="sm" variant="plain" spacing="0.5rem" sx={{marginTop: "0.5rem"}}>
-                <Link href={post.edit_url}>Edit</Link>
+                <Link component={DjangoRenderLink} href={post.edit_url}>Edit</Link>
                 <IconButton onClick={() =>
                   openOverlay(post.delete_url, (content) => (
                     <ModalWindow slideout="right">
