@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import * as DjangoRender from "@django-render/core";
 
+import LoginView from "./views/Login";
 import HomeView from "./views/Home";
 import PostIndexView from "./views/PostIndex";
 import MediaIndexView from "./views/MediaIndex";
@@ -14,13 +15,12 @@ import TextInputDef from "./deserializers/widgets/TextInput";
 import SelectDef from "./deserializers/widgets/Select";
 import FileInputDef from "./deserializers/widgets/FileInput";
 import BlockNoteEditorDef from "./deserializers/widgets/BlockNoteEditor";
-
-import "./main.css";
 import { CSRFTokenContext, URLsContext } from "./contexts";
 
 const config = new DjangoRender.Config();
 
 // Add your views here
+config.addView("Login", LoginView);
 config.addView("Home", HomeView);
 config.addView("PostIndex", PostIndexView);
 config.addView("PostForm", PostFormView);
