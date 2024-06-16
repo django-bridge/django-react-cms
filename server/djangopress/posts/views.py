@@ -8,7 +8,7 @@ from .models import Post
 
 
 def index(request):
-    posts = Post.objects.all()
+    posts = Post.objects.filter(owner=request.user)
 
     return Response(
         request,
@@ -27,7 +27,9 @@ def add(request):
     form = PostForm(request.POST or None)
 
     if form.is_valid():
-        post = form.save()
+        post = form.save(commit=False)
+        post.owner = request.user
+        post.save()
 
         messages.success(
             request,
@@ -49,7 +51,7 @@ def add(request):
 
 
 def edit(request, post_id):
-    post = get_object_or_404(Post, id=post_id)
+    post = get_object_or_404(Post, owner=request.user, id=post_id)
     form = PostForm(request.POST or None, instance=post)
 
     if form.is_valid():
@@ -67,7 +69,7 @@ def edit(request, post_id):
 
 
 def delete(request, post_id):
-    post = get_object_or_404(Post, id=post_id)
+    post = get_object_or_404(Post, owner=request.user, id=post_id)
 
     return Response(
         request,

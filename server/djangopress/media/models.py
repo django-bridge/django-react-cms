@@ -2,6 +2,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.files.uploadedfile import UploadedFile
 from django.db import models
 
+from djangopress.auth.models import User
 from .utils import generate_thumbnail
 
 
@@ -18,6 +19,7 @@ class MediaAsset(models.Model):
         DRAFT = "draft", "Draft"
         PUBLISHED = "published", "Published"
 
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.TextField()
     status = models.CharField(max_length=9, choices=Status.choices)
     media_type = models.ForeignKey(ContentType, on_delete=models.PROTECT)

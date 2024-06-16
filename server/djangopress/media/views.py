@@ -9,7 +9,7 @@ from .models import MediaAsset, Image
 
 
 def index(request):
-    assets = MediaAsset.objects.all()
+    assets = MediaAsset.objects.filter(owner=request.user)
 
     return Response(
         request,
@@ -34,6 +34,7 @@ def add_image(request):
 
     if form.is_valid():
         image = form.save(commit=False)
+        image.owner = request.user
         image.media_type = ContentType.objects.get_for_model(Image)
         image.generate_thumbnail()
         image.save()
@@ -61,7 +62,7 @@ def add_image(request):
 
 def edit(request, mediaasset_id):
     # TODO: Check media type
-    image = get_object_or_404(Image, id=mediaasset_id)
+    image = get_object_or_404(Image, owner=request.user, id=mediaasset_id)
     form = ImageForm(request.POST or None, instance=image)
 
     if form.is_valid():
@@ -82,7 +83,7 @@ def edit(request, mediaasset_id):
 
 
 def delete(request, mediaasset_id):
-    asset = get_object_or_404(MediaAsset, id=mediaasset_id)
+    asset = get_object_or_404(MediaAsset, owner=request.user, id=mediaasset_id)
 
     return Response(
         request,
