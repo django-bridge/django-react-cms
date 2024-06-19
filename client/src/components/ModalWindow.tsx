@@ -108,29 +108,6 @@ function ModalWindow({
     }
   }, [closeRequested]);
 
-  // Close modal on click outside
-  const bodyRef = React.useRef<HTMLDivElement | null>(null);
-
-  React.useEffect(() => {
-    const clickEventListener = (e: MouseEvent) => {
-      // Close modal on click outside
-      if (
-        bodyRef.current &&
-        e.target instanceof HTMLElement &&
-        !bodyRef.current.contains(e.target)
-      ) {
-        e.preventDefault();
-        requestClose();
-      }
-    };
-
-    document.body.addEventListener("mouseup", clickEventListener);
-
-    return () => {
-      document.body.removeEventListener("mouseup", clickEventListener);
-    };
-  }, [requestClose]);
-
   React.useEffect(() => {
     const keydownEventListener = (e: KeyboardEvent) => {
       // Close modal on click escape
@@ -157,7 +134,7 @@ function ModalWindow({
   }, []);
 
   const body = (
-    <ModalBody ref={bodyRef}>
+    <ModalBody>
       {closeBlocked && (
         <UnsavedChangesWarningWrapper
           role="alert"
