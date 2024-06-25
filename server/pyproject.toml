@@ -16,6 +16,7 @@ isort = "^5.13.2"
 djrender = "^0.1rc1"
 whitenoise = "^6.6.0"
 pillow = "^10.3.0"
+filetype = "^1.2.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.12.1"

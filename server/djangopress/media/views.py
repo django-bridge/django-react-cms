@@ -33,18 +33,23 @@ def add_image(request):
     form = ImageForm(request.POST or None, request.FILES or None)
 
     if form.is_valid():
-        image = form.save(commit=False)
-        image.owner = request.user
-        image.media_type = ContentType.objects.get_for_model(Image)
-        image.generate_thumbnail()
-        image.save()
+        try:
+            image = form.save(commit=False)
+            image._set_file_metadata(request.FILES["file"])
+            image.owner = request.user
+            image.media_type = ContentType.objects.get_for_model(Image)
+            image.generate_thumbnail()
+            image.save()
 
-        messages.success(
-            request,
-            f"Successfully added image '{image.title}'.",
-        )
+            messages.success(
+                request,
+                f"Successfully added image '{image.title}'.",
+            )
 
-        return CloseOverlayResponse(request)
+            return CloseOverlayResponse(request)
+
+        except Image.InvalidFileError as e:
+            form.add_error("file", e.args[0])
 
     return Response(
         request,
