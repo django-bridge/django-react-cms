@@ -28,8 +28,11 @@ function ConfirmDeleteView({
 
       <Form action={actionUrl} method="post">
         <input type="hidden" name="csrfmiddlewaretoken" value={csrfToken} />
-        <Button type="submit">Delete</Button>
-        {overlay && <Button type="button" onClick={() => requestClose({skipDirtyFormCheck: true})}>Cancel</Button>}
+
+        <Box display="flex" gap="12px" pt="20px">
+          <Button type="submit">Delete</Button>
+          {overlay && <Button type="button" variant="outlined" onClick={() => requestClose({skipDirtyFormCheck: true})}>Cancel</Button>}
+        </Box>
       </Form>
     </Layout>
   );
