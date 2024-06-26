@@ -15,8 +15,14 @@ import ImageRoundedIcon from "@mui/icons-material/ImageRounded";
 import ColorSchemeToggle from "./ColorSchemeToggle";
 import { closeSidebar } from "../utils";
 import { NavigationContext } from "@django-render/core";
+import SearchInput from "./SearchInput";
 
-export default function Sidebar() {
+export interface SidebarProps {
+  searchValue: string;
+  setSearchValue: (value: string) => void;
+}
+
+export default function Sidebar({ searchValue, setSearchValue }: SidebarProps) {
   const { navigate: doNavigate } = React.useContext(NavigationContext);
 
   const navigate = React.useCallback((path: string) => {
@@ -100,6 +106,16 @@ export default function Sidebar() {
           },
         }}
       >
+        <SearchInput
+          sx={{
+            display: {
+              xs: "none",
+              md: "flex",
+            }
+          }}
+          searchValue={searchValue}
+          setSearchValue={setSearchValue}
+        />
         <List
           size="sm"
           sx={{

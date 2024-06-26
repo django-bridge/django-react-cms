@@ -4,8 +4,14 @@ import IconButton from "@mui/joy/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 
 import { toggleSidebar } from "../utils";
+import SearchInput from "./SearchInput";
 
-export default function Header() {
+export interface HeaderProps {
+  searchValue: string;
+  setSearchValue: (value: string) => void;
+}
+
+export default function Header({ searchValue, setSearchValue }: HeaderProps) {
   return (
     <Sheet
       sx={{
@@ -42,6 +48,7 @@ export default function Header() {
       >
         <MenuIcon />
       </IconButton>
+      <SearchInput searchValue={searchValue} setSearchValue={setSearchValue} />
     </Sheet>
   );
 }

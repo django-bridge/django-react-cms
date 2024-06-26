@@ -33,6 +33,7 @@ export default function Layout({
   children,
 }: React.PropsWithChildren<LayoutProps>) {
   const { overlay } = React.useContext(OverlayContext);
+  const [searchValue, setSearchValue] = React.useState("");
 
   if (overlay) {
     // The view is being rendered in an overlay, no need to render the menus or base CSS
@@ -55,8 +56,8 @@ export default function Layout({
     <CssVarsProvider disableTransitionOnChange>
       <CssBaseline />
       <Box sx={{ display: "flex", minHeight: "100dvh" }}>
-        <Header />
-        <Sidebar />
+        <Header searchValue={searchValue} setSearchValue={setSearchValue} />
+        <Sidebar searchValue={searchValue} setSearchValue={setSearchValue} />
         <Box
           component="main"
           className="MainContent"
