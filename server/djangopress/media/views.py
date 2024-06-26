@@ -77,7 +77,7 @@ def edit(request, mediaasset_id):
         request,
         "MediaForm",
         {
-            "title": image.title,
+            "title": "Edit Image",
             "submit_button_label": "Save",
             "action_url": reverse("media_edit", args=[mediaasset_id]),
             "form": form,

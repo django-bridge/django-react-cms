@@ -24,7 +24,7 @@ export default function PostFormView({
 
   return (
     <Layout
-      title={post ? post.title: "Add Post"}
+      title={post ? "Edit Post" : "Add Post"}
       breadcrumb={[{ label: "Posts", href: urls.posts_index }, { label: "" }]}
     >
       <Form action={action_url} method="post">

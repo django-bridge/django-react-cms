@@ -42,7 +42,7 @@ export default function Layout({
         pt: { xs: 2, sm: 2, md: 3 },
         pb: { xs: 2, sm: 2, md: 3 },
       }}>
-        <Typography level="h2" component="h2">
+        <Typography level="h3" component="h2">
           {title}
         </Typography>
         {renderHeaderButtons && renderHeaderButtons()}
@@ -125,7 +125,7 @@ export default function Layout({
                 justifyContent: "space-between",
               }}
             >
-              <Typography level="h2" component="h1" fontWeight="xl">
+              <Typography level="h3" component="h1">
                 {title}
               </Typography>
               {renderHeaderButtons && renderHeaderButtons()}
