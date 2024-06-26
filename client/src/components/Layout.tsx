@@ -37,13 +37,17 @@ export default function Layout({
   if (overlay) {
     // The view is being rendered in an overlay, no need to render the menus or base CSS
     return (
-      <>
-      <Typography level="h2" component="h2">
-        {title}
-      </Typography>
-      {renderHeaderButtons && renderHeaderButtons()}
-      {children}
-    </>
+      <Box sx={{
+        px: { xs: 2, md: 6 },
+        pt: { xs: 2, sm: 2, md: 3 },
+        pb: { xs: 2, sm: 2, md: 3 },
+      }}>
+        <Typography level="h2" component="h2">
+          {title}
+        </Typography>
+        {renderHeaderButtons && renderHeaderButtons()}
+        {children}
+      </Box>
     );
   }
 

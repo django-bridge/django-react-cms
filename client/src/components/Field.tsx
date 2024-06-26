@@ -36,7 +36,7 @@ function Field({
   }, [displayOptions?.focusOnMount]);
 
   return (
-    <FormControl error={!!errors.length}>
+    <FormControl error={!!errors.length} sx={{pt: 2}}>
       <FormLabel>
         {label}{required && !displayOptions?.hideRequiredAsterisk && <span>*</span>}
       </FormLabel>

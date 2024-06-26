@@ -2,8 +2,34 @@ import React from "react";
 import "@blocknote/core/fonts/inter.css";
 import { Block } from "@blocknote/core";
 import { useCreateBlockNote } from "@blocknote/react";
-import { BlockNoteView } from "@blocknote/mantine";
+import { BlockNoteView, Theme, darkDefaultTheme, lightDefaultTheme } from "@blocknote/mantine";
 import "@blocknote/mantine/style.css";
+
+const lightTheme = {
+  ...lightDefaultTheme,
+  colors: {
+    ...lightDefaultTheme.colors,
+    editor: {
+      text: "inherit",
+      background: "none",
+    },
+  },
+  borderRadius: 0,
+  fontFamily: "inherit",
+} satisfies Theme;
+
+const darkTheme = {
+  ...darkDefaultTheme,
+  colors: {
+    ...lightDefaultTheme.colors,
+    editor: {
+      text: "inherit",
+      background: "none",
+    },
+  },
+  borderRadius: 0,
+  fontFamily: "inherit",
+} satisfies Theme;
 
 interface BlockNoteEditorProps{
   id: string;
@@ -24,7 +50,10 @@ export default function BlockNoteEditor({ name, initialContent }: BlockNoteEdito
         onChange={() => {
           setBlocks(editor.document);
         }}
-        theme="light"
+        theme={{
+          light: lightTheme,
+          dark: darkTheme,
+        }}
       />
     </>
   );

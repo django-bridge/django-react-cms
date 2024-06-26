@@ -28,6 +28,11 @@ export default function Sidebar() {
           xs: "translateX(calc(100% * (var(--SideNavigation-slideIn, 0) - 1)))",
           md: "none",
         },
+        pt: {
+          xs: "calc(16px + var(--Header-height))",
+          sm: "calc(16px + var(--Header-height))",
+          md: 2,
+        },
         transition: "transform 0.4s, width 0.4s",
         zIndex: 1000,
         height: "100dvh",

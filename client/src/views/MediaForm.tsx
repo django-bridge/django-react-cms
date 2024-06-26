@@ -1,4 +1,5 @@
 import * as React from "react";
+import Box from "@mui/joy/Box";
 import Button from "@mui/joy/Button";
 import { Form, OverlayContext } from "@django-render/core";
 import FormDef from "../deserializers/Form";
@@ -31,8 +32,11 @@ export default function MediaFormView({
         <input type="hidden" name="csrfmiddlewaretoken" value={csrf_token} />
 
         {form.render()}
-        <Button type="submit">{submit_button_label}</Button>
-        {overlay && <Button type="button" variant="outlined" onClick={() => requestClose({skipDirtyFormCheck: true})}>Cancel</Button>}
+
+        <Box display="flex" gap="12px" pt="20px">
+          <Button type="submit">{submit_button_label}</Button>
+          {overlay && <Button type="button" variant="outlined" onClick={() => requestClose({skipDirtyFormCheck: true})}>Cancel</Button>}
+        </Box>
       </Form>
     </Layout>
   )

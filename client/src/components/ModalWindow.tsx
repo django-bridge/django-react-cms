@@ -8,9 +8,6 @@ import ModalDialog from "@mui/joy/ModalDialog";
 
 const ModalWrapper = styled.div`
   min-height: 100%;
-  padding-left: 60px;
-  padding-right: 60px;
-  padding-top: 40px;
 `;
 
 const ModalBody = styled.div`
@@ -172,6 +169,7 @@ function ModalWindow({
           '--ModalDialog-minWidth': '500px',
           '--ModalDialog-maxWidth': '1000px',
           'width': '100%',
+          p: 0,
         }}>
           {body}
         </ModalDialog>
