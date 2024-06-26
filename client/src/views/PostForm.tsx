@@ -22,11 +22,9 @@ export default function PostFormView({
   const csrf_token = React.useContext(CSRFTokenContext);
   const urls = React.useContext(URLsContext);
 
-  const title = post ? `Editing ${post.title}` : "Add Post";
-
   return (
     <Layout
-      title={title}
+      title={post ? post.title: "Add Post"}
       breadcrumb={[{ label: "Posts", href: urls.posts_index }, { label: "" }]}
     >
       <Form action={action_url} method="post">

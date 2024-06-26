@@ -9,6 +9,6 @@ class PostForm(forms.ModelForm):
         model = Post
         fields = ["title", "content"]
         widgets = {
-            "title": forms.TextInput(),
+            "title": forms.TextInput(attrs={"variant": "large"}),
             "content": BlockNoteEditor(),
         }

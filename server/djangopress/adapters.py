@@ -14,7 +14,7 @@ class TextInputAdapter(Adapter):
     def js_args(self, widget):
         return [
             "text",
-            widget.attrs.get("class", ""),
+            widget.attrs.get("variant", "default"),
         ]
 
 
@@ -27,7 +27,7 @@ class PasswordInputAdapter(Adapter):
     def js_args(self, widget):
         return [
             "password",
-            widget.attrs.get("class", ""),
+            widget.attrs.get("variant", "default"),
         ]
 
 

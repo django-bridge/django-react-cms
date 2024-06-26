@@ -4,6 +4,7 @@ import { Block } from "@blocknote/core";
 import { useCreateBlockNote } from "@blocknote/react";
 import { BlockNoteView, Theme, darkDefaultTheme, lightDefaultTheme } from "@blocknote/mantine";
 import "@blocknote/mantine/style.css";
+import "./BlockNoteEditor.css";
 
 const lightTheme = {
   ...lightDefaultTheme,
