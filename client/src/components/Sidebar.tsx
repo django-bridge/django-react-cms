@@ -17,7 +17,12 @@ import { closeSidebar } from "../utils";
 import { NavigationContext } from "@django-render/core";
 
 export default function Sidebar() {
-  const { navigate } = React.useContext(NavigationContext);
+  const { navigate: doNavigate } = React.useContext(NavigationContext);
+
+  const navigate = React.useCallback((path: string) => {
+    closeSidebar();
+    doNavigate(path);
+  }, [doNavigate]);
 
   return (
     <Sheet
