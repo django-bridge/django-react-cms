@@ -17,7 +17,7 @@ def get_upload_to(instance, filename):
     return instance.upload_to + "/" + filename
 
 
-class MediaAsset(models.Model):
+class MediaAsset(Content):
     class Status(models.TextChoices):
         DRAFT = "draft", "Draft"
         PUBLISHED = "published", "Published"
@@ -74,3 +74,6 @@ class Image(MediaAsset):
                 size=file.getbuffer().nbytes
             )
         )
+
+    class Meta:
+        proxy = True
