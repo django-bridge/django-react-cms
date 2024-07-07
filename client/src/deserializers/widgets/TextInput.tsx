@@ -1,7 +1,6 @@
 import { ReactElement } from "react";
 import { WidgetDef } from "./base";
-import Input from '@mui/joy/Input';
-import { SxProps } from "@mui/joy/styles/types";
+import TextInput from "../../components/widgets/TextInput";
 
 export default class TextInputDef implements WidgetDef {
   type: "text" | "email" | "url" | "password";
@@ -22,23 +21,11 @@ export default class TextInputDef implements WidgetDef {
     disabled: boolean,
     value: string,
   ): ReactElement {
-    let sx: SxProps = {};
-    if (this.variant === "large") {
-      sx = {
-        ...sx,
-        border: "none",
-        boxShadow: "none",
-        background: "none",
-        fontSize: { xs: "30px", sm: "30px", md: "48px" },
-        fontWeight: 700
-      };
-    }
-
     return (
-      <Input
-        sx={sx}
+      <TextInput
         id={id}
         type={this.type}
+        avariant={this.variant}
         name={name}
         defaultValue={value}
         disabled={disabled}

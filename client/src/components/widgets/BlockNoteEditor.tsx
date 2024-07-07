@@ -1,4 +1,5 @@
 import React from "react";
+import { DirtyFormMarker } from "@django-render/core";
 import "@blocknote/core/fonts/inter.css";
 import { Block } from "@blocknote/core";
 import { useCreateBlockNote } from "@blocknote/react";
@@ -41,15 +42,18 @@ interface BlockNoteEditorProps{
 
 export default function BlockNoteEditor({ name, initialContent }: BlockNoteEditorProps) {
   const [blocks, setBlocks] = React.useState<Block[]>(initialContent);
+  const [dirty, setDirty] = React.useState(false);
   const editor = useCreateBlockNote({ initialContent });
 
   return (
     <>
       <input type="hidden" name={name} value={JSON.stringify(blocks)} />
+      {dirty && <DirtyFormMarker />}
       <BlockNoteView
         editor={editor}
         onChange={() => {
           setBlocks(editor.document);
+          setDirty(true);
         }}
         theme={{
           light: lightTheme,
