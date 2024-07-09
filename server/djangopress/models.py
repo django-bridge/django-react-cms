@@ -27,3 +27,19 @@ class Content(models.Model):
     workspace = models.ForeignKey(Workspace, on_delete=models.PROTECT)
     content_type = models.ForeignKey(ContentType, on_delete=models.PROTECT)
     name = models.TextField()
+
+
+class Component(models.Model):
+    content = models.OneToOneField(Content, primary_key=True)
+
+    class Meta:
+        abstract = True
+
+
+class ScheduledAction(models.Model):
+    content = models.ForeignKey(Content, on_delete=models.CASCADE, related_name='scheduled_actions')
+    action = publish / unpublish
+    time
+    created_at
+    created_by
+    status = pending / completed / cancelled

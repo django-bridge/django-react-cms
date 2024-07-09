@@ -9,30 +9,12 @@ from djangopress.auth.models import User
 from .utils import generate_thumbnail, hash_filelike
 
 
-class Thumbnail(models.Model):
-    file = models.FileField(upload_to="thumbnails")
-
-
-def get_upload_to(instance, filename):
-    return instance.upload_to + "/" + filename
-
-
-class MediaAsset(Content):
-    class Status(models.TextChoices):
-        DRAFT = "draft", "Draft"
-        PUBLISHED = "published", "Published"
-
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    title = models.TextField()
-    status = models.CharField(max_length=9, choices=Status.choices)
-    media_type = models.ForeignKey(ContentType, on_delete=models.PROTECT)
-    thumbnail = models.ForeignKey(Thumbnail, on_delete=models.SET_NULL, null=True)
-    file = models.FileField(upload_to=get_upload_to)
+class UploadedFile(models.Model):
+    file = models.FileField(upload_to="dp-assets")
     file_size = models.PositiveIntegerField()
     file_hash = models.CharField(max_length=40)
     file_content_type = models.CharField(max_length=100)
-
-    ALLOWED_FILE_TYPES = []
+    thumbnail = models.FileField(upload_to="thumbnails", blank=True)
 
     class InvalidFileError(ValueError):
         pass
@@ -54,15 +36,6 @@ class MediaAsset(Content):
                 f"File type '{self.file_content_type}' is not supported."
             )
 
-
-class Image(MediaAsset):
-    upload_to = "images"
-
-    ALLOWED_FILE_TYPES = [
-        "image/jpeg",
-        "image/png",
-    ]
-
     def generate_thumbnail(self):
         file = generate_thumbnail(self.file, 300, 300)
 
@@ -75,5 +48,6 @@ class Image(MediaAsset):
             )
         )
 
-    class Meta:
-        proxy = True
+
+class MediaAsset(Component):
+    file = models.ForeignKey(UploadedFile)

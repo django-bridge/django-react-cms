@@ -3,6 +3,10 @@ from django.db import models
 from djangopress.auth.models import User
 
 
+class Channel(models.Model):
+    pass
+
+
 class Post(models.Model):
     class Status(models.TextChoices):
         DRAFT = "draft", "Draft"
