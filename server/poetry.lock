@@ -131,13 +131,13 @@ bcrypt = ["bcrypt"]
 
 [[package]]
 name = "djrender"
-version = "0.1rc1"
+version = "0.1rc2"
 description = "The simple way to build Django applications with modern React frontends"
 optional = false
 python-versions = "*"
 files = [
-    {file = "djrender-0.1rc1-py3-none-any.whl", hash = "sha256:1131b0ce9ace70c894705b7f84ebbaa0ba7b2da41e088165c55ccf99e9989b50"},
-    {file = "djrender-0.1rc1.tar.gz", hash = "sha256:668673ce7fc6cbe7fec87d4cd664083b1e779f25ba402e17b8d895d1169d0d90"},
+    {file = "djrender-0.1rc2-py3-none-any.whl", hash = "sha256:c1e35b5cb226a3d1d7738f38391e92ce268a1abbe56bee5ca06e0bd820c008e2"},
+    {file = "djrender-0.1rc2.tar.gz", hash = "sha256:b169b4d6545c3bc237891d2da223d2adc9176be1f4274283fbd48f2a33d971f7"},
 ]
 
 [package.dependencies]
@@ -483,4 +483,4 @@ brotli = ["Brotli"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "68912fdd5ca97347ad7224c903008a2bd5da793ecd705627b319d5b1c5517c6d"
+content-hash = "f1e29e84b3764cb70ba19ed84edfd1f90faea62fb520ddffcfc32d4409a5c2eb"

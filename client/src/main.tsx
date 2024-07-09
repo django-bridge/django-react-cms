@@ -34,16 +34,16 @@ config.addContextProvider("csrf_token", CSRFTokenContext);
 config.addContextProvider("urls", URLsContext);
 
 // Add your deserializers here
-config.addDeserializer("forms.Form", FormDef);
-config.addDeserializer("forms.Field", FieldDef);
-config.addDeserializer(
+config.addAdapter("forms.Form", FormDef);
+config.addAdapter("forms.Field", FieldDef);
+config.addAdapter(
   "forms.ServerRenderedField",
   ServerRenderedFieldDef
 );
-config.addDeserializer("forms.TextInput", TextInputDef);
-config.addDeserializer("forms.Select", SelectDef);
-config.addDeserializer("forms.FileInput", FileInputDef);
-config.addDeserializer("forms.BlockNoteEditor", BlockNoteEditorDef);
+config.addAdapter("forms.TextInput", TextInputDef);
+config.addAdapter("forms.Select", SelectDef);
+config.addAdapter("forms.FileInput", FileInputDef);
+config.addAdapter("forms.BlockNoteEditor", BlockNoteEditorDef);
 
 const rootElement = document.getElementById("root")!;
 const initialResponse = JSON.parse(
