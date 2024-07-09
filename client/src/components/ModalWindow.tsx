@@ -1,7 +1,6 @@
 import React, { useRef, ReactElement } from "react";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { OverlayContext } from "@django-render/core";
-import WarningRounded from "@mui/icons-material/WarningRounded";
 import Drawer from '@mui/joy/Drawer';
 import Modal from "@mui/joy/Modal";
 import ModalDialog from "@mui/joy/ModalDialog";
@@ -15,44 +14,6 @@ const ModalBody = styled.div`
   display: flex;
   flex-direction: column;
   overflow: auto;
-`;
-
-const slideInUnsavedChangesWarning = keyframes`
-    from {
-        margin-top: -50px;
-    }
-
-    to {
-        margin-top: 0
-    }
-`;
-
-const UnsavedChangesWarningWrapper = styled.div`
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-  gap: 20px;
-  padding: 15px 20px;
-  color: #2e1f5e;
-  font-size: 15px;
-  font-weight: 400;
-  margin-top: 0;
-  background-color: #ffdadd;
-  animation: ${slideInUnsavedChangesWarning} 0.5s ease;
-
-  svg {
-    height: 18px;
-    flex-shrink: 0;
-    color: #d9303e;
-  }
-
-  p {
-    line-height: 19.5px;
-  }
-
-  strong {
-    font-weight: 700;
-  }
 `;
 
 const ModalContent = styled.div`
@@ -82,7 +43,7 @@ function ModalWindow({
   const [open, setOpen] = React.useState(false);
   React.useEffect(() => {setTimeout(() => setOpen(true), 50)}, []);
 
-  const { requestClose, closeRequested, closeBlocked, onCloseCompleted } = React.useContext(OverlayContext);
+  const { requestClose, closeRequested, onCloseCompleted } = React.useContext(OverlayContext);
 
   // Closing state
   const [closing, setClosing] = React.useState(false);
@@ -132,18 +93,6 @@ function ModalWindow({
 
   const body = (
     <ModalBody>
-      {closeBlocked && (
-        <UnsavedChangesWarningWrapper
-          role="alert"
-          aria-live="assertive"
-        >
-          <WarningRounded />
-          <p>
-            <strong>You have unsaved changes.</strong> Please save or
-            cancel before closing
-          </p>
-        </UnsavedChangesWarningWrapper>
-      )}
       <ModalContent>
         <ModalWrapper>{children}</ModalWrapper>
       </ModalContent>

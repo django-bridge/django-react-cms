@@ -73,6 +73,11 @@ def edit(request, mediaasset_id):
     if form.is_valid():
         form.save()
 
+        messages.success(
+            request,
+            f"Successfully saved image '{image.title}'.",
+        )
+
     return Response(
         request,
         "MediaForm",

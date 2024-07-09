@@ -61,6 +61,11 @@ def edit(request, post_id):
     if form.is_valid():
         form.save()
 
+        messages.success(
+            request,
+            f"Successfully saved post '{post.title}'.",
+        )
+
     return Response(
         request,
         "PostForm",
