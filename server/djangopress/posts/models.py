@@ -7,12 +7,18 @@ class Channel(models.Model):
     pass
 
 
-class Post(models.Model):
-    class Status(models.TextChoices):
-        DRAFT = "draft", "Draft"
-        PUBLISHED = "published", "Published"
+class Posting(RepeatableComponent):
+    """
+    Represents the posting of a piece of content to a channel
+    """
+    channel = models.ForeignKey(Channel)
+    posted_at = models.DateTimeField()
 
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    # If the provider supports reposting, the content may be posted to multiple
+    # channels of that provider with one being the canonical, and others being reposts
+    repost_of = models.ForeignKey(Posting)
+
+
+class Article(Component):
     title = models.TextField()
-    status = models.CharField(max_length=9, choices=Status.choices)
     content = models.JSONField()

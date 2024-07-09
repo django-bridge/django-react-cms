@@ -36,6 +36,14 @@ class Component(models.Model):
         abstract = True
 
 
+class RepeatableComponent(models.Model):
+    content = models.ForeignKey(Content, on_delete=models.CASCADE)
+    sort_order = models.IntegerField()
+
+    class Meta:
+        abstract = True
+
+
 class ScheduledAction(models.Model):
     content = models.ForeignKey(Content, on_delete=models.CASCADE, related_name='scheduled_actions')
     action = publish / unpublish
