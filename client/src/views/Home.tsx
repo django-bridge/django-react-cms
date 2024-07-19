@@ -28,8 +28,8 @@ export default function HomeView() {
         <p>
           This is a very basic example of an application built with Django and
           React using{" "}
-          <a href="https://django-render.org" target="_blank">
-            Django Render
+          <a href="https://django-bridge.org" target="_blank">
+            Django Bridge
           </a>{" "}
           to connect them. It will eventually be a simple blogging app.
         </p>
@@ -44,7 +44,7 @@ export default function HomeView() {
         </p>
         <p>
           Please browse around and have a look at the requests being made in
-          your network tab to get an idea of how Django Render is fetching the data
+          your network tab to get an idea of how Django Bridge is fetching the data
           from Django.
         </p>
         <p style={{ marginTop: "2em" }}>

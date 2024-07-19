@@ -1,9 +1,14 @@
 import React from "react";
-import { DirtyFormMarker } from "@django-render/core";
+import { DirtyFormMarker } from "@django-bridge/react";
 import "@blocknote/core/fonts/inter.css";
 import { Block } from "@blocknote/core";
 import { useCreateBlockNote } from "@blocknote/react";
-import { BlockNoteView, Theme, darkDefaultTheme, lightDefaultTheme } from "@blocknote/mantine";
+import {
+  BlockNoteView,
+  Theme,
+  darkDefaultTheme,
+  lightDefaultTheme,
+} from "@blocknote/mantine";
 import "@blocknote/mantine/style.css";
 import "./BlockNoteEditor.css";
 
@@ -33,14 +38,17 @@ const darkTheme = {
   fontFamily: "inherit",
 } satisfies Theme;
 
-interface BlockNoteEditorProps{
+interface BlockNoteEditorProps {
   id: string;
   name: string;
   disabled: boolean;
   initialContent: Block[];
 }
 
-export default function BlockNoteEditor({ name, initialContent }: BlockNoteEditorProps) {
+export default function BlockNoteEditor({
+  name,
+  initialContent,
+}: BlockNoteEditorProps) {
   const [blocks, setBlocks] = React.useState<Block[]>(initialContent);
   const [dirty, setDirty] = React.useState(false);
   const editor = useCreateBlockNote({ initialContent });

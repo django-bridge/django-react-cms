@@ -2,7 +2,7 @@ from django import forms
 from django.conf import settings
 from django.forms.models import ModelChoiceIteratorValue
 from django.template.defaultfilters import filesizeformat
-from django_render.adapters import Adapter, register
+from django_bridge.adapters import Adapter, register
 from telepath import ValueNode
 
 from .widgets import BlockNoteEditor

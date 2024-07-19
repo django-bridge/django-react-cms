@@ -1,7 +1,7 @@
 import * as React from "react";
 import Button from "@mui/joy/Button";
 import Box from "@mui/joy/Box";
-import { Form, OverlayContext } from "@django-render/core";
+import { Form, OverlayContext } from "@django-bridge/react";
 import FormDef from "../deserializers/Form";
 import { Post } from "../types";
 import Layout from "../components/Layout";
@@ -33,10 +33,18 @@ export default function PostFormView({
         {form.render()}
 
         <Box display="flex" gap="12px" pt="20px">
-          <Button type="submit">{post ? 'Save changes' : 'Add Post'}</Button>
-          {overlay && <Button type="button" variant="outlined" onClick={() => requestClose({skipDirtyFormCheck: true})}>Cancel</Button>}
+          <Button type="submit">{post ? "Save changes" : "Add Post"}</Button>
+          {overlay && (
+            <Button
+              type="button"
+              variant="outlined"
+              onClick={() => requestClose({ skipDirtyFormCheck: true })}
+            >
+              Cancel
+            </Button>
+          )}
         </Box>
       </Form>
     </Layout>
-  )
+  );
 }

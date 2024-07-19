@@ -1,7 +1,7 @@
 import React, { useRef, ReactElement } from "react";
 import styled from "styled-components";
-import { OverlayContext } from "@django-render/core";
-import Drawer from '@mui/joy/Drawer';
+import { OverlayContext } from "@django-bridge/react";
+import Drawer from "@mui/joy/Drawer";
 import Modal from "@mui/joy/Modal";
 import ModalDialog from "@mui/joy/ModalDialog";
 
@@ -41,9 +41,12 @@ function ModalWindow({
   // This triggers the opening animation
   // Note: add a 50ms delay as sometimes it loads too fast for React to notice
   const [open, setOpen] = React.useState(false);
-  React.useEffect(() => {setTimeout(() => setOpen(true), 50)}, []);
+  React.useEffect(() => {
+    setTimeout(() => setOpen(true), 50);
+  }, []);
 
-  const { requestClose, closeRequested, onCloseCompleted } = React.useContext(OverlayContext);
+  const { requestClose, closeRequested, onCloseCompleted } =
+    React.useContext(OverlayContext);
 
   // Closing state
   const [closing, setClosing] = React.useState(false);
@@ -101,25 +104,34 @@ function ModalWindow({
 
   if (slideout) {
     return (
-      <Drawer anchor={slideout} open={open && !closing} size="md" sx={{
-        '--Drawer-transitionDuration': (open && !closing) ? '0.4s' : '0.2s',
-        '--Drawer-transitionFunction': (open && !closing)
-          ? 'cubic-bezier(0.79,0.14,0.15,0.86)'
-          : 'cubic-bezier(0.77,0,0.18,1)',
-        '--Drawer-horizontalSize': 'clamp(300px, 100%, 650px)',
-      }}>
+      <Drawer
+        anchor={slideout}
+        open={open && !closing}
+        size="md"
+        sx={{
+          "--Drawer-transitionDuration": open && !closing ? "0.4s" : "0.2s",
+          "--Drawer-transitionFunction":
+            open && !closing
+              ? "cubic-bezier(0.79,0.14,0.15,0.86)"
+              : "cubic-bezier(0.77,0,0.18,1)",
+          "--Drawer-horizontalSize": "clamp(300px, 100%, 650px)",
+        }}
+      >
         {body}
       </Drawer>
     );
   } else {
     return (
       <Modal open={open && !closing}>
-        <ModalDialog size="lg" sx={{
-          '--ModalDialog-minWidth': '500px',
-          '--ModalDialog-maxWidth': '1000px',
-          'width': '100%',
-          p: 0,
-        }}>
+        <ModalDialog
+          size="lg"
+          sx={{
+            "--ModalDialog-minWidth": "500px",
+            "--ModalDialog-maxWidth": "1000px",
+            width: "100%",
+            p: 0,
+          }}
+        >
           {body}
         </ModalDialog>
       </Modal>

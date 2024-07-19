@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import { Form } from "@django-render/core";
+import { Form } from "@django-bridge/react";
 import styled from "styled-components";
 import { CssVarsProvider } from "@mui/joy/styles";
 import CssBaseline from "@mui/joy/CssBaseline";
@@ -13,23 +13,23 @@ const Wrapper = styled.div`
   flex-flow: column;
   justify-content: center;
   align-items: center;
-  background-color: #00246B;
+  background-color: #00246b;
   width: 100vw;
   height: 100vh;
 `;
 
 const LoginWrapper = styled.div`
-    width: 24rem;
-    border-radius: 0.5rem;
-    padding: 2.5rem;
-    background-color: white;
+  width: 24rem;
+  border-radius: 0.5rem;
+  padding: 2.5rem;
+  background-color: white;
 
-    h2 {
-      color: #333;
-      font-weight: 800;
-      font-size: 1.5rem;
-      line-height: 2rem;
-    }
+  h2 {
+    color: #333;
+    font-weight: 800;
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
 `;
 
 const AlternativeSignIn = styled.div`
@@ -65,7 +65,7 @@ interface LoginViewContext {
 function LoginView({
   form,
   actionUrl,
-  tempActionUrl
+  tempActionUrl,
 }: LoginViewContext): ReactElement {
   const csrfToken = React.useContext(CSRFTokenContext);
 
@@ -75,11 +75,17 @@ function LoginView({
       <Wrapper>
         <Space />
         <LoginWrapper>
-          <Typography level="h4" component="h1" fontWeight={700}>Sign in to Djangopress</Typography>
+          <Typography level="h4" component="h1" fontWeight={700}>
+            Sign in to Djangopress
+          </Typography>
 
           <AlternativeSignIn>
             <Form action={tempActionUrl} method="post" noValidate>
-              <input type="hidden" name="csrfmiddlewaretoken" value={csrfToken} />
+              <input
+                type="hidden"
+                name="csrfmiddlewaretoken"
+                value={csrfToken}
+              />
               <Button type="submit">Sign in with a temporary account</Button>
             </Form>
           </AlternativeSignIn>

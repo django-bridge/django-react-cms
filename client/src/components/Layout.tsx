@@ -4,7 +4,12 @@ import { CssVarsProvider } from "@mui/joy/styles";
 import CssBaseline from "@mui/joy/CssBaseline";
 import Box from "@mui/joy/Box";
 import Breadcrumbs from "@mui/joy/Breadcrumbs";
-import { DirtyFormContext, Link as DjangoRenderLink, MessagesContext, OverlayContext } from "@django-render/core";
+import {
+  DirtyFormContext,
+  Link as DjangoBridgeLink,
+  MessagesContext,
+  OverlayContext,
+} from "@django-bridge/react";
 import Link from "@mui/joy/Link";
 import Typography from "@mui/joy/Typography";
 import WarningRounded from "@mui/icons-material/WarningRounded";
@@ -77,22 +82,21 @@ export default function Layout({
     return (
       <>
         {unloadBlocked && (
-          <UnsavedChangesWarningWrapper
-            role="alert"
-            aria-live="assertive"
-          >
+          <UnsavedChangesWarningWrapper role="alert" aria-live="assertive">
             <WarningRounded />
             <p>
-              <strong>You have unsaved changes.</strong> Please save or
-              cancel before closing
+              <strong>You have unsaved changes.</strong> Please save or cancel
+              before closing
             </p>
           </UnsavedChangesWarningWrapper>
         )}
-        <Box sx={{
-          px: { xs: 2, md: 6 },
-          pt: { xs: 2, sm: 2, md: 3 },
-          pb: { xs: 2, sm: 2, md: 3 },
-        }}>
+        <Box
+          sx={{
+            px: { xs: 2, md: 6 },
+            pt: { xs: 2, sm: 2, md: 3 },
+            pb: { xs: 2, sm: 2, md: 3 },
+          }}
+        >
           <Typography level="h3" component="h2">
             {title}
           </Typography>
@@ -111,68 +115,71 @@ export default function Layout({
         <Sidebar />
         <Box sx={{ display: "flex", flexFlow: "column nowrap", width: "100%" }}>
           {unloadBlocked && (
-            <UnsavedChangesWarningWrapper
-              role="alert"
-              aria-live="assertive"
-            >
+            <UnsavedChangesWarningWrapper role="alert" aria-live="assertive">
               <WarningRounded />
               <p>
-                  <b>You have unsaved changes.</b> Please save
-                  your changes before leaving.
+                <b>You have unsaved changes.</b> Please save your changes before
+                leaving.
               </p>
               <Button
-                  type="button"
-                  size="sm"
-                  onClick={(e) => {
-                      e.preventDefault();
-                      confirmUnload();
-                  }}
+                type="button"
+                size="sm"
+                onClick={(e) => {
+                  e.preventDefault();
+                  confirmUnload();
+                }}
               >
-                  Leave without saving
+                Leave without saving
               </Button>
             </UnsavedChangesWarningWrapper>
           )}
-          {!!messages.length && <Box component="ul" sx={{listStyleType: "none", p: 0, m: 0}}>
-          {messages.map((message) => {
-            const sx: SxProps = {
-              px: 4,
-              py: 2,
-              color: "white",
-              fontWeight: 500,
-              backgroundColor: {
-                "success": "#1B8666",
-                "warning": "#FAA500",
-                "error": "#CA3B3B",
-              }[message.level],
-            };
-            if ("html" in message) {
-              return (
-                <Box
-                  component="li"
-                  sx={sx}
-                  key={message.html}
-                  role="alert"
-                  aria-live={message.level === "error" ? "assertive" : "polite"}
-                  dangerouslySetInnerHTML={{
-                    __html: message.html,
-                  }}
-                />
-              );
-            }
+          {!!messages.length && (
+            <Box component="ul" sx={{ listStyleType: "none", p: 0, m: 0 }}>
+              {messages.map((message) => {
+                const sx: SxProps = {
+                  px: 4,
+                  py: 2,
+                  color: "white",
+                  fontWeight: 500,
+                  backgroundColor: {
+                    success: "#1B8666",
+                    warning: "#FAA500",
+                    error: "#CA3B3B",
+                  }[message.level],
+                };
+                if ("html" in message) {
+                  return (
+                    <Box
+                      component="li"
+                      sx={sx}
+                      key={message.html}
+                      role="alert"
+                      aria-live={
+                        message.level === "error" ? "assertive" : "polite"
+                      }
+                      dangerouslySetInnerHTML={{
+                        __html: message.html,
+                      }}
+                    />
+                  );
+                }
 
-            return (
-              <Box
-                component="li"
-                sx={sx}
-                key={message.text}
-                role="alert"
-                aria-live={message.level === "error" ? "assertive" : "polite"}
-              >
-                {message.text}
-              </Box>
-            );
-          })}
-          </Box>}
+                return (
+                  <Box
+                    component="li"
+                    sx={sx}
+                    key={message.text}
+                    role="alert"
+                    aria-live={
+                      message.level === "error" ? "assertive" : "polite"
+                    }
+                  >
+                    {message.text}
+                  </Box>
+                );
+              })}
+            </Box>
+          )}
           <Box
             component="main"
             className="MainContent"
@@ -192,7 +199,7 @@ export default function Layout({
               gap: 1,
             }}
           >
-            <Box sx={{px: fullWidth ? { xs: 2, md: 6 } : 0}}>
+            <Box sx={{ px: fullWidth ? { xs: 2, md: 6 } : 0 }}>
               <Box sx={{ display: "flex", alignItems: "center" }}>
                 <Breadcrumbs
                   size="sm"
@@ -200,19 +207,21 @@ export default function Layout({
                   separator={<ChevronRightRoundedIcon />}
                   sx={{ pl: 0, minHeight: "34px" }}
                 >
-                  {!hideHomeBreadcrumb && <Link
-                    component={DjangoRenderLink}
-                    underline="none"
-                    color="neutral"
-                    href={"/"}
-                    aria-label="Home"
-                  >
-                    <HomeRoundedIcon />
-                  </Link>}
+                  {!hideHomeBreadcrumb && (
+                    <Link
+                      component={DjangoBridgeLink}
+                      underline="none"
+                      color="neutral"
+                      href={"/"}
+                      aria-label="Home"
+                    >
+                      <HomeRoundedIcon />
+                    </Link>
+                  )}
                   {breadcrumb.map(({ label, href }) =>
                     href ? (
                       <Link
-                        component={DjangoRenderLink}
+                        component={DjangoBridgeLink}
                         underline="hover"
                         color="neutral"
                         href={href}
@@ -223,7 +232,11 @@ export default function Layout({
                         {label}
                       </Link>
                     ) : (
-                      <Typography color="primary" fontWeight={500} fontSize={12}>
+                      <Typography
+                        color="primary"
+                        fontWeight={500}
+                        fontSize={12}
+                      >
                         {label}
                       </Typography>
                     )

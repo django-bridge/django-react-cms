@@ -7,12 +7,12 @@ from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.crypto import get_random_string
 from django.views.decorators.http import require_POST
-from django_render.views import DjangoRenderView
+from django_bridge.views import DjangoBridgeView
 
 from .models import User
 
 
-class LoginView(DjangoRenderView, BaseLoginView):
+class LoginView(DjangoBridgeView, BaseLoginView):
     title = "Sign in to Djangopress"
     view_name = "Login"
 

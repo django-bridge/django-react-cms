@@ -1,9 +1,9 @@
 import React, { ReactElement, useState, Ref, useEffect, useRef } from "react";
 import styled from "styled-components";
-import { FormWidgetChangeNotificationContext } from "@django-render/core";
+import { FormWidgetChangeNotificationContext } from "@django-bridge/react";
 import Button from "@mui/joy/Button";
-import DeleteIcon from '@mui/icons-material/Delete';
-import UploadFileRoundedIcon from '@mui/icons-material/UploadFileRounded';
+import DeleteIcon from "@mui/icons-material/Delete";
+import UploadFileRoundedIcon from "@mui/icons-material/UploadFileRounded";
 
 // @see https://github.com/facebook/react/issues/24722
 function useForwardRef<T>(forwardedRef: Ref<T>) {
@@ -41,10 +41,9 @@ const StyledFileInput = styled.div`
   }
 
   &:focus {
-    border: 1px solid var(--joy-palette-primary-solidBg);;
+    border: 1px solid var(--joy-palette-primary-solidBg);
     outline: 1px solid var(--joy-palette-primary-solidBg);
   }
-
 `;
 
 const FileUploadPlaceholder = styled.div`
@@ -78,7 +77,6 @@ const UploadedFiles = styled.ul`
   }
 `;
 
-
 interface FileInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   maxFileSizeDisplay?: string;
 }
@@ -90,7 +88,7 @@ const FileInput = React.forwardRef<HTMLInputElement, FileInputProps>(
       maxFileSizeDisplay,
       ...props
     }: FileInputProps,
-    ref,
+    ref
   ): ReactElement => {
     // Format allowed extensions (eg, ".pdf, .docx or .txt")
     let allowedExtensionsDisplay = "";
@@ -105,7 +103,7 @@ const FileInput = React.forwardRef<HTMLInputElement, FileInputProps>(
     const [dragActive, setDragActive] = useState<boolean>(false);
     const forwardedRef = useForwardRef(ref);
     const changeNotification = React.useContext(
-      FormWidgetChangeNotificationContext,
+      FormWidgetChangeNotificationContext
     );
 
     const handleDrag = (e: React.DragEvent<HTMLDivElement>) => {
@@ -218,7 +216,7 @@ const FileInput = React.forwardRef<HTMLInputElement, FileInputProps>(
         />
       </StyledFileInput>
     );
-  },
+  }
 );
 
 export default FileInput;
