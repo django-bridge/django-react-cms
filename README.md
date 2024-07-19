@@ -1,4 +1,4 @@
-# Djangopress
+# Django/React CMS Demo
 
 This repository contains a clone of Wordpress built with Django and React using [Django Render](https://django-render.org) to integrate them.
 
