@@ -2,7 +2,7 @@
 
 This repository contains a clone of Wordpress built with Django and React using [Django Bridge](https://django-bridge.org) to connect them.
 
-All application logic is implemented in Django views in the backend code, and React is used for rendering on the client.
+This demonstrates how an application can be built with application logic implemented in Django views on the backend and React used for rendering the interface in the browser.
 
 [See the demo live here](https://demo.django-bridge.org)
 
