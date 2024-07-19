@@ -1,15 +1,15 @@
 # Django/React CMS Demo
 
-This repository contains a clone of Wordpress built with Django and React using [Django Render](https://django-render.org) to integrate them.
+This repository contains a clone of Wordpress built with Django and React using [Django Bridge](https://django-bridge.org) to integrate them.
 
 All of this application is backed by Django views which provide the data and perform operations.
 The frontend is rendered entirely with React using components from MUI.
 
-[See the demo live here](https://demo.django-render.org)
+[See the demo live here](https://demo.django-bridge.org)
 
 ## Running it
 
-To get a sense of what Django Render is like to develop with, give it a try in one of the following ways.
+To get a sense of what Django Bridge is like to develop with, give it a try in one of the following ways.
 I'd recommend editing [one of the frontend views](https://github.com/kaedroho/djangopress/blob/main/client/src/views/Home/HomeView.tsx) and see it instantly re-render with your changes!
 Or, if you're more of a backend dev, have a look at the [backend views](https://github.com/kaedroho/djangopress/blob/main/server/djangopress/posts/views.py) that supply the data for the frontend views to render.
 

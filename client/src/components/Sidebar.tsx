@@ -14,15 +14,18 @@ import ImageRoundedIcon from "@mui/icons-material/ImageRounded";
 
 import ColorSchemeToggle from "./ColorSchemeToggle";
 import { closeSidebar } from "../utils";
-import { NavigationContext } from "@django-render/core";
+import { NavigationContext } from "@django-bridge/react";
 
 export default function Sidebar() {
   const { navigate: doNavigate } = React.useContext(NavigationContext);
 
-  const navigate = React.useCallback((path: string) => {
-    closeSidebar();
-    doNavigate(path);
-  }, [doNavigate]);
+  const navigate = React.useCallback(
+    (path: string) => {
+      closeSidebar();
+      doNavigate(path);
+    },
+    [doNavigate]
+  );
 
   return (
     <Sheet
@@ -85,7 +88,9 @@ export default function Sidebar() {
         {/* <IconButton variant="soft" color="primary" size="sm">
           <BrightnessAutoRoundedIcon />
         </IconButton> */}
-        <Typography level="title-lg" fontWeight="xl">Djangopress</Typography>
+        <Typography level="title-lg" fontWeight="xl">
+          Djangopress
+        </Typography>
         <ColorSchemeToggle sx={{ ml: "auto" }} />
       </Box>
       <Box

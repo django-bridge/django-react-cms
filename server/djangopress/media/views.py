@@ -1,6 +1,6 @@
 from django.contrib.contenttypes.models import ContentType
 from django.contrib import messages
-from django_render.response import Response, CloseOverlayResponse
+from django_bridge.response import Response, CloseOverlayResponse
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
 

@@ -4,7 +4,7 @@ import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import Button from "@mui/joy/Button";
 
 import Layout from "../components/Layout";
-import { Link, NavigationContext } from "@django-render/core";
+import { Link, NavigationContext } from "@django-bridge/react";
 import ModalWindow from "../components/ModalWindow";
 
 const MediaAssetListing = styled.ul`
@@ -54,16 +54,18 @@ export default function MediaIndexView({ assets }: MediaIndexViewProps) {
           startDecorator={<AddPhotoAlternateIcon />}
           size="sm"
           onClick={() =>
-            openOverlay("/media/add-image/", (content) => (
-              <ModalWindow slideout="right">
-                {content}
-              </ModalWindow>
-            ), {
-              onClose: () => {
-                // Refresh props so new image pops up in listing
-                refreshProps();
+            openOverlay(
+              "/media/add-image/",
+              (content) => (
+                <ModalWindow slideout="right">{content}</ModalWindow>
+              ),
+              {
+                onClose: () => {
+                  // Refresh props so new image pops up in listing
+                  refreshProps();
+                },
               }
-            })
+            )
           }
         >
           Add Image
@@ -74,9 +76,9 @@ export default function MediaIndexView({ assets }: MediaIndexViewProps) {
         {assets.map((asset) => (
           <li key={asset.id}>
             <Link href={asset.edit_url}>
-                <figure>
-                  <img src={asset.thumbnail_url || "#"} alt={asset.title} />
-                  <figcaption>{asset.title}</figcaption>
+              <figure>
+                <img src={asset.thumbnail_url || "#"} alt={asset.title} />
+                <figcaption>{asset.title}</figcaption>
               </figure>
             </Link>
           </li>

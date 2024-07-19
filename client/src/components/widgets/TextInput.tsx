@@ -1,14 +1,18 @@
 import InputProps from "@mui/joy/Input/InputProps";
 import { SxProps } from "@mui/joy/styles/types";
-import Input from '@mui/joy/Input';
-import { DirtyFormMarker } from "@django-render/core";
+import Input from "@mui/joy/Input";
+import { DirtyFormMarker } from "@django-bridge/react";
 import React from "react";
 
 export interface TextInputProps extends InputProps {
-  avariant: "default" | "large",
+  avariant: "default" | "large";
 }
 
-export default function TextInput({ avariant, onChange: originalOnChange, ...props }: TextInputProps) {
+export default function TextInput({
+  avariant,
+  onChange: originalOnChange,
+  ...props
+}: TextInputProps) {
   const [dirty, setDirty] = React.useState(false);
 
   let sx: SxProps = props.sx || {};
@@ -19,26 +23,25 @@ export default function TextInput({ avariant, onChange: originalOnChange, ...pro
       boxShadow: "none",
       background: "none",
       fontSize: { xs: "30px", sm: "30px", md: "48px" },
-      fontWeight: 700
+      fontWeight: 700,
     };
   }
 
-  const onChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setDirty(true);
+  const onChange = React.useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setDirty(true);
 
-    if (originalOnChange) {
-      originalOnChange(e);
-    }
-  }, [originalOnChange]);
+      if (originalOnChange) {
+        originalOnChange(e);
+      }
+    },
+    [originalOnChange]
+  );
 
   return (
     <>
       {dirty && <DirtyFormMarker />}
-      <Input
-        {...props}
-        sx={sx}
-        onChange={onChange}
-      />
+      <Input {...props} sx={sx} onChange={onChange} />
     </>
   );
 }
