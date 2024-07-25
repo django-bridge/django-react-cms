@@ -4,10 +4,11 @@ from django.conf import settings
 from django.db import models
 
 from djangopress.utils import hash_filelike
+from .workspace import Workspace
 
 
 def get_upload_path(instance, filename):
-    return f"{instance.UPLOAD_PATH}/{filename}"
+    return f"{instance.UPLOAD_PATH}/{instance.workspace.slug}/{filename}"
 
 
 class BaseFile(models.Model):
@@ -18,6 +19,7 @@ class BaseFile(models.Model):
     content_type = models.CharField(max_length=100)
     uploaded_at = models.DateTimeField(auto_now_add=True)
     uploaded_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
+    workspace = models.ForeignKey(Workspace, on_delete=models.PROTECT)
 
     UPLOAD_PATH = "files"
 
