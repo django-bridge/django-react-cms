@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.contenttypes.models import ContentType as DjangoContentType
 
-from .workspaces import Workspace
+from .workspace import Workspace
 
 
 class ContentType(models.Model):
@@ -10,6 +10,7 @@ class ContentType(models.Model):
     """
     name = models.TextField(max_length=255)
     slug = models.TextField(max_length=255, unique=True)
+    workspace = models.ForeignKey(Workspace, on_delete=models.PROTECT)
     base = models.ForeignKey(DjangoContentType, on_delete=models.CASCADE, related_name='+')
     components = models.ManyToManyField(DjangoContentType, related_name='+')
 
