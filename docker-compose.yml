@@ -11,7 +11,7 @@ services:
       DJANGO_DEBUG: "true"
       DJANGO_ALLOWED_HOSTS: "*"
       DATABASE_URL: postgres://postgres@postgres/postgres
-      VITE_SERVER_ORIGIN: http://localhost:5173
+      VITE_SERVER_ORIGIN: http://localhost:5173/static
     ports:
       - 8000:8000
     volumes:
