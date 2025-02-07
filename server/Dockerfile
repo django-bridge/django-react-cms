@@ -1,4 +1,4 @@
-FROM node:18.17.1-bullseye-slim as client
+FROM node:22.13.1-bookworm-slim AS client
 
 # Install client dependencies
 COPY client/package.json client/package-lock.json /client/
@@ -10,13 +10,15 @@ COPY client /client
 # Build the client
 RUN cd /client && npm run build
 
-FROM python:3.12.3-slim-bookworm AS base
+FROM python:3.13.1-slim-bookworm AS base
 
 RUN apt update -y \
     && apt install -y --no-install-recommends \
     # Required to build psycopg2
     build-essential \
     libpq-dev \
+    # Required for django-admin dbshell
+    postgresql-client \
     && rm -rf /var/lib/apt/lists/*
 
 ENV VIRTUAL_ENV=/venv
@@ -53,7 +55,7 @@ COPY --chown=djangopress server .
 # Run poetry install again to install our project
 RUN poetry install --only main
 
-FROM base as prod
+FROM base AS prod
 
 # Copy the client bundle from the client target
 COPY --chown=djangopress --from=client /client/dist /client

@@ -1,4 +1,4 @@
-FROM node:18.18.2-bullseye-slim as dev
+FROM node:22.13.1-bookworm-slim AS dev
 
 ARG UID=1000
 RUN userdel node && useradd djangopress --uid ${UID} -l --create-home && mkdir /client && chown djangopress /client
