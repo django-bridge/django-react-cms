@@ -1,4 +1,4 @@
-name: Build and Deploy to Digital Ocean
+name: Build and push image to GHCR
 
 on:
   workflow_dispatch:
