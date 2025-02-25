@@ -31,11 +31,24 @@ jobs:
         uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
+      - name: Extract metadata for Docker images
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/django-bridge/django-react-cms
+          tags: |
+            type=ref,event=branch
+            type=ref,event=tag
+            type=sha,prefix=git-
+          flavor: |
+            latest=${{ github.ref == 'refs/heads/main' }}
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
+          platforms: ${{ matrix.platform }}
           context: .
           file: ./server/Dockerfile
           target: prod
           push: true
-          tags: ghcr.io/django-bridge/django-react-cms:latest
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
