@@ -59,7 +59,7 @@ const SubmitButtonWrapper = styled.div`
 interface LoginViewContext {
   form: FormDef;
   actionUrl: string;
-  tempActionUrl: string;
+  tempActionUrl: string | null;
 }
 
 function LoginView({
@@ -79,16 +79,18 @@ function LoginView({
             Sign in to Djangopress
           </Typography>
 
-          <AlternativeSignIn>
-            <Form action={tempActionUrl} method="post" noValidate>
-              <input
-                type="hidden"
-                name="csrfmiddlewaretoken"
-                value={csrfToken}
-              />
-              <Button type="submit">Sign in with a temporary account</Button>
-            </Form>
-          </AlternativeSignIn>
+          {tempActionUrl && (
+            <AlternativeSignIn>
+              <Form action={tempActionUrl} method="post" noValidate>
+                <input
+                  type="hidden"
+                  name="csrfmiddlewaretoken"
+                  value={csrfToken}
+                />
+                <Button type="submit">Sign in with a temporary account</Button>
+              </Form>
+            </AlternativeSignIn>
+          )}
 
           <Form action={actionUrl} method="post" noValidate>
             <input type="hidden" name="csrfmiddlewaretoken" value={csrfToken} />

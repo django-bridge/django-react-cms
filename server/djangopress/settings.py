@@ -24,6 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
 DEBUG = os.environ.get("DJANGO_DEBUG", "false") == "true"
+DEMO_MODE = os.environ.get("DEMO_MODE", "false") == "true"
 BASE_URL = os.environ["BASE_URL"]
 ALLOWED_HOSTS = os.environ.get(
     "DJANGO_ALLOWED_HOSTS", urlparse(BASE_URL).hostname

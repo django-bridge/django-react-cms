@@ -29,8 +29,12 @@ urlpatterns_auth = [
 # Put any URLs that do not require authentication in this list.
 urlpatterns_noauth = [
     path("login/", auth_views.LoginView.as_view(), name="login"),
-    path("login-temporary/", auth_views.login_temporary, name="login_temporary"),
 ]
+
+if settings.DEMO_MODE:
+    urlpatterns_noauth += [
+        path("login-temporary/", auth_views.login_temporary, name="login_temporary"),
+    ]
 
 urlpatterns = urlpatterns_noauth + decorate_urlpatterns(
     urlpatterns_auth, login_required
