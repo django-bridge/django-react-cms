@@ -23,13 +23,14 @@ def index(request):
                     "thumbnail_url": asset.thumbnail.file.url if asset.thumbnail else None,
                 }
                 for asset in assets
-            ]
+            ],
+            "upload_url": reverse("media_upload"),
         },
         title="Media | Djangopress",
     )
 
 
-def add_image(request):
+def upload(request):
     form = ImageForm(request.POST or None, request.FILES or None)
 
     if form.is_valid():
@@ -53,11 +54,9 @@ def add_image(request):
 
     return Response(
         request,
-        "MediaForm",
+        "MediaUpload",
         {
-            "title": "Add image",
-            "submit_button_label": "Add image",
-            "action_url": reverse("media_add_image"),
+            "action_url": reverse("media_upload"),
             "form": form,
         },
         overlay=True,

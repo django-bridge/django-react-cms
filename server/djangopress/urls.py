@@ -21,7 +21,7 @@ urlpatterns_auth = [
     path("posts/<int:post_id>/delete/", posts_views.delete, name="posts_delete"),
     # Media
     path("media/", media_views.index, name="media_index"),
-    path("media/add-image/", media_views.add_image, name="media_add_image"),
+    path("media/upload/", media_views.upload, name="media_upload"),
     path("media/<int:mediaasset_id>/edit/", media_views.edit, name="media_edit"),
     path("media/<int:mediaasset_id>/delete/", media_views.delete, name="media_delete"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

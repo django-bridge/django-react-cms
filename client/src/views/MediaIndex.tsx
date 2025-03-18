@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
+import FileUploadIcon from '@mui/icons-material/FileUpload';
 import Button from "@mui/joy/Button";
 
 import Layout from "../components/Layout";
@@ -39,9 +39,10 @@ interface MediaIndexViewProps {
     edit_url: string;
     thumbnail_url: string | null;
   }[];
+  upload_url: string;
 }
 
-export default function MediaIndexView({ assets }: MediaIndexViewProps) {
+export default function MediaIndexView({ assets, upload_url }: MediaIndexViewProps) {
   const { openOverlay, refreshProps } = React.useContext(NavigationContext);
 
   return (
@@ -51,11 +52,11 @@ export default function MediaIndexView({ assets }: MediaIndexViewProps) {
       renderHeaderButtons={() => (
         <Button
           color="primary"
-          startDecorator={<AddPhotoAlternateIcon />}
+          startDecorator={<FileUploadIcon />}
           size="sm"
           onClick={() =>
             openOverlay(
-              "/media/add-image/",
+              upload_url,
               (content) => (
                 <ModalWindow slideout="right">{content}</ModalWindow>
               ),
@@ -68,7 +69,7 @@ export default function MediaIndexView({ assets }: MediaIndexViewProps) {
             )
           }
         >
-          Add Image
+          Upload
         </Button>
       )}
     >
