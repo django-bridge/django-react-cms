@@ -4,7 +4,7 @@ from django_bridge.response import Response, CloseOverlayResponse
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
 
-from .forms import ImageForm
+from .forms import UploadForm, EditForm
 from .models import MediaAsset, Image
 
 
@@ -31,7 +31,7 @@ def index(request):
 
 
 def upload(request):
-    form = ImageForm(request.POST or None, request.FILES or None)
+    form = UploadForm(request.POST or None, request.FILES or None)
 
     if form.is_valid():
         try:
@@ -65,9 +65,8 @@ def upload(request):
 
 
 def edit(request, mediaasset_id):
-    # TODO: Check media type
     image = get_object_or_404(Image, owner=request.user, id=mediaasset_id)
-    form = ImageForm(request.POST or None, instance=image)
+    form = EditForm(request.POST or None, instance=image)
 
     if form.is_valid():
         form.save()
