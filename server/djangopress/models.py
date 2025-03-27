@@ -8,3 +8,13 @@ class Channel(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Content(models.Model):
+    uuid = models.UUIDField(primary_key=True)
+    channel = models.ForeignKey(Channel, on_delete=models.PROTECT, related_name="content")
+    admin_display_title = models.TextField()
+    content = models.JSONField()
+
+    def __str__(self):
+        return self.admin_display_title
