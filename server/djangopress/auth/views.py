@@ -1,4 +1,3 @@
-import string
 
 from django.conf import settings
 from django.contrib import messages
@@ -7,11 +6,10 @@ from django.contrib.auth.views import LoginView as BaseLoginView
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect
 from django.urls import reverse
-from django.utils.crypto import get_random_string
 from django.views.decorators.http import require_POST
 from django_bridge.views import DjangoBridgeView
 
-from .models import User
+from .services import create_temporary_user
 
 
 class LoginView(DjangoBridgeView, BaseLoginView):
@@ -42,10 +40,7 @@ def login_temporary(request):
     if not settings.DEMO_MODE:
         raise PermissionDenied("DEMO_MODE is not enabled")
 
-    user = User.objects.create(
-        username="temp-" + get_random_string(10, allowed_chars=string.ascii_lowercase),
-        is_temporary=True,
-    )
+    user = create_temporary_user()
 
     login(request, user)
 
