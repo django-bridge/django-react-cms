@@ -10,6 +10,7 @@ from django.views.decorators.http import require_POST
 from django_bridge.views import DjangoBridgeView
 
 from .services import create_temporary_user
+from djangopress.services import create_space
 
 
 class LoginView(DjangoBridgeView, BaseLoginView):
@@ -43,5 +44,8 @@ def login_temporary(request):
     user = create_temporary_user()
 
     login(request, user)
+
+    # Create a space
+    create_space(name="Personal Space", owner=user)
 
     return redirect("home")
