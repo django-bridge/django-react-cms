@@ -18,13 +18,8 @@ def get_upload_to(instance, filename):
 
 
 class MediaAsset(models.Model):
-    class Status(models.TextChoices):
-        DRAFT = "draft", "Draft"
-        PUBLISHED = "published", "Published"
-
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.TextField()
-    status = models.CharField(max_length=9, choices=Status.choices)
     media_type = models.ForeignKey(ContentType, on_delete=models.PROTECT)
     thumbnail = models.ForeignKey(Thumbnail, on_delete=models.SET_NULL, null=True)
     file = models.FileField(upload_to=get_upload_to)

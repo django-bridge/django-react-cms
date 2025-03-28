@@ -7,7 +7,7 @@ class UploadForm(forms.ModelForm):
 
     class Meta:
         model = Image
-        fields = ["title", "file", "status"]
+        fields = ["title", "file"]
         widgets = {
             "title": forms.TextInput(),
         }
@@ -17,7 +17,7 @@ class EditForm(forms.ModelForm):
 
     class Meta:
         model = Image
-        fields = ["title", "status"]
+        fields = ["title"]
         widgets = {
             "title": forms.TextInput(),
         }
