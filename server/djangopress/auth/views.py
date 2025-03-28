@@ -11,6 +11,7 @@ from django.utils.crypto import get_random_string
 from django.views.decorators.http import require_POST
 from django_bridge.views import DjangoBridgeView
 
+from djangopress.spaces.services import create_workspace
 from .models import User
 
 
@@ -46,6 +47,8 @@ def login_temporary(request):
         username="temp-" + get_random_string(10, allowed_chars=string.ascii_lowercase),
         is_temporary=True,
     )
+
+    create_workspace(name="Demo Workspace", owner=user)
 
     login(request, user)
 

@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "djangopress.posts",
     "djangopress.media",
     "djangopress.auth",
+    "djangopress.workworkspaces",
     "djangopress",
     "django_bridge",
     "django.contrib.admin",

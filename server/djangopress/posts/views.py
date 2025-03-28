@@ -32,6 +32,7 @@ def add(request):
 
     if form.is_valid():
         post = form.save(commit=False)
+        post.space = request.space
         post.owner = request.user
         post.save()
 

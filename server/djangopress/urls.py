@@ -10,6 +10,7 @@ from .media import views as media_views
 from .posts import views as posts_views
 from .utils import decorate_urlpatterns
 
+
 # Put any URLs that require authentication in this list.
 urlpatterns_auth = [
     path("admin/", admin.site.urls),

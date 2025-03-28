@@ -6,6 +6,7 @@ from django.conf import settings
 from django.db import models
 
 from djangopress.auth.models import User
+from djangopress.spaces.models import Workspace
 from .utils import generate_thumbnail, hash_filelike
 
 
@@ -22,6 +23,12 @@ class MediaAsset(models.Model):
         DRAFT = "draft", "Draft"
         PUBLISHED = "published", "Published"
 
+    workspace = models.ForeignKey(
+        Workspace,
+        on_delete=models.CASCADE,
+        related_name="media_assets",
+        null=True
+    )
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.TextField()
     status = models.CharField(max_length=9, choices=Status.choices)
