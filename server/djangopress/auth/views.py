@@ -19,12 +19,6 @@ class LoginView(DjangoBridgeView, BaseLoginView):
     view_name = "Login"
 
     def form_valid(self, form):
-        # Add a success message to the next page.
-        messages.success(
-            self.request,
-            "Successfully logged in as {}".format(form.get_user()),
-        )
-
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
@@ -39,7 +33,7 @@ class LoginView(DjangoBridgeView, BaseLoginView):
 
 @require_POST
 def login_temporary(request):
-    if not settings.DEMO_MODE:
+    if settings.DEMO_MODE:
         raise PermissionDenied("DEMO_MODE is not enabled")
 
     user = User.objects.create(

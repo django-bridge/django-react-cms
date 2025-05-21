@@ -7,6 +7,7 @@ class Post(models.Model):
     class Status(models.TextChoices):
         DRAFT = "draft", "Draft"
         PUBLISHED = "published", "Published"
+        STILL_IN_REVIEW = "stillInReview", "Still In Review"
 
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.TextField()

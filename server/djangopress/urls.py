@@ -23,12 +23,12 @@ urlpatterns_auth = [
     path("media/", media_views.index, name="media_index"),
     path("media/upload/", media_views.upload, name="media_upload"),
     path("media/<int:mediaasset_id>/edit/", media_views.edit, name="media_edit"),
-    path("media/<int:mediaasset_id>/delete/", media_views.delete, name="media_delete"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # Put any URLs that do not require authentication in this list.
 urlpatterns_noauth = [
     path("login/", auth_views.LoginView.as_view(), name="login"),
+    path("media/<int:mediaasset_id>/delete/", media_views.delete, name="media_delete"),
 ]
 
 if settings.DEMO_MODE:

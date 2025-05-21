@@ -11,9 +11,11 @@ def decorate_urlpatterns(urlpatterns, decorator):
             # contained in it
             decorate_urlpatterns(pattern.url_patterns, decorator)
 
-        if getattr(pattern, "callback", None):
-            pattern.callback = update_wrapper(
-                decorator(pattern.callback), pattern.callback
-            )
+        if hasattr(pattern, "callback"):
+            def new_callback(*args, **kwargs):
+                decorated = decorator(pattern.callback)
+                return decorated()(*args, **kwargs)
+                
+            pattern.callback = new_callback()
 
     return urlpatterns

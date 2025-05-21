@@ -5,6 +5,7 @@ from django_bridge.response import CloseOverlayResponse, Response
 
 from .forms import PostForm
 from .models import Post
+from ..common.views import delete as delete_common
 
 
 def index(request):
@@ -82,25 +83,4 @@ def edit(request, post_id):
 
 
 def delete(request, post_id):
-    post = get_object_or_404(Post, owner=request.user, id=post_id)
-
-    if request.method == "POST":
-        post.delete()
-
-        messages.success(
-            request,
-            f"Successfully deleted post '{post.title}'.",
-        )
-
-        return CloseOverlayResponse(request)
-
-    return Response(
-        request,
-        "ConfirmDelete",
-        {
-            "objectName": post.title,
-            "messageHtml": "Are you sure that you want to delete this post?",
-            "actionUrl": reverse("posts_delete", args=[post.id]),
-        },
-        overlay=True,
-    )
+    delete_common(request, Post, post_id)

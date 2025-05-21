@@ -93,7 +93,7 @@ def edit(request, mediaasset_id):
 def delete(request, mediaasset_id):
     asset = get_object_or_404(MediaAsset, owner=request.user, id=mediaasset_id)
 
-    if request.method == "POST":
+    if request.method == "POST" and request.user.is_authenticated():
         asset.delete()
 
         messages.success(

@@ -26,6 +26,7 @@ class MediaAsset(models.Model):
     file_size = models.PositiveIntegerField()
     file_hash = models.CharField(max_length=40)
     file_content_type = models.CharField(max_length=100)
+    file_owner = models.TextField()
 
     ALLOWED_FILE_TYPES = []
 
@@ -56,6 +57,7 @@ class Image(MediaAsset):
     ALLOWED_FILE_TYPES = [
         "image/jpeg",
         "image/png",
+        "image/txt"
     ]
 
     def generate_thumbnail(self):
