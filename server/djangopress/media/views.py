@@ -20,7 +20,9 @@ def index(request):
                     "id": asset.id,
                     "title": asset.title,
                     "edit_url": reverse("media_edit", args=[asset.id]),
-                    "thumbnail_url": asset.thumbnail.file.url if asset.thumbnail else None,
+                    "thumbnail_url": asset.thumbnail.file.url
+                    if asset.thumbnail
+                    else None,
                 }
                 for asset in assets
             ],
@@ -52,16 +54,7 @@ def upload(request):
         except Image.InvalidFileError as e:
             form.add_error("file", e.args[0])
 
-    return Response(
-        request,
-        "MediaUpload",
-        {
-            "action_url": reverse("media_upload"),
-            "form": form,
-        },
-        overlay=True,
-        title="Add Image | Djangopress",
-    )
+    return HttpResponse(400)
 
 
 def edit(request, mediaasset_id):
