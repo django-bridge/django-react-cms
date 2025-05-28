@@ -9,7 +9,6 @@ import PostIndexView from "./views/PostIndex";
 import MediaIndexView from "./views/MediaIndex";
 import PostFormView from "./views/PostForm";
 import MediaFormView from "./views/MediaForm";
-import MediaUploadView from "./views/MediaUpload";
 
 import FormDef from "./deserializers/Form";
 import FieldDef from "./deserializers/Field";
@@ -30,7 +29,6 @@ config.addView("PostIndex", PostIndexView);
 config.addView("PostForm", PostFormView);
 config.addView("MediaIndex", MediaIndexView);
 config.addView("MediaForm", MediaFormView);
-config.addView("MediaUpload", MediaUploadView);
 
 // Add your context providers here
 config.addContextProvider("csrf_token", CSRFTokenContext);
