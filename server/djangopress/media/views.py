@@ -3,6 +3,7 @@ from django.contrib import messages
 from django_bridge.response import Response, CloseOverlayResponse
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
+from django.http import HttpResponse
 
 from .forms import UploadForm, EditForm
 from .models import MediaAsset, Image
