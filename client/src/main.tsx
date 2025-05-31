@@ -6,7 +6,7 @@ import LoginView from "./views/Login";
 import HomeView from "./views/Home";
 import ConfirmDeleteView from "./views/ConfirmDelete";
 import PostIndexView from "./views/PostIndex";
-import MediaIndexView from "./views/MediaIndex";
+import FilesIndexView from "./views/FilesIndex";
 import PostFormView from "./views/PostForm";
 import MediaFormView from "./views/MediaForm";
 
@@ -27,7 +27,7 @@ config.addView("Home", HomeView);
 config.addView("ConfirmDelete", ConfirmDeleteView);
 config.addView("PostIndex", PostIndexView);
 config.addView("PostForm", PostFormView);
-config.addView("MediaIndex", MediaIndexView);
+config.addView("FilesIndex", FilesIndexView);
 config.addView("MediaForm", MediaFormView);
 
 // Add your context providers here

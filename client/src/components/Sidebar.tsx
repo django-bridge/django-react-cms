@@ -15,9 +15,11 @@ import ImageRoundedIcon from "@mui/icons-material/ImageRounded";
 import ColorSchemeToggle from "./ColorSchemeToggle";
 import { closeSidebar } from "../utils";
 import { NavigationContext } from "@django-bridge/react";
+import { URLsContext } from "../contexts";
 
 export default function Sidebar() {
   const { navigate: doNavigate } = React.useContext(NavigationContext);
+  const urls = React.useContext(URLsContext);
 
   const navigate = React.useCallback(
     (path: string) => {
@@ -132,7 +134,7 @@ export default function Sidebar() {
           </ListItem>
 
           <ListItem>
-            <ListItemButton onClick={() => navigate("/media/")}>
+            <ListItemButton onClick={() => navigate(urls.files_index)}>
               <ImageRoundedIcon />
               <ListItemContent>
                 <Typography level="title-sm">Media</Typography>
