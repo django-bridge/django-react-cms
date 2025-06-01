@@ -5,9 +5,9 @@ import * as DjangoBridge from "@django-bridge/react";
 import LoginView from "./views/Login";
 import HomeView from "./views/Home";
 import ConfirmDeleteView from "./views/ConfirmDelete";
-import PostIndexView from "./views/PostIndex";
+import PagesIndexView from "./views/PagesIndex";
 import FilesIndexView from "./views/FilesIndex";
-import PostFormView from "./views/PostForm";
+import PageFormView from "./views/PageForm";
 import MediaFormView from "./views/MediaForm";
 
 import FormDef from "./deserializers/Form";
@@ -25,8 +25,8 @@ const config = new DjangoBridge.Config();
 config.addView("Login", LoginView);
 config.addView("Home", HomeView);
 config.addView("ConfirmDelete", ConfirmDeleteView);
-config.addView("PostIndex", PostIndexView);
-config.addView("PostForm", PostFormView);
+config.addView("PagesIndex", PagesIndexView);
+config.addView("PageForm", PageFormView);
 config.addView("FilesIndex", FilesIndexView);
 config.addView("MediaForm", MediaFormView);
 

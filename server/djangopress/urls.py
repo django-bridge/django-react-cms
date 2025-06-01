@@ -7,7 +7,7 @@ from django.conf import settings
 from . import views
 from .auth import views as auth_views
 from .files import views as files_views
-from .posts import views as posts_views
+from .pages import views as pages_views
 from .utils import decorate_urlpatterns
 from .spaces.decorators import space_from_url
 from .spaces import views as spaces_views
@@ -15,6 +15,11 @@ from .spaces import views as spaces_views
 # Put any space-specific URLs here
 urlpatterns_space = [
     path("", views.home, name="home"),
+    # Pages
+    path("pages/", pages_views.index, name="pages_index"),
+    path("pages/add/", pages_views.add, name="pages_add"),
+    path("pages/<uuid:page_uuid>/edit/", pages_views.edit, name="pages_edit"),
+    path("pages/<uuid:page_uuid>/delete/", pages_views.delete, name="pages_delete"),
     # Files
     path("files/", files_views.index, name="files_index"),
     path("files/upload/", files_views.upload, name="files_upload"),
@@ -27,11 +32,6 @@ urlpatterns_space = [
 urlpatterns_auth = [
     path("admin/", admin.site.urls),
     path("", spaces_views.default_space_redirect),
-    # Posts
-    path("posts/", posts_views.index, name="posts_index"),
-    path("posts/add/", posts_views.add, name="posts_add"),
-    path("posts/<int:post_id>/edit/", posts_views.edit, name="posts_edit"),
-    path("posts/<int:post_id>/delete/", posts_views.delete, name="posts_delete"),
     # Spaces
     path(
         "<str:space_slug>/",

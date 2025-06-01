@@ -125,10 +125,10 @@ export default function Sidebar() {
           </ListItem>
 
           <ListItem>
-            <ListItemButton onClick={() => navigate("/posts/")}>
+            <ListItemButton onClick={() => navigate(urls.pages_index)}>
               <DashboardRoundedIcon />
               <ListItemContent>
-                <Typography level="title-sm">Posts</Typography>
+                <Typography level="title-sm">Pages</Typography>
               </ListItemContent>
             </ListItemButton>
           </ListItem>

@@ -14,22 +14,23 @@ import {
 } from "@django-bridge/react";
 import ModalWindow from "../components/ModalWindow";
 
-interface Post {
-  title: string;
+interface Page {
+  name: string;
   edit_url: string;
   delete_url: string;
 }
 
-interface PostIndexViewProps {
-  posts: Post[];
+interface PagesIndexViewProps {
+  pages: Page[];
+  add_page_url: string,
 }
 
-export default function PostIndexView({ posts }: PostIndexViewProps) {
+export default function PagesIndexView({ pages, add_page_url }: PagesIndexViewProps) {
   const { openOverlay, refreshProps } = React.useContext(NavigationContext);
 
   return (
     <Layout
-      title="Posts"
+      title="Pages"
       breadcrumb={[{ label: "" }]}
       renderHeaderButtons={() => (
         <Button
@@ -38,7 +39,7 @@ export default function PostIndexView({ posts }: PostIndexViewProps) {
           size="sm"
           onClick={() =>
             openOverlay(
-              "/posts/add/",
+              add_page_url,
               (content) => <ModalWindow>{content}</ModalWindow>,
               {
                 onClose: () => {
@@ -49,7 +50,7 @@ export default function PostIndexView({ posts }: PostIndexViewProps) {
             )
           }
         >
-          Add Post
+          Add Page
         </Button>
       )}
       fullWidth
@@ -64,19 +65,19 @@ export default function PostIndexView({ posts }: PostIndexViewProps) {
       >
         <thead>
           <tr>
-            <th>Post</th>
+            <th>Page</th>
           </tr>
         </thead>
         <tbody>
-          {posts.map((post) => (
+          {pages.map((page) => (
             <tr>
               <td>
                 <Link
                   component={DjangoBridgeLink}
                   level="h4"
-                  href={post.edit_url}
+                  href={page.edit_url}
                 >
-                  {post.title}
+                  {page.name}
                 </Link>
                 <ButtonGroup
                   size="sm"
@@ -84,13 +85,13 @@ export default function PostIndexView({ posts }: PostIndexViewProps) {
                   spacing="0.5rem"
                   sx={{ marginTop: "0.5rem" }}
                 >
-                  <Link component={DjangoBridgeLink} href={post.edit_url}>
+                  <Link component={DjangoBridgeLink} href={page.edit_url}>
                     Edit
                   </Link>
                   <IconButton
                     onClick={() =>
                       openOverlay(
-                        post.delete_url,
+                        page.delete_url,
                         (content) => (
                           <ModalWindow slideout="right">{content}</ModalWindow>
                         ),

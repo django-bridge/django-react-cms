@@ -6,11 +6,9 @@ def urls(request):
 
     if space:
         return {
-            "posts_index": reverse("posts_index"),
+            "pages_index": reverse("pages_index", args=[space.slug]),
             "files_index": reverse("files_index", args=[space.slug]),
         }
 
     else:
-        return {
-            "posts_index": reverse("posts_index"),
-        }
+        return {}
