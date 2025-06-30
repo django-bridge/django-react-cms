@@ -4,7 +4,7 @@ This repository contains a clone of Wordpress built with Django and React using 
 
 This demonstrates how to build an application with all logic implemented in Django views and React components used for rendering.
 
-[See the demo live here](https://demo.django-render.org)
+[See the demo live here](https://demo.django-bridge.org)
 
 ## Running it
 
