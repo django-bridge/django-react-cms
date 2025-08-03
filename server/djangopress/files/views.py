@@ -1,4 +1,3 @@
-from django.apps import apps
 from django.contrib import messages
 from django_bridge.response import Response, CloseOverlayResponse
 from django.urls import reverse
@@ -21,7 +20,7 @@ def index(request):
                 {
                     "id": str(file.id),
                     "name": file.name,
-                    "edit_url": reverse(
+                    "detail_url": reverse(
                         "files_edit", args=[request.space.slug, str(file.id)]
                     ),
                 }
@@ -66,15 +65,15 @@ def edit(request, file_id):
     )
 
 
-def delete(request, mediaasset_id):
-    asset = get_object_or_404(File, owner=request.user, id=mediaasset_id)
+def delete(request, file_id):
+    file = get_object_or_404(File, space=request.space, id=file_id)
 
     if request.method == "POST":
-        asset.delete()
+        file.delete()
 
         messages.success(
             request,
-            f"Successfully deleted asset '{post.title}'.",
+            f"Successfully deleted asset '{file.title}'.",
         )
 
         return CloseOverlayResponse(request)
@@ -83,9 +82,9 @@ def delete(request, mediaasset_id):
         request,
         "ConfirmDelete",
         {
-            "objectName": asset.title,
+            "objectName": file.title,
             "messageHtml": "Are you sure that you want to delete this asset?",
-            "actionUrl": reverse("posts_delete", args=[post.id]),
+            "actionUrl": reverse("posts_delete", args=[file.id]),
         },
         overlay=True,
     )

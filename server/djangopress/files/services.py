@@ -13,16 +13,10 @@ def create_file(*, path, size, uploaded_file, user, space):
     if size > settings.MAX_UPLOAD_SIZE:
         raise ValueError("File size is too large.")
 
-    # validate file type, reject files not in ALLOWED_FILE_TYPES
-    mime_type = filetype.guess_mime(uploaded_file)
-
-    if mime_type is None:
-        content_type = "application/octet-stream"
-
     blob = Blob.objects.create(
         size=size,
         hash=hash_filelike(uploaded_file),
-        mime_type=mime_type,
+        mime_type=filetype.guess_mime(uploaded_file) or "application/octet-stream",
         created_by=user,
     )
 
@@ -36,8 +30,7 @@ def create_file(*, path, size, uploaded_file, user, space):
 
     conflicting_filepaths = set(
         File.objects.filter(
-            space=space,
-            path__startswith=file_prefix, path__endswith=file_suffix
+            space=space, path__startswith=file_prefix, path__endswith=file_suffix
         ).values_list("path", flat=True)
     )
 

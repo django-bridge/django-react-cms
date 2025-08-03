@@ -1,5 +1,4 @@
 from django.contrib import messages
-from django.contrib.contenttypes.models import ContentType
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
 from django.utils.text import slugify
@@ -47,10 +46,14 @@ def add(request):
                 "schema": {
                     "fields": [
                         {"name": "title", "type": "text"},
-                        {"name": "content", "type": "rich_text", "title_field": "title"},
+                        {
+                            "name": "content",
+                            "type": "rich_text",
+                            "title_field": "title",
+                        },
                     ]
                 }
-            }
+            },
         )
         page.space = request.space
         page.content = {
@@ -84,7 +87,13 @@ def add(request):
 
 def edit(request, page_id):
     page = get_object_or_404(Page, space=request.space, id=page_id)
-    form = PageForm(request.POST or None, initial={"title": page.content["fields"]["title"], "content": page.content["fields"]["content"]})
+    form = PageForm(
+        request.POST or None,
+        initial={
+            "title": page.content["fields"]["title"],
+            "content": page.content["fields"]["content"],
+        },
+    )
 
     if form.is_valid():
         page.content = {
