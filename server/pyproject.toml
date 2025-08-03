@@ -6,14 +6,14 @@ authors = ["Your Name <you@example.com>"]
 packages = [{ include = "djangopress" }]
 
 [tool.poetry.dependencies]
-python = "<4.0"
+python = ">=3.10,<4.0"
 django = "^5.0"
 psycopg = "^3.1.16"
 dj-database-url = "^2.1.0"
 gunicorn = "^21.2.0"
 sentry-sdk = {extras = ["django"], version = "^2.3.1"}
 isort = "^5.13.2"
-django-bridge = "^0.3"
+django-bridge = "^0.5"
 whitenoise = "^6.6.0"
 pillow = "^10.3.0"
 filetype = "^1.2.0"
