@@ -55,6 +55,10 @@ class File(models.Model):
         db_table = "djangopress_file"
         unique_together = [("space", "path")]
 
+    @property
+    def name(self):
+        return PurePath(self.path).name
+
     def __str__(self):
         return self.path
 

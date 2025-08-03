@@ -8,7 +8,7 @@ import ConfirmDeleteView from "./views/ConfirmDelete";
 import PagesIndexView from "./views/PagesIndex";
 import FilesIndexView from "./views/FilesIndex";
 import PageFormView from "./views/PageForm";
-import MediaFormView from "./views/MediaForm";
+import FileDetailView from "./views/FileDetail";
 
 import FormDef from "./deserializers/Form";
 import FieldDef from "./deserializers/Field";
@@ -28,7 +28,7 @@ config.addView("ConfirmDelete", ConfirmDeleteView);
 config.addView("PagesIndex", PagesIndexView);
 config.addView("PageForm", PageFormView);
 config.addView("FilesIndex", FilesIndexView);
-config.addView("MediaForm", MediaFormView);
+config.addView("FileDetail", FileDetailView);
 
 // Add your context providers here
 config.addContextProvider("csrf_token", CSRFTokenContext);

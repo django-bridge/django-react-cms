@@ -21,9 +21,9 @@ def index(request):
                 {
                     "id": str(file.id),
                     "name": file.name,
-                    # "edit_url": reverse(
-                    #     "files_edit", args=[request.space.slug, str(file.uuid)]
-                    # ),
+                    "edit_url": reverse(
+                        "files_edit", args=[request.space.slug, str(file.id)]
+                    ),
                 }
                 for file in files
             ],
@@ -38,7 +38,7 @@ def upload(request):
     file = request.FILES["file"]
 
     file = create_file(
-        name=file.name,
+        path=file.name,
         size=file.size,
         uploaded_file=file,
         user=request.user,
@@ -47,34 +47,22 @@ def upload(request):
 
     return JsonResponse(
         {
-            "id": file.uuid,
+            "id": file.id,
         }
     )
 
 
 def edit(request, file_id):
-    file = get_object_or_404(File, owner=request.user, id=file_id)
-    form = EditForm(request.POST or None, instance=file)
-
-    if form.is_valid():
-        form.save()
-
-        messages.success(
-            request,
-            f"Successfully saved '{file.title}'.",
-        )
+    file = get_object_or_404(File, space=request.space, id=file_id)
 
     return Response(
         request,
         "FileDetail",
         {
-            "title": "Edit File",
-            "submit_button_label": "Save",
-            "action_url": reverse("files_edit", args=[file_id]),
-            "form": form,
+            "title": file.name,
         },
         overlay=True,
-        title=f"Editing {file.title} | Djangopress",
+        title=f"Editing {file.name} | Djangopress",
     )
 
 

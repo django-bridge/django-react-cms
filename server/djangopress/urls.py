@@ -23,8 +23,8 @@ urlpatterns_space = [
     # Files
     path("files/", files_views.index, name="files_index"),
     path("files/upload/", files_views.upload, name="files_upload"),
-    path("files/<int:file_id>/edit/", files_views.edit, name="files_edit"),
-    path("files/<int:file_id>/delete/", files_views.delete, name="files_delete"),
+    path("files/<uuid:file_id>/edit/", files_views.edit, name="files_edit"),
+    path("files/<uuid:file_id>/delete/", files_views.delete, name="files_delete"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
