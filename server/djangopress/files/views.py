@@ -19,7 +19,7 @@ def index(request):
         {
             "files": [
                 {
-                    "id": str(file.uuid),
+                    "id": str(file.id),
                     "name": file.name,
                     # "edit_url": reverse(
                     #     "files_edit", args=[request.space.slug, str(file.uuid)]

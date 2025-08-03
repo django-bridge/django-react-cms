@@ -18,13 +18,13 @@ urlpatterns_space = [
     # Pages
     path("pages/", pages_views.index, name="pages_index"),
     path("pages/add/", pages_views.add, name="pages_add"),
-    path("pages/<uuid:page_uuid>/edit/", pages_views.edit, name="pages_edit"),
-    path("pages/<uuid:page_uuid>/delete/", pages_views.delete, name="pages_delete"),
+    path("pages/<uuid:page_id>/edit/", pages_views.edit, name="pages_edit"),
+    path("pages/<uuid:page_id>/delete/", pages_views.delete, name="pages_delete"),
     # Files
     path("files/", files_views.index, name="files_index"),
     path("files/upload/", files_views.upload, name="files_upload"),
-    path("files/<int:mediaasset_id>/edit/", files_views.edit, name="files_edit"),
-    path("files/<int:mediaasset_id>/delete/", files_views.delete, name="files_delete"),
+    path("files/<int:file_id>/edit/", files_views.edit, name="files_edit"),
+    path("files/<int:file_id>/delete/", files_views.delete, name="files_delete"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

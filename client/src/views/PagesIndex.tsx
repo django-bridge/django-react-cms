@@ -15,7 +15,7 @@ import {
 import ModalWindow from "../components/ModalWindow";
 
 interface Page {
-  name: string;
+  title: string;
   edit_url: string;
   delete_url: string;
 }
@@ -77,7 +77,7 @@ export default function PagesIndexView({ pages, add_page_url }: PagesIndexViewPr
                   level="h4"
                   href={page.edit_url}
                 >
-                  {page.name}
+                  {page.title}
                 </Link>
                 <ButtonGroup
                   size="sm"

@@ -49,7 +49,11 @@ class Page(models.Model):
         related_name="pages",
     )
     content = models.JSONField()
+    title = models.TextField()
 
     class Meta:
         db_table = "djangopress_page"
         unique_together = [("space", "path")]
+
+    def __str__(self):
+        return self.title
