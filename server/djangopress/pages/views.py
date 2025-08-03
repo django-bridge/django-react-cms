@@ -84,7 +84,7 @@ def add(request):
 
 def edit(request, page_id):
     page = get_object_or_404(Page, space=request.space, id=page_id)
-    form = PageForm(request.POST or {"title": page.content["fields"]["title"], "content": page.content["fields"]["content"]})
+    form = PageForm(request.POST or None, initial={"title": page.content["fields"]["title"], "content": page.content["fields"]["content"]})
 
     if form.is_valid():
         page.content = {
