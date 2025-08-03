@@ -63,11 +63,6 @@ export default function PagesIndexView({ pages, add_page_url }: PagesIndexViewPr
           "& tr > th:last-child": { paddingRight: { xs: 2, md: 6 } },
         }}
       >
-        <thead>
-          <tr>
-            <th>Page</th>
-          </tr>
-        </thead>
         <tbody>
           {pages.map((page) => (
             <tr>
