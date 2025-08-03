@@ -1,5 +1,4 @@
 from django.apps import apps
-from django.contrib.contenttypes.models import ContentType
 from django.contrib import messages
 from django_bridge.response import Response, CloseOverlayResponse
 from django.urls import reverse
@@ -7,18 +6,12 @@ from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 
-from djangopress.content.models import Content
-from .models import BaseFile
+from .models import File
 from .services import create_file
 
 
 def index(request):
-    content_types = [
-        ContentType.objects.get_for_model(model)
-        for model in apps.get_models()
-        if issubclass(model, BaseFile)
-    ]
-    files = Content.objects.filter(space=request.space, content_type__in=content_types)
+    files = File.objects.filter(space=request.space)
 
     return Response(
         request,
@@ -59,29 +52,29 @@ def upload(request):
     )
 
 
-def edit(request, mediaasset_id):
-    image = get_object_or_404(Image, owner=request.user, id=mediaasset_id)
-    form = EditForm(request.POST or None, instance=image)
+def edit(request, file_id):
+    file = get_object_or_404(File, owner=request.user, id=file_id)
+    form = EditForm(request.POST or None, instance=file)
 
     if form.is_valid():
         form.save()
 
         messages.success(
             request,
-            f"Successfully saved image '{image.title}'.",
+            f"Successfully saved '{file.title}'.",
         )
 
     return Response(
         request,
         "FileDetail",
         {
-            "title": "Edit Image",
+            "title": "Edit File",
             "submit_button_label": "Save",
-            "action_url": reverse("files_edit", args=[mediaasset_id]),
+            "action_url": reverse("files_edit", args=[file_id]),
             "form": form,
         },
         overlay=True,
-        title=f"Editing {image.title} | Djangopress",
+        title=f"Editing {file.title} | Djangopress",
     )
 
 

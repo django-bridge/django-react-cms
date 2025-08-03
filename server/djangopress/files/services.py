@@ -4,7 +4,7 @@ import filetype
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 
-from .models import Blob, File, Image, Document, Video, Audio
+from .models import Blob, File
 from .utils import hash_filelike
 
 
@@ -51,20 +51,7 @@ def create_file(*, name, size, uploaded_file, user, space):
         if name in conflicting_filenames:
             raise ValueError("Unable to resolve name conflict")
 
-    # Get model/content type
-    model = File
-
-    if mime_type.startswith("image/"):
-        model = Image
-    elif mime_type == "application/pdf":
-        model = Document
-    elif mime_type.startswith("video/"):
-        model = Video
-    elif mime_type.startswith("audio/"):
-        model = Audio
-
     content_type = ContentType.objects.get_for_model(model)
-
-    return model.objects.create(
+    return File.objects.create(
         space=space, content_type=content_type, name=name, blob=blob
     )

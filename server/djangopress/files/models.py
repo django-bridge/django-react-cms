@@ -5,7 +5,8 @@ from django.db import models
 from django.urls import reverse
 from uuid_extensions import uuid7
 
-from djangopress.content.models import Content
+from djangopress.spaces.models import Space
+
 
 __all__ = ["Blob", "File", "Artifact"]
 
@@ -41,21 +42,24 @@ class Blob(models.Model):
         }
 
 
-class BaseFile(Content):
+class File(models.Model):
     """
-    Base class for all files in the media library.
+    A file in the media library
     """
-
-    blob = models.ForeignKey(Blob, on_delete=models.CASCADE, related_name="+")
+    id = models.UUIDField(primary_key=True, default=uuid7)
+    space = models.ForeignKey(Space, on_delete=models.CASCADE, related_name="files")
+    path = models.TextField()
+    blob = models.ForeignKey(Blob, on_delete=models.CASCADE, related_name="files")
 
     class Meta:
-        abstract = True
+        db_table = "djangopress_file"
+        unique_together = [("space", "path")]
 
     def __str__(self):
-        return self.name
+        return self.path
 
     def to_client_representation(self):
-        path = PurePath(self.name)
+        path = PurePath(self.path)
 
         # Get all artifacts with their status
         artifacts_status = {}
@@ -63,7 +67,7 @@ class BaseFile(Content):
             "original": self.blob.to_client_representation(
                 reverse(
                     "file_download",
-                    args=[self.workspace.slug, "original", self.name],
+                    args=[self.space.slug, "original", self.path],
                 )
             )
         }
@@ -76,7 +80,7 @@ class BaseFile(Content):
                 blobs[artifact.name] = artifact.blob.to_client_representation(
                     reverse(
                         "file_download",
-                        args=[self.workspace.slug, artifact.name, self.name],
+                        args=[self.space.slug, artifact.name, self.name],
                     )
                 )
 
@@ -90,73 +94,26 @@ class BaseFile(Content):
             "blobs": blobs,
             "artifacts_status": artifacts_status,
             "adjustments": self.adjustments or {},
-            "detail_url": reverse("file_detail", args=[self.workspace.slug, self.id]),
+            "detail_url": reverse("file_detail", args=[self.space.slug, self.id]),
         }
-
-
-class File(BaseFile):
-    """
-    A generic file that doesn't fit into a specific category.
-    """
-
-    class Meta:
-        db_table = "djangopress_file"
-
-
-class Image(BaseFile):
-    class Meta:
-        db_table = "djangopress_image"
-
-
-class Document(BaseFile):
-    class Meta:
-        db_table = "djangopress_document"
-
-
-class Video(BaseFile):
-    class Meta:
-        db_table = "djangopress_video"
-
-
-class Audio(BaseFile):
-    class Meta:
-        db_table = "djangopress_audio"
 
 
 class Artifact(models.Model):
     """
-    A file that has been derived from a piece of content.
+    A file derived from another file.
 
     For example:
-    - Image thumbnails
+    - Image Thumbnails
     - Audio transcriptions
-    - PDF extracted text
-    - Page text-to-speech
+    - Video transcodes
     """
-
-    class Status(models.TextChoices):
-        PENDING = "pending", "Pending"
-        PROCESSING = "processing", "Processing"
-        COMPLETED = "completed", "Completed"
-        FAILED = "failed", "Failed"
-
-    content = models.ForeignKey(
-        Content, on_delete=models.CASCADE, related_name="artifacts"
-    )
+    file = models.ForeignKey(File, on_delete=models.CASCADE, related_name="artifacts")
     name = models.CharField(max_length=255)
-    blob = models.ForeignKey(
-        Blob, on_delete=models.CASCADE, related_name="artifacts", null=True, blank=True
-    )
-    status = models.CharField(
-        max_length=20,
-        choices=Status.choices,
-        default=Status.PENDING,
-    )
-    error_message = models.TextField(null=True, blank=True)
+    instance = models.CharField(max_length=255, blank=True)
+    blob = models.ForeignKey(Blob, on_delete=models.CASCADE, related_name="artifacts")
+    created_at = models.DateTimeField(auto_now_add=True)
+    generated_at = models.DateTimeField(null=True)
 
     class Meta:
-        unique_together = [("content", "name")]
         db_table = "djangopress_artifact"
-
-    def __str__(self):
-        return f"{self.file.name} - {self.name}"
+        unique_together = [("file", "name", "instance")]

@@ -38,8 +38,14 @@ def add(request):
 
     if form.is_valid():
         page = form.save(commit=False)
-        page.content_type = ContentType.objects.get_for_model(Page)
+        page.content_type, _ = PageContentType.objects.get_or_create(name="Post", schema={"fields": {"name": "title", "type": "text", "name": "content", "type": "rich_text"}})
         page.space = request.space
+        page.content = {
+            "fields": {
+                "title": form.cleaned_data["title"],
+                "content": form.cleaned_data["content"],
+            }
+        }
         page.save()
 
         messages.success(
