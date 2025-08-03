@@ -40,8 +40,9 @@ SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 # Application definition
 
 INSTALLED_APPS = [
-    "djangopress.posts",
-    "djangopress.media",
+    "djangopress.pages",
+    "djangopress.files",
+    "djangopress.spaces",
     "djangopress.auth",
     "djangopress",
     "modelsearch",

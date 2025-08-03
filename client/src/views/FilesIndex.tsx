@@ -60,7 +60,7 @@ async function uploadFile(
   }
 }
 
-const MediaAssetListing = styled.ul`
+const FileListing = styled.ul`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(125px, 1fr));
   grid-gap: 20px;
@@ -85,17 +85,16 @@ const MediaAssetListing = styled.ul`
   }
 `;
 
-interface MediaIndexViewProps {
-  assets: {
+interface FilesIndexViewProps {
+  files: {
     id: number;
-    title: string;
+    name: string;
     edit_url: string;
-    thumbnail_url: string | null;
   }[];
   upload_url: string;
 }
 
-export default function MediaIndexView({ assets, upload_url }: MediaIndexViewProps) {
+export default function FilesIndexView({ files, upload_url }: FilesIndexViewProps) {
   const { refreshProps } = React.useContext(NavigationContext);
   const csrfToken = React.useContext(CSRFTokenContext);
 
@@ -134,18 +133,18 @@ export default function MediaIndexView({ assets, upload_url }: MediaIndexViewPro
         </Button>
       )}
     >
-      <MediaAssetListing>
-        {assets.map((asset) => (
+      <FileListing>
+        {files.map((asset) => (
           <li key={asset.id}>
             <Link href={asset.edit_url}>
               <figure>
-                <img src={asset.thumbnail_url || "#"} alt={asset.title} />
-                <figcaption>{asset.title}</figcaption>
+                {/* <img src={asset.thumbnail_url || "#"} alt={asset.title} /> */}
+                <figcaption>{asset.name}</figcaption>
               </figure>
             </Link>
           </li>
         ))}
-      </MediaAssetListing>
+      </FileListing>
     </Layout>
   );
 }

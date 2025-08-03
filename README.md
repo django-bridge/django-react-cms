@@ -10,7 +10,7 @@ This demonstrates how to build an application with all logic implemented in Djan
 
 To get a sense of what Django Bridge is like to develop with, give it a try in one of the following ways.
 I'd recommend editing [one of the frontend views](https://github.com/django-bridge/django-react-cms/blob/main/client/src/views/Home/HomeView.tsx) and see it instantly re-render with your changes!
-Or, if you're more of a backend dev, have a look at the [backend views](https://github.com/django-bridge/django-react-cms/blob/main/server/djangopress/posts/views.py) that supply the data for the frontend views to render.
+Or, if you're more of a backend dev, have a look at the [backend views](https://github.com/django-bridge/django-react-cms/blob/main/server/djangopress/pages/views.py) that supply the data for the frontend views to render.
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/django-bridge/django-react-cms)
 

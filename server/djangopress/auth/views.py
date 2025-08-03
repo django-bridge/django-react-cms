@@ -11,6 +11,7 @@ from django.utils.crypto import get_random_string
 from django.views.decorators.http import require_POST
 from django_bridge.views import DjangoBridgeView
 
+from djangopress.spaces.models import Space, SpaceUser
 from .models import User
 
 
@@ -47,6 +48,16 @@ def login_temporary(request):
         is_temporary=True,
     )
 
+    space = Space.objects.create(
+        name="Temporary Space",
+        slug=user.username,
+    )
+
+    SpaceUser.objects.create(
+        space=space,
+        user=user,
+    )
+
     login(request, user)
 
-    return redirect("home")
+    return redirect("home", space.slug)

@@ -110,10 +110,10 @@ export default function Layout({
   return (
     <CssVarsProvider disableTransitionOnChange>
       <CssBaseline />
-      <Box sx={{ display: "flex", minHeight: "100dvh", width: "100%" }}>
+      <Box sx={{ display: "flex", minHeight: "100dvh", width: "100vw" }}>
         <Header />
         <Sidebar />
-        <Box sx={{ display: "flex", flexFlow: "column nowrap", width: "100%" }}>
+        <Box sx={{ display: "flex", flexFlow: "column nowrap", width: "100vw" }}>
           {unloadBlocked && (
             <UnsavedChangesWarningWrapper role="alert" aria-live="assertive">
               <WarningRounded />
@@ -184,7 +184,6 @@ export default function Layout({
             component="main"
             className="MainContent"
             sx={{
-              px: fullWidth ? 0 : { xs: 2, md: 6 },
               pt: {
                 xs: "calc(9px + var(--Header-height))",
                 sm: "calc(9px + var(--Header-height))",
@@ -194,18 +193,24 @@ export default function Layout({
               flex: 1,
               display: "flex",
               flexDirection: "column",
-              minWidth: 0,
               height: "100dvh",
+              width: "calc(100vw - var(--Sidebar-width)",
               gap: 1,
             }}
           >
-            <Box sx={{ px: fullWidth ? { xs: 2, md: 6 } : 0 }}>
-              <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Box sx={{
+              pb: 2,
+              borderBottom: "1px solid var(--joy-palette-divider)"
+            }}>
+              <Box sx={{
+                display: "flex",
+                alignItems: "center",
+              }}>
                 <Breadcrumbs
                   size="sm"
                   aria-label="breadcrumbs"
                   separator={<ChevronRightRoundedIcon />}
-                  sx={{ pl: 0, minHeight: "34px" }}
+                  sx={{ pl: 1, minHeight: "34px" }}
                 >
                   {!hideHomeBreadcrumb && (
                     <Link
@@ -252,6 +257,7 @@ export default function Layout({
                   alignItems: { xs: "start", sm: "center" },
                   flexWrap: "wrap",
                   justifyContent: "space-between",
+                  px: 2,
                 }}
               >
                 <Typography level="h3" component="h1">

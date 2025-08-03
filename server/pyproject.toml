@@ -19,6 +19,7 @@ pillow = "^10.3.0"
 filetype = "^1.2.0"
 modelsearch = "^1.0rc6"
 elasticsearch = "^9.1.0"
+uuid7 = "^0.1.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.12.1"
