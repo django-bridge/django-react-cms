@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "djangopress.media",
     "djangopress.auth",
     "djangopress",
+    "modelsearch",
     "django_bridge",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -90,6 +91,17 @@ WSGI_APPLICATION = "djangopress.wsgi.application"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {"default": dj_database_url.config(default="sqlite:///db.sqlite3")}
+
+
+# Search
+
+if "ELASTICSEARCH_URL" in os.environ:
+    MODELSEARCH_BACKENDS = {
+        "default": {
+            "BACKEND": "modelsearch.backends.elasticsearch9",
+            "INDEX_PREFIX": "djangopress",
+        }
+    }
 
 
 # Password validation
